@@ -23,7 +23,19 @@
 	export let data
 
 	let activeProfile = null
-	let activeProfileLastSave: number
+	let activeProfileLastSave: number = 0
+
+	for (const profile of data.profiles) {
+		for (const member of profile.members) {
+			if (member.uuid === data.player.uuid && member.last_save > activeProfileLastSave) {
+				activeProfile = profile
+				activeProfileLastSave = member.last_save
+			}
+		}
+	}
+
+	// {%- set activeProfileOnline = getTime() - 60 < activeProfileLastSave -%}
+	const isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
 </script>
 
 <Head title="{data.player.username}'s SkyBlock profiles" />
@@ -48,36 +60,61 @@
 	{/if}
 </svelte:head>
 
-<!-- {% endblock %}
-{%- block main -%}
-	<h1>{{ render.username(data.player, headType='3d') }}'s profiles</h1>
-{%- set activeProfile = null -%}
-{%- set activeProfileLastSave = 0 -%}
-{%- for profile in data.profiles -%}
-{%- for member in profile.members -%}
-{%- if member.uuid == data.player.uuid and member.last_save > activeProfileLastSave -%}
-{%- set activeProfile = profile -%}
-{%- set activeProfileLastSave = member.last_save -%}
-{%- endif -%}
-{%- endfor -%}
-{%- endfor -%}
-{%- set activeProfileOnline = getTime() - 60 < activeProfileLastSave -%}
-	<ul class="profile-list">
-{%- for profile in data.profiles -%}
-		<li class="profile-list-item{% if profile.uuid == activeProfile.uuid %} profile-list-item-active{% if activeProfileOnline %} profile-list-item-online{% endif %}{% endif %}">
-			<a class="profile-name" href="/player/{{ data.player.username }}/{{ profile.name }}">{{ profile.name }}</a>
-{#- This comment is necessary to remove the space between the profile name and the user list :) -#}
+<h1><Username player={data.player} headType="3d" />'s profiles</h1>
+
+<ul class="profile-list">
+	{#each data.profiles as profile}
+		<li
+			class="profile-list-item"
+			class:profile-list-item-active={profile.uuid === activeProfile.uuid}
+			class:profile-list-item-online={profile.uuid === activeProfile.uuid && isActiveProfileOnline}
+		>
+			<a class="profile-name" href="/player/{data.player.username}/{profile.name}">
+				{profile.name}
+			</a>
 			<span class="profile-members">
-{%- if profile.members|length > 1 %}{% for player in profile.members -%}
-{#- don't unnecessarily hyperlink to the page it's already o -#}
-{%- set hyperlinkToProfile = player.uuid != data.player.uuid -%}
-{{- render.username(player, headType='2d', hyperlinkToProfile=hyperlinkToProfile) -}}
-{%- endfor -%}
-{%- else %}Solo{% endif -%}
+				{#if profile.members.length > 1}
+					{#each profile.members as player}
+						<span class="member">
+							<Username
+								{player}
+								headType="2d"
+								hyperlinkToProfile={player.uuid != data.player.uuid}
+							/>
+						</span>
+					{/each}
+				{:else}
+					Solo
+				{/if}
 			</span>
 		</li>
-{%- endfor -%}
-	<ul>
-{%- endblock -%} -->
+	{/each}
+</ul>
 
-<h1><Username player={data.player} headType="3d" />'s profiles</h1>
+<style>
+	.profile-name {
+		margin-right: 0.5em;
+	}
+
+	.profile-members {
+		color: var(--theme-main-text);
+	}
+	.profile-members > .member {
+		margin-right: 0.35em;
+	}
+
+	.profile-list {
+		font-size: 1.5em;
+	}
+
+	.profile-list-item {
+		margin-bottom: 0.5em;
+		color: var(--theme-darker-text);
+	}
+	.profile-list-item-active {
+		color: #fff;
+	}
+	.profile-list-item-online {
+		color: #0e0;
+	}
+</style>
