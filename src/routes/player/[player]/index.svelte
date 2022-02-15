@@ -1,24 +1,34 @@
 <script lang="ts" context="module">
-	import { get } from '$lib/api'
 	import type { Load } from '@sveltejs/kit'
+	import { API_URL } from '$lib/api'
+
 	export const load: Load = async ({ params, fetch }) => {
 		const player: string = params.player
-		// if (browser) alert('doing get')
-		const res = await fetch(`https://skyblock-api.matdoes.dev/player/${player}`).then(r => r.json())
-		// const res = await get(`player/${player}`)
+		const res = await fetch(`${API_URL}player/${player}?customization=true`).then(r => r.json())
+
+		console.log('res', res)
+
+		if (!res.player) {
+			return { fallthrough: true } as unknown
+		}
+
+		if (res.player.username !== player) {
+			return {
+				redirect: `/player/${res.player.username}`,
+				status: 302,
+			}
+		}
+
 		return {
-			props: {
-				data: res,
-			},
+			props: { data: res },
 		}
 	}
 </script>
 
 <script lang="ts">
-	import Head from '$lib/Head.svelte'
-	import Header from '$lib/Header.svelte'
-	import { browser } from '$app/env'
 	import Username from '$lib/Username.svelte'
+	import Header from '$lib/Header.svelte'
+	import Head from '$lib/Head.svelte'
 
 	export let data
 
@@ -34,7 +44,6 @@
 		}
 	}
 
-	// {%- set activeProfileOnline = getTime() - 60 < activeProfileLastSave -%}
 	const isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
 </script>
 
@@ -60,36 +69,39 @@
 	{/if}
 </svelte:head>
 
-<h1><Username player={data.player} headType="3d" />'s profiles</h1>
+<main>
+	<h1><Username player={data.player} headType="3d"  />'s profiles</h1>
 
-<ul class="profile-list">
-	{#each data.profiles as profile}
-		<li
-			class="profile-list-item"
-			class:profile-list-item-active={profile.uuid === activeProfile.uuid}
-			class:profile-list-item-online={profile.uuid === activeProfile.uuid && isActiveProfileOnline}
-		>
-			<a class="profile-name" href="/player/{data.player.username}/{profile.name}">
-				{profile.name}
-			</a>
-			<span class="profile-members">
-				{#if profile.members.length > 1}
-					{#each profile.members as player}
-						<span class="member">
-							<Username
-								{player}
-								headType="2d"
-								hyperlinkToProfile={player.uuid != data.player.uuid}
-							/>
-						</span>
-					{/each}
-				{:else}
-					Solo
-				{/if}
-			</span>
-		</li>
-	{/each}
-</ul>
+	<ul class="profile-list">
+		{#each data.profiles as profile}
+			<li
+				class="profile-list-item"
+				class:profile-list-item-active={profile.uuid === activeProfile.uuid}
+				class:profile-list-item-online={profile.uuid === activeProfile.uuid &&
+					isActiveProfileOnline}
+			>
+				<a class="profile-name" href="/player/{data.player.username}/{profile.name}">
+					{profile.name}
+				</a>
+				<span class="profile-members">
+					{#if profile.members.length > 1}
+						{#each profile.members as player}
+							<span class="member">
+								<Username
+									{player}
+									headType="2d"
+									hyperlinkToProfile={player.uuid != data.player.uuid}
+								/>
+							</span>
+						{/each}
+					{:else}
+						Solo
+					{/if}
+				</span>
+			</li>
+		{/each}
+	</ul>
+</main>
 
 <style>
 	.profile-name {

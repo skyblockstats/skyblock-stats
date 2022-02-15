@@ -21,7 +21,7 @@
 		}}
 	>
 		<input
-			class="enter-username-button"
+			class="enter-username-input"
 			type="text"
 			placeholder="Enter username"
 			name="user-search"
@@ -34,3 +34,37 @@
 		/>
 	</form>
 </header>
+
+<style>
+	header {
+		background-color: var(--theme-background);
+		box-shadow: 0 0 1em rgba(0, 0, 0, 0.8);
+		padding: 0.5rem 10%;
+	}
+
+	.user-form {
+		display: inline-block;
+		text-align: center;
+		font-size: 1.25rem;
+		/* center the forms */
+		margin: 0 auto;
+		width: max-content;
+	}
+
+	.enter-username-input {
+		box-shadow: none;
+		/* add a slight shadow on the form in the index page */
+		max-width: calc(90vw - 8em);
+	}
+
+	.back-arrow {
+		float: left;
+		transition: stroke 200ms;
+		stroke: var(--theme-darker-text);
+		margin-top: 0.4em;
+		margin-right: 1em;
+	}
+	.back-arrow:hover {
+		stroke: var(--theme-main-text);
+	}
+</style>

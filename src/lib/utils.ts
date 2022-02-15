@@ -70,12 +70,14 @@ export function formattingCodeToHtml(formatted: string): string {
 export function removeFormattingCode(formatted: string): string {
     return formatted.replace(new RegExp(colorCodeCharacter + '.', 'g'), '')
 }
-function moveStringToEnd(word: string, thing: string) {
+
+function moveToEndOfId(word: string, thing: string) {
     if (thing.startsWith(`${word}_`))
-        thing = thing.substr(`${word}_`.length) + `_${word}`
+        thing = thing.slice(`${word}_`.length) + `_${word}`
     return thing
 }
-function millisecondsToTime(totalMilliseconds: number) {
+
+export function millisecondsToTime(totalMilliseconds: number) {
     const totalSeconds = totalMilliseconds / 1000
     const totalMinutes = totalSeconds / 60
     const totalHours = totalMinutes / 60
@@ -98,29 +100,20 @@ function millisecondsToTime(totalMilliseconds: number) {
     else if (milliseconds == 1) stringUnits.push(`${milliseconds} millisecond`)
     return stringUnits.slice(0, 2).join(' and ')
 }
-export function cleanNumber(number: number, unit?: string): string {
-    switch (unit) {
-        case 'time':
-            return millisecondsToTime(number)
-        case 'date':
-            return (new Date(number * 1000)).toUTCString()
-    }
-    return number.toLocaleString() + (unit ? (' ' + unit) : '')
+
+export function cleanId(id: string) {
+    for (const string of ['deaths', 'kills', 'collection', 'skill'])
+        id = moveToEndOfId(string, id)
+
+    return id
+        .replace(/^./, id[0].toUpperCase())
+        .replace(/_/g, ' ')
 }
-export function clean(thing: string | number) {
-    if (typeof thing === 'number') {
-        return cleanNumber(thing)
-    } else {
-        for (const string of ['deaths', 'kills', 'collection', 'skill'])
-            thing = moveStringToEnd(string, thing)
-        return thing
-            .replace(/^./, thing[0].toUpperCase())
-            .replace(/_/g, ' ')
-    }
-}
+
 export function toRomanNumerals(number: number) {
     return ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX'][number]
 }
+
 export function shuffle<T>(a: T[]): T[] {
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))

@@ -26,9 +26,11 @@
 	{:else if headType == '2d'}
 		<Head2d {player} isPartOfUsername={true} />
 	{/if}
-	<span class="username-rank-prefix">
-		{@html formattingCodeToHtml(player.rank.colored)}
-	</span>
+	{#if prefix}
+		<span class="username-rank-prefix">
+			{@html formattingCodeToHtml(player.rank.colored)}
+		</span>
+	{/if}
 	<span class="username" style="color: {player.rank.color}">{player.username}</span>
 </ConditionalLink>
 
