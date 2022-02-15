@@ -121,3 +121,15 @@ export function shuffle<T>(a: T[]): T[] {
     }
     return a
 }
+
+const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g
+
+
+export function twemojiHtml(s: string) {
+    const htmlEncoded = s.replace('<', '&lt;').replace('>', '&gt;').replace('&', '&amp;')
+    // replace unicode emojis with <img src="/emoji/[hex].svg">
+    const asTwemoji = htmlEncoded.replace(emojiRegex, (match) => {
+        return `<img src="/emoji/${[...match].map(p => p.codePointAt(0).toString(16)).join('-')}.svg" class="emoji">`
+    })
+    return asTwemoji
+}
