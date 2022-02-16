@@ -185,3 +185,20 @@ button {
 	outline: none;
 	font-family: inherit;
 }
+
+/*
+ * this is necessary for background theming, the background can be set through
+ * the --background css variable
+ */
+body:before {
+	content: '';
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+	background: var(--background) no-repeat center center;
+	background-size: cover;
+}

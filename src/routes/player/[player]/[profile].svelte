@@ -18,6 +18,7 @@
 
 <script lang="ts">
 	import Head from '$lib/Head.svelte'
+	import Emoji from '$lib/Emoji.svelte'
 	import Header from '$lib/Header.svelte'
 	import Username from '$lib/Username.svelte'
 	import { generateMetaDescription } from '$lib/profile'
@@ -34,13 +35,11 @@
 />
 <Header backArrowHref="/player/{data.member.username}" />
 
-<!-- <h1>{{ render.username(data.member, headType='3d') }}{% if emoji %}<span class="profile-emoji">{{ emoji|twemojiHtml|safe }}</span>{% endif %} ({{ data.member.profileName }})</h1> -->
-
 <main>
 	<h1>
 		<Username player={data.member} headType="3d" />
 		{#if data.customization?.emoji}
-			<span class="profile-emoji">{@html twemojiHtml(data.customization.emoji)}</span>
+			<span class="profile-emoji"><Emoji value={data.customization.emoji} /></span>
 		{/if}
 		({data.member.profileName})
 	</h1>

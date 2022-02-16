@@ -45,32 +45,21 @@
 	}
 
 	const isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
+
+	// cursed svelte :D
+	$: bodyStyle = `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
 </script>
+
+<svelte:head>
+	{@html bodyStyle}
+</svelte:head>
+<!-- url('{data.customization.backgroundUrl}') -->
 
 <Head title="{data.player.username}'s SkyBlock profiles" />
 <Header />
 
-<svelte:head>
-	{#if data.customization?.backgroundUrl}
-		<style>
-			body:before {
-				content: '';
-				display: block;
-				position: fixed;
-				left: 0;
-				top: 0;
-				width: 100%;
-				height: 100%;
-				z-index: -10;
-				background: url('{data.customization.backgroundUrl}') no-repeat center center;
-				background-size: cover;
-			}
-		</style>
-	{/if}
-</svelte:head>
-
 <main>
-	<h1><Username player={data.player} headType="3d"  />'s profiles</h1>
+	<h1><Username player={data.player} headType="3d" />'s profiles</h1>
 
 	<ul class="profile-list">
 		{#each data.profiles as profile}
