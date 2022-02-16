@@ -5,31 +5,60 @@
 	export const load: Load = async ({ params, fetch }) => {
 		const player: string = params.player
 		const profile: string = params.profile
-		const res = await fetch(`${API_URL}player/${player}/${profile}?customization=true`).then(r =>
+		const data = await fetch(`${API_URL}player/${player}/${profile}?customization=true`).then(r =>
 			r.json()
 		)
+
+		const constants = await fetch('/constants.json').then(r => r.json())
+
 		return {
 			props: {
-				data: res,
+				data,
+				constants,
 			},
 		}
 	}
 </script>
 
 <script lang="ts">
-	import Head from '$lib/Head.svelte'
-	import Emoji from '$lib/Emoji.svelte'
-	import Header from '$lib/Header.svelte'
+	import Infobox from '$lib/sections/Infobox.svelte'
+	import { generateInfobox } from '$lib/profile'
 	import Username from '$lib/Username.svelte'
-	import { generateMetaDescription } from '$lib/profile'
-	import { twemojiHtml } from '$lib/utils'
+	import Header from '$lib/Header.svelte'
+	import Emoji from '$lib/Emoji.svelte'
+	import { cleanId } from '$lib/utils'
+	import Head from '$lib/Head.svelte'
+	import Toc from '$lib/Toc.svelte'
+	import Skills from '$lib/sections/Skills.svelte'
 
 	export let data
+	export let constants
+
+	const categories = [
+		'skills',
+		'deaths',
+		'kills',
+		'auctions',
+		'fishing',
+		'races',
+		'misc',
+		'minions',
+		'zones',
+		'collections',
+		'leaderboards',
+	]
+
+	// cursed svelte :D
+	$: bodyStyle = `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
 </script>
+
+<svelte:head>
+	{@html bodyStyle}
+</svelte:head>
 
 <Head
 	title="{data.member.username}'s SkyBlock profile ({data.member.profileName})"
-	description={generateMetaDescription(data)}
+	description={generateInfobox(data, constants, { meta: true }).join('\n')}
 	metaTitle={(data.member.rank.name ? `[${data.member.rank.name}] ` : '') +
 		`${data.member.username}\'s SkyBlock profile (${data.member.profileName})`}
 />
@@ -43,4 +72,21 @@
 		{/if}
 		({data.member.profileName})
 	</h1>
+
+	<Infobox {data} {constants} />
+
+	<Toc {categories} />
+
+	{#if data.member.skills.length > 0}
+		<section id="skills" class="profile-skills">
+			<h2>Skills</h2>
+			<Skills {data} />
+		</section>
+	{/if}
+	<!-- {%- if data.member.skills|length > 0 -%}
+	<section id="skills" class="profile-skills">
+		<h2>Skills</h2>
+		{%- include 'sections/skills.njk' -%}
+	</section>
+	{%- endif -%} -->
 </main>

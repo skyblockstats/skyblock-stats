@@ -1,17 +1,16 @@
-import { constants } from './constants'
 import { cleanId, millisecondsToTime } from './utils'
 
 /**
  * Convert milliseconds since epoch into a string, but if it was within the
  * past week then show the timeago
  */
-function prettyTimestamp(ms: number) {
+export function prettyTimestamp(ms: number) {
     const isWithinPastWeek = Date.now() - ms < 1000 * 60 * 60 * 24 * 7
     const timeAsString = isWithinPastWeek ? (millisecondsToTime(Date.now() - ms) + ' ago') : (new Date(ms)).toUTCString()
     return timeAsString
 }
 
-export function generateMetaDescription(data) {
+export function generateInfobox(data, constants, opts: { meta: boolean }): string[] {
     const result: string[] = []
 
     result.push(`💾 Last save: ${prettyTimestamp(data.member.last_save * 1000)}`)
@@ -53,5 +52,5 @@ export function generateMetaDescription(data) {
             `☠ ${mostSignificantDeathsStat.value.toLocaleString()} ${mostSignificantDeathsStat.unit || cleanId(mostSignificantDeathsStat.rawName).toLowerCase()}`
         )
 
-    return result.join('\n')
+    return result
 }

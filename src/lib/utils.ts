@@ -133,3 +133,18 @@ export function twemojiHtml(s: string) {
     })
     return asTwemoji
 }
+
+export function formatNumber(n: number, digits = 3) {
+    // from https://stackoverflow.com/a/9462382 with some modifications
+    const numberSymbolsLookup = [
+        { value: 1, symbol: '' },
+        { value: 1e3, symbol: 'k' },
+        { value: 1e6, symbol: 'M' },
+        { value: 1e9, symbol: 'G' },
+        { value: 1e12, symbol: 'T' },
+        { value: 1e15, symbol: 'P' },
+        { value: 1e18, symbol: 'E' },
+    ]
+    const item = numberSymbolsLookup.slice().reverse().find(item => n >= item.value)
+    return (n / item.value).toPrecision(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + item.symbol
+}

@@ -4,23 +4,29 @@
 
 	export const load: Load = async ({ params, fetch }) => {
 		const player: string = params.player
-		const res = await fetch(`${API_URL}player/${player}?customization=true`).then(r => r.json())
 
-		console.log('res', res)
+		const data = await fetch(`${API_URL}player/${player}?customization=true`).then(r => r.json())
 
-		if (!res.player) {
+		if (!data.player) {
 			return { fallthrough: true } as unknown
 		}
 
-		if (res.player.username !== player) {
+		// this should happen instantly
+		// const constants = await fetch('/_constants.json').then(r => r.json())
+
+		// console.log('constants', constants)
+
+		if (data.player.username !== player) {
 			return {
-				redirect: `/player/${res.player.username}`,
+				redirect: `/player/${data.player.username}`,
 				status: 302,
 			}
 		}
 
 		return {
-			props: { data: res },
+			props: {
+				data,
+			},
 		}
 	}
 </script>
@@ -31,6 +37,7 @@
 	import Head from '$lib/Head.svelte'
 
 	export let data
+	// export let constants
 
 	let activeProfile = null
 	let activeProfileLastSave: number = 0
@@ -53,7 +60,6 @@
 <svelte:head>
 	{@html bodyStyle}
 </svelte:head>
-<!-- url('{data.customization.backgroundUrl}') -->
 
 <Head title="{data.player.username}'s SkyBlock profiles" />
 <Header />
@@ -69,7 +75,11 @@
 				class:profile-list-item-online={profile.uuid === activeProfile.uuid &&
 					isActiveProfileOnline}
 			>
-				<a class="profile-name" href="/player/{data.player.username}/{profile.name}">
+				<a
+					class="profile-name"
+					href="/player/{data.player.username}/{profile.name}"
+					sveltekit:prefetch
+				>
 					{profile.name}
 				</a>
 				<span class="profile-members">

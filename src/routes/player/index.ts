@@ -8,5 +8,5 @@ export async function post({ request }) {
         headers: {
             location: `/player/${player}`
         }
-    };
+    }
 }
