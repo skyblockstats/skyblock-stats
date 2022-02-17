@@ -27,7 +27,7 @@
 </script>
 
 <script lang="ts">
-	import Username from '$lib/Username.svelte'
+	import Username from '$lib/minecraft/Username.svelte'
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
 

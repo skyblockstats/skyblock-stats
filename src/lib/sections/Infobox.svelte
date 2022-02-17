@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { generateInfobox, prettyTimestamp } from '$lib/profile'
-	import Username from '$lib/Username.svelte'
+	import Username from '$lib/minecraft/Username.svelte'
 	import Emoji from '$lib/Emoji.svelte'
 
 	export let data
