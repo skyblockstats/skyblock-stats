@@ -4,7 +4,6 @@
 	import Emoji from '$lib/Emoji.svelte'
 
 	export let data
-	export let constants
 </script>
 
 <!-- <div id="infobox">
@@ -33,7 +32,7 @@
 
 <div id="infobox">
 	<h2><Username player={data.member} prefix /> ({data.member.profileName})</h2>
-	{#each generateInfobox(data, constants, { meta: false }) as item}
+	{#each generateInfobox(data, { meta: false }) as item}
 		<p><Emoji value={item} /></p>
 	{/each}
 </div>

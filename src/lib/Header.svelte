@@ -6,7 +6,7 @@
 </script>
 
 <header id="main-header">
-	<a href={backArrowHref} class="back-arrow-anchor" aria-label="back">
+	<a href={backArrowHref} class="back-arrow-anchor" aria-label="back" sveltekit:prefetch>
 		<svg class="back-arrow" height="33" width="23">
 			<path d="M 14 0 l -13 13 l 13 13" stroke-width="2" fill="none" />
 		</svg>

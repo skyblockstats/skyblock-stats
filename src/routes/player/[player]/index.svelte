@@ -11,11 +11,6 @@
 			return { fallthrough: true } as unknown
 		}
 
-		// this should happen instantly
-		// const constants = await fetch('/_constants.json').then(r => r.json())
-
-		// console.log('constants', constants)
-
 		if (data.player.username !== player) {
 			return {
 				redirect: `/player/${data.player.username}`,
@@ -37,7 +32,6 @@
 	import Head from '$lib/Head.svelte'
 
 	export let data
-	// export let constants
 
 	let activeProfile = null
 	let activeProfileLastSave: number = 0

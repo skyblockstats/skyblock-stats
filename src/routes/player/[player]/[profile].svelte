@@ -9,30 +9,29 @@
 			r.json()
 		)
 
-		const constants = await fetch('/constants.json').then(r => r.json())
-
 		return {
 			props: {
 				data,
-				constants,
+				pack: params.pack ?? data?.customization?.pack,
 			},
 		}
 	}
 </script>
 
 <script lang="ts">
+	import Username from '$lib/minecraft/Username.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
 	import { generateInfobox } from '$lib/profile'
-	import Username from '$lib/Username.svelte'
 	import Header from '$lib/Header.svelte'
 	import Emoji from '$lib/Emoji.svelte'
 	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
 	import Skills from '$lib/sections/Skills.svelte'
+	import Armor from '$lib/sections/Armor.svelte'
 
 	export let data
-	export let constants
+	export let pack: string
 
 	const categories = [
 		'skills',
@@ -58,7 +57,7 @@
 
 <Head
 	title="{data.member.username}'s SkyBlock profile ({data.member.profileName})"
-	description={generateInfobox(data, constants, { meta: true }).join('\n')}
+	description={generateInfobox(data, { meta: true }).join('\n')}
 	metaTitle={(data.member.rank.name ? `[${data.member.rank.name}] ` : '') +
 		`${data.member.username}\'s SkyBlock profile (${data.member.profileName})`}
 />
@@ -73,7 +72,7 @@
 		({data.member.profileName})
 	</h1>
 
-	<Infobox {data} {constants} />
+	<Infobox {data} />
 
 	<Toc {categories} />
 
@@ -83,10 +82,42 @@
 			<Skills {data} />
 		</section>
 	{/if}
-	<!-- {%- if data.member.skills|length > 0 -%}
-	<section id="skills" class="profile-skills">
-		<h2>Skills</h2>
-		{%- include 'sections/skills.njk' -%}
-	</section>
-	{%- endif -%} -->
+
+	<br />
+
+	<div>
+		<div id="categories">
+			{#if data.member.inventories.armor}
+				<section id="armor" class:armor-float={data.member.inventories.inventory}>
+					<h2>Armor</h2>
+					<Armor {data} {pack} />
+				</section>
+			{/if}
+			<!-- {%- if data.member.inventories.armor -%}
+				<section id="armor"{% if data.member.inventories.inventory %} class="armor-float"{% endif %}>
+					<h2>Armor</h2>
+					{%- include 'sections/armor.njk' -%}
+				</section>
+			{%- endif -%}
+			{%- if data.member.inventories.inventory -%}
+				<section id="inventories">
+					<h2>Inventories</h2>
+					{%- include 'sections/inventories.njk' -%}
+				</section>
+			{%- endif -%}
+			{%- asyncAll category in categories -%}
+				{%- set sectionContents -%}
+				{% with { data: data, category: category } %}
+					{%- include 'sections/' + category + '.njk' -%}
+				{% endwith %}
+				{%- endset -%}
+				{%- if sectionContents|trim and sectionContents|trim != '<ul></ul>' -%}
+					<section id="{{ category }}" class="collapsible">
+						<h2>{{ category|replace('_', ' ')|title }}</h2>
+						{{- sectionContents|safe -}}
+					</section>
+				{%- endif -%}
+			{%- endall -%} -->
+		</div>
+	</div>
 </main>

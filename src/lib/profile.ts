@@ -10,16 +10,16 @@ export function prettyTimestamp(ms: number) {
     return timeAsString
 }
 
-export function generateInfobox(data, constants, opts: { meta: boolean }): string[] {
+export function generateInfobox(data, opts: { meta: boolean }): string[] {
     const result: string[] = []
 
     result.push(`💾 Last save: ${prettyTimestamp(data.member.last_save * 1000)}`)
 
     result.push(`🚶 Profile created: ${prettyTimestamp(data.member.first_join * 1000)}`)
 
-    result.push(`✨ Fairy souls: ${data.member.fairy_souls.total}/${constants.max_fairy_souls}`)
+    result.push(`✨ Fairy souls: ${data.member.fairy_souls.total}/${data.member.fairy_souls.max}`)
 
-    if (data.profile.minion_count >= constants.max_minions)
+    if (data.profile.minion_count >= data.profile.maxUniqueMinions)
         result.push(`🤖 Minion count: ${data.profile.minion_count}`)
 
     let mostSignificantKillsStat = null

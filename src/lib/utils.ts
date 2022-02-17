@@ -61,7 +61,8 @@ export function formattingCodeToHtml(formatted: string): string {
                 reset()
             }
         } else {
-            htmlOutput += character
+            // no xss!
+            htmlOutput += character.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         }
     }
     reset()
