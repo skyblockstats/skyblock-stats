@@ -5,7 +5,8 @@
 
 	// this script handles the item hover lore tooltip
 	onMount(() => {
-		const itemEls = document.getElementsByClassName('item')
+		// TODO: have something that automatically registers the event listener when we create a new MinecraftTooltip
+		const itemEls = document.getElementsByClassName('minecraft-tooltip')
 		let tooltipLocked = false
 		function moveTooltipToMouse(e) {
 			const mouseX = e.pageX
@@ -38,23 +39,19 @@
 			}
 		})
 
-		for (const itemEl of itemEls) {
-			if (!(itemEl instanceof HTMLElement)) continue
+		for (const itemEl of itemEls as unknown as HTMLElement[]) {
+			// if (!(itemEl instanceof HTMLElement)) continue
 
 			// if the item doesn't have lore or a name, that must mean it's air
-			if (!itemEl.dataset.loreHtml && !itemEl.dataset.nameHtml) continue
+			// if (!itemEl.dataset.loreHtml && !itemEl.dataset.nameHtml) continue
 
 			itemEl.addEventListener('mouseover', e => {
 				if (!tooltipLocked) {
 					moveTooltipToMouse(e)
-					const loreHtml = itemEl.dataset.loreHtml
-						.replace(/&lt;/g, '<')
-						.replace(/&gt;/g, '>')
-						.replace(/&quot;/g, '"')
-					const nameHtml = itemEl.dataset.nameHtml
-						.replace(/&lt;/g, '<')
-						.replace(/&gt;/g, '>')
-						.replace(/&quot;/g, '"')
+					// copy the lore and name from the tooltip-lore and
+					// tooltip-name elements inside the item el
+					const loreHtml = itemEl.getElementsByClassName('tooltip-lore')[0].innerHTML
+					const nameHtml = itemEl.getElementsByClassName('tooltip-name')[0].innerHTML
 					tooltipEl.innerHTML = `<p class="item-lore-name">${nameHtml}</p><p class="item-lore-text">${loreHtml}</p>`
 				}
 				tooltipEl.style.display = 'block'
@@ -76,14 +73,8 @@
 					tooltipEl.style.userSelect = null
 					tooltipEl.style.pointerEvents = null
 				}
-				const loreHtml = itemEl.dataset.loreHtml
-					.replace(/&lt;/g, '<')
-					.replace(/&gt;/g, '>')
-					.replace(/&quot;/g, '"')
-				const nameHtml = itemEl.dataset.nameHtml
-					.replace(/&lt;/g, '<')
-					.replace(/&gt;/g, '>')
-					.replace(/&quot;/g, '"')
+				const loreHtml = itemEl.getElementsByClassName('tooltip-lore')[0].innerHTML
+				const nameHtml = itemEl.getElementsByClassName('tooltip-name')[0].innerHTML
 				tooltipEl.innerHTML = `<p class="item-lore-name">${nameHtml}</p><p class="item-lore-text">${loreHtml}</p>`
 			})
 			document.addEventListener('mousedown', e => {
@@ -99,3 +90,25 @@
 </script>
 
 <div id="global-tooltip" style="display: none" bind:this={tooltipEl} />
+
+<style>
+	#global-tooltip {
+		position: absolute;
+		user-select: none;
+		pointer-events: none;
+		overflow: hidden;
+		z-index: 100;
+		background-color: #0a0a0aee;
+		padding: 0 0.25rem;
+		border-radius: 3px;
+		box-shadow: 0 0 0 3px #206, 0 0 0 6px #000;
+		font-family: Minecraft;
+		white-space: nowrap;
+	}
+	#global-tooltip :global(p) {
+		margin: 0;
+	}
+	#global-tooltip :global(.item-lore-name) {
+		margin-bottom: 0.5em;
+	}
+</style>

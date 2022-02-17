@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import { cacheInventories } from '$lib/minecraft/inventory'
 	import type { Load } from '@sveltejs/kit'
 	import { API_URL } from '$lib/api'
 
@@ -9,10 +10,14 @@
 			r.json()
 		)
 
+		const pack = params.pack ?? data?.customization?.pack
+
+		await cacheInventories(data.member.inventories, pack)
+
 		return {
 			props: {
 				data,
-				pack: params.pack ?? data?.customization?.pack,
+				pack,
 			},
 		}
 	}
@@ -121,3 +126,12 @@
 		</div>
 	</div>
 </main>
+
+<style>
+	.profile-skills {
+		display: inline-block;
+		position: absolute;
+		margin: 1em;
+		margin-top: 1.6em;
+	}
+</style>

@@ -68,8 +68,11 @@ export function formattingCodeToHtml(formatted: string): string {
     reset()
     return htmlOutput
 }
+
+// we store the regex here so we don't have to build the object every time
+const formattingCodeRegex = new RegExp(colorCodeCharacter + '.', 'g')
 export function removeFormattingCode(formatted: string): string {
-    return formatted.replace(new RegExp(colorCodeCharacter + '.', 'g'), '')
+    return formatted.replace(formattingCodeRegex, '')
 }
 
 function moveToEndOfId(word: string, thing: string) {

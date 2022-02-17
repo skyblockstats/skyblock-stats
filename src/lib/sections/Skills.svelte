@@ -61,4 +61,14 @@
 		image-rendering: crisp-edges;
 		image-rendering: pixelated;
 	}
+
+	ul {
+		margin-top: 0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 2em;
+	}
+	ul > li {
+		width: 10em;
+	}
 </style>

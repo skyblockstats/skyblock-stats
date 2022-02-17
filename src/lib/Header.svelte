@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation'
 
 	export let backArrowHref = '/'
-	let searchUserValue: string = ''
+	let searchUserValue = ''
 </script>
 
 <header id="main-header">

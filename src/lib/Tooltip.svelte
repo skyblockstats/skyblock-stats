@@ -2,7 +2,7 @@
     @component
 
     A tooltip that works without requiring JavaScript to be enabled.
-    When you hover or click on the element, it shows the value in a box above the element.
+    When you hover or click on the element, it shows the content in a box above the element.
  -->
 
 <span class="tooltip-container" tabindex="1">
@@ -14,7 +14,6 @@
 	</span>
 </span>
 
-<!-- <li class="tooltip list-item-with-icon" data-tooltip="{% if skill.levelXpRequired != null %}{{ ((skill.levelXp/skill.levelXpRequired)*100)|round }}% to next level, {{ skill.levelXp|round|cleannumber }}/{{ skill.levelXpRequired|formatnumber(3) }} xp{% else %}{{ skill.levelXp|round|cleannumber }} extra xp{% endif %}" tabindex="1" style="background: url('{{ imageUrl }}') 0 0/1em no-repeat;"></li> -->
 <style>
 	.tooltip-container {
 		position: relative;
