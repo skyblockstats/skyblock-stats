@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-	import { cacheInventories } from '$lib/minecraft/inventory'
 	import type { Load } from '@sveltejs/kit'
 	import { API_URL } from '$lib/api'
 
@@ -12,8 +11,6 @@
 
 		const pack = params.pack ?? data?.customization?.pack
 
-		await cacheInventories(data.member.inventories, pack)
-
 		return {
 			props: {
 				data,
@@ -24,16 +21,16 @@
 </script>
 
 <script lang="ts">
+	import Inventories from '$lib/sections/Inventories.svelte'
 	import Username from '$lib/minecraft/Username.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
+	import Skills from '$lib/sections/Skills.svelte'
 	import { generateInfobox } from '$lib/profile'
+	import Armor from '$lib/sections/Armor.svelte'
 	import Header from '$lib/Header.svelte'
 	import Emoji from '$lib/Emoji.svelte'
-	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
-	import Skills from '$lib/sections/Skills.svelte'
-	import Armor from '$lib/sections/Armor.svelte'
 
 	export let data
 	export let pack: string
@@ -98,13 +95,14 @@
 					<Armor {data} {pack} />
 				</section>
 			{/if}
-			<!-- {%- if data.member.inventories.armor -%}
-				<section id="armor"{% if data.member.inventories.inventory %} class="armor-float"{% endif %}>
-					<h2>Armor</h2>
-					{%- include 'sections/armor.njk' -%}
+			{#if data.member.inventories.inventory}
+				<section id="inventories">
+					<h2>Inventories</h2>
+					<Inventories {data} {pack} />
 				</section>
-			{%- endif -%}
-			{%- if data.member.inventories.inventory -%}
+			{/if}
+
+			<!-- {%- if data.member.inventories.inventory -%}
 				<section id="inventories">
 					<h2>Inventories</h2>
 					{%- include 'sections/inventories.njk' -%}

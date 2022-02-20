@@ -1,4 +1,6 @@
-import adapter from '@sveltejs/adapter-auto'
+// import adapter from '@sveltejs/adapter-node'
+import adapter from '@sveltejs/adapter-node'
+// import adapter from '@sveltejs/adapter-vercel'
 import preprocess from 'svelte-preprocess'
 import { minifyHtml } from 'vite-plugin-html'
 
@@ -9,7 +11,15 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter(),
+		// adapter: adapter(),
+		adapter: adapter({
+			out: 'build',
+			precompress: true,
+			env: {
+				host: '127.0.0.1'
+			}
+		}),
+		
 
 		// Override http methods in the Todo forms
 		methodOverride: {
@@ -17,17 +27,17 @@ const config = {
 		},
 
 		// https://vitejs.dev/config/
-		vite: {
-			plugins: [minifyHtml()],
-			build: {
-				rollupOptions: {
-					external: ['discord-api-types/payloads/v9', 'discord-api-types', 'discord-api-types/v9'],
-					output: {
-						manualChunks: undefined,
-					},
-				},
-			},
-		},
+		// vite: {
+		// 	plugins: [minifyHtml()],
+		// 	build: {
+		// 		rollupOptions: {
+		// 			external: ['discord-api-types/payloads/v9', 'discord-api-types', 'discord-api-types/v9'],
+		// 			output: {
+		// 				// manualChunks: undefined,
+		// 			},
+		// 		},
+		// 	},
+		// },
 	}
 };
 

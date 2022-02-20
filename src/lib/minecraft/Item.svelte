@@ -1,22 +1,26 @@
 <script lang="ts">
 	import MinecraftTooltip from './MinecraftTooltip.svelte'
 	import { formattingCodeToHtml, removeFormattingCode } from '$lib/utils'
-	import { itemToUrlCached } from './inventory'
+	import { itemToUrl } from './inventory'
 
 	export let item: any | null
 	export let isslot = true
 	export let pack = ''
 
-	$: itemLoreHtml = item.display.lore.map(l => formattingCodeToHtml(l)).join('<br>')
-	$: itemNameHtml = formattingCodeToHtml(item.display.name)
+	let itemLoreHtml: string | null
+	let itemNameHtml: string | null
+	let imageUrl: string | null
 
-	$: imageUrl = itemToUrlCached(item, pack)
+	$: itemLoreHtml = item ? item.display.lore.map(l => formattingCodeToHtml(l)).join('<br>') : null
+	$: itemNameHtml = item ? formattingCodeToHtml(item.display.name) : null
+
+	$: imageUrl = item ? itemToUrl(item, pack) : null
 </script>
 
 <MinecraftTooltip>
 	<span slot="name">{@html itemNameHtml}</span>
 	<span slot="lore">{@html itemLoreHtml}</span>
-	<span class="item item-slot" class:item-slot={isslot}>
+	<span class="item" class:item-slot={isslot}>
 		<!-- we have an if here because the item might be air -->
 		{#if item}
 			{#if imageUrl}
@@ -58,6 +62,13 @@
 	.item img:not(.item-custom-head) {
 		image-rendering: crisp-edges;
 		image-rendering: pixelated;
+	}
+
+	img.item-custom-head {
+		width: 0.75em;
+		height: 0.75em;
+		margin-top: 0.1875em;
+		margin-left: 0.1875em;
 	}
 
 	.item-slot {

@@ -4,4 +4,6 @@
 	export let pack
 </script>
 
-<Inventory items={data.member.inventories.armor} name="armor" {pack} />
+<span>
+	<Inventory items={data.member.inventories.armor} name="armor" groupLimit={1} {pack} />
+</span>

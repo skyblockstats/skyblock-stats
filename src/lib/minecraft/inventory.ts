@@ -1,7 +1,7 @@
-import vanillaDamages from 'skyblock-assets/data/vanilla_damages.json'
 import * as skyblockAssets from 'skyblock-assets'
+import vanilla from 'skyblock-assets/matchers/vanilla.json'
+import packshq from 'skyblock-assets/matchers/vanilla.json'
 
-const itemToUrlCache: Record<string, string> = {}
 
 interface Item {
     id?: string
@@ -36,10 +36,7 @@ const INVENTORIES = {
 
 export type Inventories = { [name in keyof typeof INVENTORIES]: Item[] }
 
-export async function itemToUrl(item: Item, packName?: string): Promise<string> {
-    const stringifiedItem = (packName ?? 'packshq') + JSON.stringify(item)
-    if (stringifiedItem in itemToUrlCache)
-        return itemToUrlCache[stringifiedItem]
+export function itemToUrl(item: Item, packName?: string): string {
     const itemNbt: skyblockAssets.NBT = {
         display: {
             Name: item.display?.name
@@ -52,21 +49,22 @@ export async function itemToUrl(item: Item, packName?: string): Promise<string> 
     if (item.head_texture)
         textureUrl = `https://mc-heads.net/head/${item.head_texture}`
     else
-        textureUrl = await skyblockAssets.getTextureUrl({
+        textureUrl = skyblockAssets.getTextureUrl({
             id: item.vanillaId,
             nbt: itemNbt,
-            pack: packName ?? 'packshq'
+            packs: [packshq, vanilla]
         })
     if (!textureUrl)
         console.log('no texture', item)
-    itemToUrlCache[stringifiedItem] = textureUrl
     return textureUrl
 }
+
 export async function skyblockItemToUrl(skyblockItemName: string) {
     const item = skyblockItemNameToItem(skyblockItemName)
     const itemTextureUrl = await itemToUrl(item, 'packshq')
     return itemTextureUrl
 }
+
 export function skyblockItemNameToItem(skyblockItemName: string): Item {
     let item: Item
     if (Object.keys(skyblockItems).includes(skyblockItemName)) {
@@ -78,6 +76,7 @@ export function skyblockItemNameToItem(skyblockItemName: string): Item {
     }
     return item
 }
+
 const skyblockItems: { [itemName: string]: Item } = {
     ink_sac: { vanillaId: 'minecraft:dye' },
     cocoa_beans: { vanillaId: 'minecraft:dye:3' },
@@ -102,41 +101,4 @@ const skyblockItems: { [itemName: string]: Item } = {
         head_texture: '39b6e047d3b2bca85e8cc49e5480f9774d8a0eafe6dfa9559530590283715142'
     },
     hard_stone: { vanillaId: 'minecraft:stone' },
-}
-
-export function itemToUrlCached(item: Item, packName?: string): string {
-    if (!item) return null
-    if (typeof item === 'string') {
-        let itemId: string = vanillaDamages[item] ?? item
-        let damage: number = null
-        // remove the minecraft: namespace since we already know it's all vanilla
-        if (itemId.startsWith('minecraft:')) itemId = itemId.slice('minecraft:'.length)
-        // split the damage into its own variable
-        if (itemId.includes(':')) {
-            damage = parseInt(itemId.split(':')[1])
-            itemId = itemId.split(':')[0]
-        }
-        item = {
-            count: 1,
-            display: {
-                glint: false,
-                lore: null,
-                name: null
-            },
-            id: null,
-            // vanillaId: damage === null ? `minecraft:${itemId}` : `minecraft:${itemId}:${damage}`
-            vanillaId: `minecraft:${itemId}`
-        }
-    }
-    const stringifiedItem = (packName ?? 'packshq') + JSON.stringify(item)
-    return itemToUrlCache[stringifiedItem]
-}
-/** Get all the items in an inventories object to cache them */
-export async function cacheInventories(inventories: Inventories, packName?: string) {
-    const promises: Promise<any>[] = []
-    for (const inventoryItems of Object.values(inventories ?? {}))
-        for (const inventoryItem of inventoryItems)
-            if (inventoryItem)
-                promises.push(itemToUrl(inventoryItem, packName))
-    await Promise.all(promises)
 }

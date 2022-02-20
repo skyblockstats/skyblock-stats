@@ -1,6 +1,7 @@
 {
   "name": "skyblock-stats-svelte",
   "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -33,8 +34,10 @@
   "type": "module",
   "dependencies": {
     "@lukeed/uuid": "^2.0.0",
+    "@sveltejs/adapter-node": "^1.0.0-next.68",
+    "@sveltejs/adapter-vercel": "^1.0.0-next.43",
     "cookie": "^0.4.1",
-    "skyblock-assets": "^1.1.12"
+    "skyblock-assets": "^2.0.3"
   },
   "packageManager": "yarn@3.1.1"
 }
