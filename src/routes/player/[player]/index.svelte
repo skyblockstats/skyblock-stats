@@ -51,7 +51,9 @@
 	const isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
 
 	// cursed svelte :D
-	$: bodyStyle = `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
+	$: bodyStyle = data.customization?.backgroundUrl
+		? `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
+		: ''
 </script>
 
 <svelte:head>

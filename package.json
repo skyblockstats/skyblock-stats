@@ -35,6 +35,7 @@
   "dependencies": {
     "@lukeed/uuid": "^2.0.0",
     "@sveltejs/adapter-node": "^1.0.0-next.68",
+    "@sveltejs/adapter-static": "^1.0.0-next.28",
     "@sveltejs/adapter-vercel": "^1.0.0-next.43",
     "cookie": "^0.4.1",
     "skyblock-assets": "^2.0.4"

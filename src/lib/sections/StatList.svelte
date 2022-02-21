@@ -11,7 +11,7 @@
 </script>
 
 <ul>
-	{#each stats as stat}
+	{#each stats.sort((a, b) => b.value - a.value) as stat}
 		<li class:total-stat={stat.categorizedName === 'total'}>
 			<span class="stat-name">{cleanId(stat.categorizedName)}</span>:
 			{#if stat.unit === 'time'}

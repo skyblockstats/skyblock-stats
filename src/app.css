@@ -186,6 +186,10 @@ button {
 	font-family: inherit;
 }
 
+tr {
+	text-align: left;
+}
+
 /*
  * this is necessary for background theming, the background can be set through
  * the --background css variable

@@ -1,17 +1,8 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import { onMouseMove, registerItem, setTooltipEl } from './GlobalTooltip'
+	import { onMouseMove, setTooltipEl } from '$lib/GlobalTooltip'
 
 	let tooltipEl: HTMLDivElement
 	$: setTooltipEl(tooltipEl)
-
-	// // this script handles the item hover lore tooltip
-	// onMount(() => {
-	// 	// TODO: have something that automatically registers the event listener when we create a new MinecraftTooltip
-	// 	const itemEls = document.getElementsByClassName('minecraft-tooltip')
-
-	// 	for (const itemEl of itemEls as unknown as HTMLElement[]) registerItem(itemEl)
-	// })
 </script>
 
 <svelte:window on:mousemove={onMouseMove} />

@@ -1,4 +1,4 @@
-// import adapter from '@sveltejs/adapter-node'
+// import adapter from '@sveltejs/adapter-static'
 import adapter from '@sveltejs/adapter-node'
 // import adapter from '@sveltejs/adapter-vercel'
 import preprocess from 'svelte-preprocess'

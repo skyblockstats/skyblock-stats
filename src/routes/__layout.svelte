@@ -1,9 +1,10 @@
 <script lang="ts">
-	import Header from '$lib/Header.svelte'
 	import '../app.css'
-	import GlobalTooltip from '$lib/GlobalTooltip.svelte'
+	import GlobalTooltip from '$lib/layout/GlobalTooltip.svelte'
+	import Loader from '$lib/layout/Loader.svelte'
 </script>
 
+<Loader />
 <GlobalTooltip />
 <nav />
 <slot />

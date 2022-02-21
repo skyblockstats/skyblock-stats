@@ -76,7 +76,6 @@ export declare type Inventories = {
 	[name in keyof typeof INVENTORIES]: Item[]
 }
 
-
 export interface CleanUser {
 	player: CleanPlayer | null
 	profiles?: CleanProfile[]
@@ -93,4 +92,33 @@ export interface CleanProfile extends CleanBasicProfile {
 export interface CleanBasicProfile {
 	uuid: string
 	name?: string
+}
+
+export interface AccountCustomization {
+	backgroundUrl?: string
+	pack?: string
+	emoji?: string
+}
+
+export interface CleanMinion {
+	name: string
+	levels: boolean[]
+}
+
+export interface CleanProfile extends CleanBasicProfile {
+	members?: CleanBasicMember[]
+}
+export interface CleanFullProfile extends CleanProfile {
+	members: CleanMember[]
+	bank: Bank
+	minions: CleanMinion[]
+	minion_count: number
+	maxUniqueMinions: number
+}
+export interface CleanFullProfileBasicMembers extends CleanProfile {
+	members: CleanBasicMember[]
+	bank: Bank
+	minions: CleanMinion[]
+	minion_count: number
+	maxUniqueMinions: number
 }

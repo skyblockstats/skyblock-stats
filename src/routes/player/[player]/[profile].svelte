@@ -36,6 +36,7 @@
 	import type { CleanMemberProfile } from '$lib/APITypes'
 	import { cleanId } from '$lib/utils'
 	import Collapsible from '$lib/Collapsible.svelte'
+	import Minions from '$lib/sections/Minions.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: string
@@ -54,7 +55,9 @@
 	]
 
 	// cursed svelte :D
-	$: bodyStyle = `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
+	$: bodyStyle = data.customization?.backgroundUrl
+		? `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
+		: ''
 </script>
 
 <svelte:head>
@@ -118,6 +121,12 @@
 					{/if}
 				{/each}
 			{/if}
+			<section id="minions">
+				<Collapsible>
+					<h2 slot="title">Minions</h2>
+					<Minions {data} />
+				</Collapsible>
+			</section>
 		</div>
 	</div>
 </main>
