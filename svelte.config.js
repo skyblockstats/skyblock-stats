@@ -2,7 +2,7 @@
 import adapter from '@sveltejs/adapter-node'
 // import adapter from '@sveltejs/adapter-vercel'
 import preprocess from 'svelte-preprocess'
-import { minifyHtml } from 'vite-plugin-html'
+// import { createHtmlPlugin } from 'vite-plugin-html'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -28,7 +28,9 @@ const config = {
 
 		// https://vitejs.dev/config/
 		// vite: {
-		// 	plugins: [minifyHtml()],
+		// 	plugins: [createHtmlPlugin({
+		// 		minify: true
+		// 	})],
 		// 	build: {
 		// 		rollupOptions: {
 		// 			external: ['discord-api-types/payloads/v9', 'discord-api-types', 'discord-api-types/v9'],

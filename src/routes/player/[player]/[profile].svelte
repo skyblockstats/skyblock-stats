@@ -23,6 +23,7 @@
 <script lang="ts">
 	import Inventories from '$lib/sections/Inventories.svelte'
 	import Username from '$lib/minecraft/Username.svelte'
+	import StatList from '$lib/sections/StatList.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
 	import Skills from '$lib/sections/Skills.svelte'
 	import { generateInfobox } from '$lib/profile'
@@ -32,11 +33,14 @@
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
 
-	export let data
+	import type { CleanMemberProfile } from '$lib/APITypes'
+	import { cleanId } from '$lib/utils'
+	import Collapsible from '$lib/Collapsible.svelte'
+
+	export let data: CleanMemberProfile
 	export let pack: string
 
 	const categories = [
-		'skills',
 		'deaths',
 		'kills',
 		'auctions',
@@ -59,7 +63,7 @@
 
 <Head
 	title="{data.member.username}'s SkyBlock profile ({data.member.profileName})"
-	description={generateInfobox(data, { meta: true }).join('\n')}
+	description={generateInfobox(data).join('\n')}
 	metaTitle={(data.member.rank.name ? `[${data.member.rank.name}] ` : '') +
 		`${data.member.username}\'s SkyBlock profile (${data.member.profileName})`}
 />
@@ -67,9 +71,10 @@
 
 <main>
 	<h1>
-		<Username player={data.member} headType="3d" />
-		{#if data.customization?.emoji}
-			<span class="profile-emoji"><Emoji value={data.customization.emoji} /></span>
+		<!-- this is weird like this so svelte doesn't add whitespace -->
+		<Username player={data.member} headType="3d" />{#if data.customization?.emoji}<span
+				class="profile-emoji"><Emoji value={data.customization.emoji} /></span
+			>
 		{/if}
 		({data.member.profileName})
 	</h1>
@@ -78,7 +83,7 @@
 
 	<Toc {categories} />
 
-	{#if data.member.skills.length > 0}
+	{#if data.member.skills && data.member.skills.length > 0}
 		<section id="skills" class="profile-skills">
 			<h2>Skills</h2>
 			<Skills {data} />
@@ -89,38 +94,30 @@
 
 	<div>
 		<div id="categories">
-			{#if data.member.inventories.armor}
+			{#if data.member.inventories?.armor}
 				<section id="armor" class:armor-float={data.member.inventories.inventory}>
 					<h2>Armor</h2>
 					<Armor {data} {pack} />
 				</section>
 			{/if}
-			{#if data.member.inventories.inventory}
+			{#if data.member.inventories?.inventory}
 				<section id="inventories">
 					<h2>Inventories</h2>
 					<Inventories {data} {pack} />
 				</section>
 			{/if}
-
-			<!-- {%- if data.member.inventories.inventory -%}
-				<section id="inventories">
-					<h2>Inventories</h2>
-					{%- include 'sections/inventories.njk' -%}
-				</section>
-			{%- endif -%}
-			{%- asyncAll category in categories -%}
-				{%- set sectionContents -%}
-				{% with { data: data, category: category } %}
-					{%- include 'sections/' + category + '.njk' -%}
-				{% endwith %}
-				{%- endset -%}
-				{%- if sectionContents|trim and sectionContents|trim != '<ul></ul>' -%}
-					<section id="{{ category }}" class="collapsible">
-						<h2>{{ category|replace('_', ' ')|title }}</h2>
-						{{- sectionContents|safe -}}
-					</section>
-				{%- endif -%}
-			{%- endall -%} -->
+			{#if data.member.stats}
+				{#each categories as category}
+					{#if data.member.stats?.find(s => s.category === category)}
+						<section id={category}>
+							<Collapsible>
+								<h2 slot="title">{cleanId(category)}</h2>
+								<StatList stats={data.member.stats.filter(s => s.category === category)} />
+							</Collapsible>
+						</section>
+					{/if}
+				{/each}
+			{/if}
 		</div>
 	</div>
 </main>
@@ -131,5 +128,23 @@
 		position: absolute;
 		margin: 1em;
 		margin-top: 1.6em;
+	}
+
+	#armor.armor-float {
+		float: left;
+	}
+
+	#armor {
+		margin-right: 2em;
+		height: 16em;
+	}
+
+	#inventories {
+		display: inline-block;
+		min-height: 16em;
+	}
+
+	section {
+		margin-bottom: 0.5em;
 	}
 </style>

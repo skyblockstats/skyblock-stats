@@ -6,7 +6,7 @@
 <img
 	loading="lazy"
 	class="head head2d"
-	class:userHead={isPartOfUsername}
+	class:player-head={isPartOfUsername}
 	src="https://crafatar.com/avatars/{player.uuid}?size=8&overlay"
 	alt="{player.username}'s face"
 />
@@ -26,5 +26,9 @@
 		/* same size as font */
 		height: 1em;
 		width: 1em;
+	}
+
+	.player-head {
+		margin-right: 0.2em;
 	}
 </style>

@@ -29,7 +29,7 @@
     "tslib": "^2.3.1",
     "typescript": "~4.5.4",
     "vite": "^2.8.3",
-    "vite-plugin-html": "^2"
+    "vite-plugin-html": "^3.0.6"
   },
   "type": "module",
   "dependencies": {
@@ -37,7 +37,7 @@
     "@sveltejs/adapter-node": "^1.0.0-next.68",
     "@sveltejs/adapter-vercel": "^1.0.0-next.43",
     "cookie": "^0.4.1",
-    "skyblock-assets": "^2.0.3"
+    "skyblock-assets": "^2.0.4"
   },
   "packageManager": "yarn@3.1.1"
 }

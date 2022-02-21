@@ -27,7 +27,7 @@
 {#each displayingInventories as inventoryName}
 	{#if inventoryName === selectedInventoryName}
 		<div id={inventoryName} class="inventory-content">
-			<Inventory items={data.member.inventories[inventoryName]} {pack} />
+			<Inventory items={data.member.inventories[inventoryName]} {pack} name={inventoryName} />
 		</div>
 	{/if}
 {/each}

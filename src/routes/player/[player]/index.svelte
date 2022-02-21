@@ -15,7 +15,7 @@
 			return {
 				redirect: `/player/${data.player.username}`,
 				status: 302,
-			}
+			} as any
 		}
 
 		return {
@@ -27,23 +27,26 @@
 </script>
 
 <script lang="ts">
+	import type { CleanProfile, CleanUser } from '$lib/APITypes'
 	import Username from '$lib/minecraft/Username.svelte'
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
 
-	export let data
+	export let data: CleanUser
 
-	let activeProfile = null
+	let activeProfile: CleanProfile | null = null
 	let activeProfileLastSave: number = 0
 
-	for (const profile of data.profiles) {
-		for (const member of profile.members) {
-			if (member.uuid === data.player.uuid && member.last_save > activeProfileLastSave) {
-				activeProfile = profile
-				activeProfileLastSave = member.last_save
-			}
+	if (data.profiles)
+		for (const profile of data.profiles) {
+			if (profile.members)
+				for (const member of profile.members) {
+					if (member.uuid === data.player?.uuid && member.last_save > activeProfileLastSave) {
+						activeProfile = profile
+						activeProfileLastSave = member.last_save
+					}
+				}
 		}
-	}
 
 	const isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
 
@@ -55,35 +58,35 @@
 	{@html bodyStyle}
 </svelte:head>
 
-<Head title="{data.player.username}'s SkyBlock profiles" />
+<Head title={data.player ? `${data.player.username}'s SkyBlock profiles` : 'Invalid player'} />
 <Header />
 
 <main>
 	<h1><Username player={data.player} headType="3d" />'s profiles</h1>
 
 	<ul class="profile-list">
-		{#each data.profiles as profile}
+		{#each data.profiles ?? [] as profile}
 			<li
 				class="profile-list-item"
-				class:profile-list-item-active={profile.uuid === activeProfile.uuid}
-				class:profile-list-item-online={profile.uuid === activeProfile.uuid &&
+				class:profile-list-item-active={profile.uuid === activeProfile?.uuid}
+				class:profile-list-item-online={profile.uuid === activeProfile?.uuid &&
 					isActiveProfileOnline}
 			>
 				<a
 					class="profile-name"
-					href="/player/{data.player.username}/{profile.name}"
+					href="/player/{data.player?.username}/{profile.name}"
 					sveltekit:prefetch
 				>
 					{profile.name}
 				</a>
 				<span class="profile-members">
-					{#if profile.members.length > 1}
-						{#each profile.members as player}
+					{#if (profile.members?.length ?? 0) > 1}
+						{#each profile.members ?? [] as player}
 							<span class="member">
 								<Username
 									{player}
 									headType="2d"
-									hyperlinkToProfile={player.uuid != data.player.uuid}
+									hyperlinkToProfile={player.uuid != data.player?.uuid}
 								/>
 							</span>
 						{/each}

@@ -17,12 +17,12 @@
 	$: imageUrl = item ? itemToUrl(item, pack) : null
 </script>
 
-<MinecraftTooltip>
-	<span slot="name">{@html itemNameHtml}</span>
-	<span slot="lore">{@html itemLoreHtml}</span>
-	<span class="item" class:item-slot={isslot}>
-		<!-- we have an if here because the item might be air -->
-		{#if item}
+{#if item}
+	<MinecraftTooltip>
+		<span slot="name">{@html itemNameHtml}</span>
+		<span slot="lore">{@html itemLoreHtml}</span>
+		<span class="item" class:item-slot={isslot}>
+			<!-- we have an if here because the item might be air -->
 			{#if imageUrl}
 				<img
 					loading="lazy"
@@ -34,9 +34,12 @@
 			{#if item.count !== 1}
 				<span class="item-count">{item.count}</span>
 			{/if}
-		{/if}
-	</span>
-</MinecraftTooltip>
+		</span>
+	</MinecraftTooltip>
+{:else}
+	<!-- don't do all that if the item doesn't actually exist -->
+	<span class="item" class:item-slot={isslot} />
+{/if}
 
 <style>
 	.item {

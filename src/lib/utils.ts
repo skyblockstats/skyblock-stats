@@ -26,7 +26,7 @@ const colorCodeCharacter = '§'
 export function formattingCodeToHtml(formatted: string): string {
     let htmlOutput = ''
     // we store the hex code, not the formatting code
-    let currentColor = null
+    let currentColor: null | string = null
     // we store the css code, not the formatting code
     const activeSpecialCodes: string[] = []
     function reset() {
@@ -50,7 +50,7 @@ export function formattingCodeToHtml(formatted: string): string {
                     // if there's already a color, close that tag
                     if (currentColor) htmlOutput += '</span>'
                     currentColor = colorCodes[colorCharacter]
-                    htmlOutput += `<span style="color: ${currentColor}">`
+                    htmlOutput += `<span style="color:${currentColor}">`
                 }
             } else if (specialCodes[colorCharacter]) {
                 if (!activeSpecialCodes.includes(specialCodes[colorCharacter])) {
@@ -133,7 +133,7 @@ export function twemojiHtml(s: string) {
     const htmlEncoded = s.replace('<', '&lt;').replace('>', '&gt;').replace('&', '&amp;')
     // replace unicode emojis with <img src="/emoji/[hex].svg">
     const asTwemoji = htmlEncoded.replace(emojiRegex, (match) => {
-        return `<img src="/emoji/${[...match].map(p => p.codePointAt(0).toString(16)).join('-')}.svg" class="emoji">`
+        return `<img src="/emoji/${[...match].map(p => p.codePointAt(0)!.toString(16)).join('-')}.svg" class="emoji">`
     })
     return asTwemoji
 }
@@ -150,5 +150,5 @@ export function formatNumber(n: number, digits = 3) {
         { value: 1e18, symbol: 'E' },
     ]
     const item = numberSymbolsLookup.slice().reverse().find(item => n >= item.value)
-    return (n / item.value).toPrecision(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + item.symbol
+    return (n / (item?.value ?? 1)).toPrecision(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + (item?.symbol ?? '')
 }

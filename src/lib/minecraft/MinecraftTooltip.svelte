@@ -3,15 +3,23 @@
 
     A tooltip that looks like when you hover over a Minecraft item in an inventory. This requires JavaScript.
  -->
+<script lang="ts">
+	import { registerItem } from '$lib/GlobalTooltip'
+	import { onMount } from 'svelte'
 
-<span class="minecraft-tooltip">
+	let el
+
+	onMount(() => {
+		registerItem(el)
+	})
+</script>
+
+<span class="minecraft-tooltip" bind:this={el}>
 	<span class="tooltip-name">
 		<slot name="name" />
-	</span>
-	<span class="tooltip-lore">
+	</span><span class="tooltip-lore">
 		<slot name="lore" />
-	</span>
-	<slot />
+	</span><slot />
 </span>
 
 <style>

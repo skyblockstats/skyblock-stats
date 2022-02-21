@@ -2,37 +2,23 @@
 	import { generateInfobox } from '$lib/profile'
 	import Username from '$lib/minecraft/Username.svelte'
 	import Emoji from '$lib/Emoji.svelte'
+	import { onMount } from 'svelte'
 
 	export let data
-</script>
 
-<!-- <div id="infobox">
-    <h2>{{ render.username(data.member, prefix=true) }} ({{ data.member.profileName }})</h2>
-    <p>{{ '💾'|twemojiHtml|safe }} Last save: {% if getTime() - data.member.last_save < 60 * 60 * 24 * 7 %}{{ ((getTime() - data.member.last_save) * 1000)|cleannumber('time') }} ago {% else %}{{ data.member.last_save|cleannumber('date') }}{% endif %}</p>
-    <p>{{ '🚶'|twemojiHtml|safe }} Profile created: {% if getTime() - data.member.first_join < 60 * 60 * 24 * 7 %}{{ ((getTime() - data.member.first_join) * 1000)|cleannumber('time') }} ago {% else %}{{ data.member.first_join|cleannumber('date') }}{% endif %}</p>
-    <p>{{ '✨'|twemojiHtml|safe }} Fairy souls: {{ data.member.fairy_souls.total }}/{{ getConstants().max_fairy_souls }}</p>
-{%- if data.profile.minion_count == getConstants().max_minions -%}<p>{{ '🤖'|twemojiHtml|safe }} Minion count: {{ data.profile.minion_count }}</p>{% endif %}
-{%- set mostSignificantKillsStat = {} -%}
-{%- set mostSignificantDeathsStat = {} -%}
-{%- for stat in data.member.stats -%}
-{%- if stat.category == 'kills' and stat.rawName != 'kills' and stat.value >= 200000 and stat.value > (mostSignificantKillsStat.value or 0) -%}
-{%- set mostSignificantKillsStat = stat -%}
-{%- endif -%}
-{%- if stat.category == 'deaths' and stat.rawName != 'deaths' and stat.value >= 1000000 and stat.value > (mostSignificantDeathsStat.value or 0) -%}
-{%- set mostSignificantDeathsStat = stat -%}
-{%- endif -%}
-{%- endfor -%}
-{%- if mostSignificantKillsStat.value -%}
-    <p>{{ '⚔️'|twemojiHtml|safe }} {{ mostSignificantKillsStat.value|cleannumber(mostSignificantKillsStat.unit or mostSignificantKillsStat.rawName|clean|lower) }}</p>
-{%- endif -%}
-{%- if mostSignificantDeathsStat.value -%}
-    <p>{{ '☠'|twemojiHtml|safe }} {{ mostSignificantDeathsStat.value|cleannumber(mostSignificantDeathsStat.unit or mostSignificantDeathsStat.rawName|clean|lower) }}</p>
-{%- endif -%}
-</div> -->
+	// onMount(() => {
+	// 	// reload the data every second so the infobox updates
+	// 	const interval = setInterval(() => {
+	// 		data = data
+	// 	}, 1000)
+
+	// 	return () => clearInterval(interval)
+	// })
+</script>
 
 <div id="infobox">
 	<h2><Username player={data.member} prefix /> ({data.member.profileName})</h2>
-	{#each generateInfobox(data, { meta: false }) as item}
+	{#each generateInfobox(data) as item}
 		<p><Emoji value={item} /></p>
 	{/each}
 </div>

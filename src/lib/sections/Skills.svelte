@@ -70,5 +70,6 @@
 	}
 	ul > li {
 		width: 10em;
+		margin: 0.25em 0.25em 0 0;
 	}
 </style>

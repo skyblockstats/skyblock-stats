@@ -1,3 +1,4 @@
+import type { CleanMemberProfile, StatItem } from './APITypes'
 import { cleanId, millisecondsToTime } from './utils'
 
 /**
@@ -10,7 +11,7 @@ export function prettyTimestamp(ms: number) {
     return timeAsString
 }
 
-export function generateInfobox(data, opts: { meta: boolean }): string[] {
+export function generateInfobox(data: CleanMemberProfile): string[] {
     const result: string[] = []
 
     result.push(`💾 Last save: ${prettyTimestamp(data.member.last_save * 1000)}`)
@@ -22,35 +23,37 @@ export function generateInfobox(data, opts: { meta: boolean }): string[] {
     if (data.profile.minion_count >= data.profile.maxUniqueMinions)
         result.push(`🤖 Minion count: ${data.profile.minion_count}`)
 
-    let mostSignificantKillsStat = null
-    let mostSignificantDeathsStat = null
+    if (data.member.stats) {
+        let mostSignificantKillsStat: StatItem | null = null
+        let mostSignificantDeathsStat: StatItem | null = null
 
-    for (const stat of data.member.stats) {
-        if (
-            stat.category === 'kills'
-            && stat.rawName != 'kills'
-            && stat.value >= 200_000
-            && stat.value > (mostSignificantKillsStat?.value ?? 0)
-        )
-            mostSignificantKillsStat = stat
-        if (
-            stat.category === 'deaths'
-            && stat.rawName != 'deaths'
-            && stat.value > 1_000_000
-            && stat.value > (mostSignificantDeathsStat?.value ?? 0)
-        )
-            mostSignificantDeathsStat = stat
+        for (const stat of data.member.stats) {
+            if (
+                stat.category === 'kills'
+                && stat.rawName != 'kills'
+                && stat.value >= 200_000
+                && stat.value > (mostSignificantKillsStat?.value ?? 0)
+            )
+                mostSignificantKillsStat = stat
+            if (
+                stat.category === 'deaths'
+                && stat.rawName != 'deaths'
+                && stat.value > 1_000_000
+                && stat.value > (mostSignificantDeathsStat?.value ?? 0)
+            )
+                mostSignificantDeathsStat = stat
+        }
+
+        if (mostSignificantKillsStat)
+            result.push(
+                `⚔️ ${mostSignificantKillsStat.value.toLocaleString()} ${mostSignificantKillsStat.unit || cleanId(mostSignificantKillsStat.rawName).toLowerCase()}`
+            )
+
+        if (mostSignificantDeathsStat)
+            result.push(
+                `☠ ${mostSignificantDeathsStat.value.toLocaleString()} ${mostSignificantDeathsStat.unit || cleanId(mostSignificantDeathsStat.rawName).toLowerCase()}`
+            )
     }
-
-    if (mostSignificantKillsStat)
-        result.push(
-            `⚔️ ${mostSignificantKillsStat.value.toLocaleString()} ${mostSignificantKillsStat.unit || cleanId(mostSignificantKillsStat.rawName).toLowerCase()}`
-        )
-
-    if (mostSignificantDeathsStat)
-        result.push(
-            `☠ ${mostSignificantDeathsStat.value.toLocaleString()} ${mostSignificantDeathsStat.unit || cleanId(mostSignificantDeathsStat.rawName).toLowerCase()}`
-        )
 
     return result
 }

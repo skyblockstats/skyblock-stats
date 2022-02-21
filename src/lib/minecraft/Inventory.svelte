@@ -1,21 +1,23 @@
 <script lang="ts">
+	import type { Inventory, Item as APIItem } from '$lib/APITypes'
+
 	import Item from './Item.svelte'
 
-	export let items
+	export let items: Inventory
 	export let name = ''
 	export let pack = ''
 	export let groupLimit = 9
 
-	if (name === 'inventory')
-		// in the inventory, the first 9 items are the hotbar and should be at the end
-		items = items.slice(9).concat(items.slice(0, 9))
-
 	// each item group has 9 items
-	let itemGroups = []
+	let itemGroups: APIItem[][] = []
 	$: {
 		itemGroups = []
 		for (let i = 0; i < items.length; i += groupLimit) {
 			itemGroups.push(items.slice(i, i + groupLimit))
+		}
+		if (name === 'inventory') {
+			// in the inventory, the first 9 items are the hotbar and should be at the end
+			itemGroups = itemGroups.slice(1).concat(itemGroups.slice(0, 1))
 		}
 	}
 </script>

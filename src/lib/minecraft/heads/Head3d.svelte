@@ -6,7 +6,7 @@
 <img
 	loading="lazy"
 	class="head head3d"
-	class:userHead={isPartOfUsername}
+	class:player-head={isPartOfUsername}
 	src="https://www.mc-heads.net/head/{player.uuid}/128"
 	alt="{player.username}'s head"
 />
@@ -23,5 +23,9 @@
 		/* same size as font */
 		height: 1em;
 		width: 1em;
+	}
+
+	.player-head {
+		margin-right: 0.2em;
 	}
 </style>

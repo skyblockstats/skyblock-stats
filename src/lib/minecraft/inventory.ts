@@ -1,6 +1,7 @@
 import * as skyblockAssets from 'skyblock-assets'
 import vanilla from 'skyblock-assets/matchers/vanilla.json'
 import packshq from 'skyblock-assets/matchers/vanilla.json'
+import furfsky_reborn from 'skyblock-assets/matchers/furfsky_reborn.json'
 
 
 interface Item {
@@ -52,10 +53,8 @@ export function itemToUrl(item: Item, packName?: string): string {
         textureUrl = skyblockAssets.getTextureUrl({
             id: item.vanillaId,
             nbt: itemNbt,
-            packs: [packshq, vanilla]
+            packs: [furfsky_reborn, vanilla]
         })
-    if (!textureUrl)
-        console.log('no texture', item)
     return textureUrl
 }
 

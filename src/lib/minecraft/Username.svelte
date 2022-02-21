@@ -22,16 +22,13 @@
 
 <ConditionalLink href="/player/{player.username}" isWrapped={hyperlinkToProfile}>
 	{#if headType == '3d'}
-		<Head3d {player} isPartOfUsername={true} />
-	{:else if headType == '2d'}
+		<Head3d {player} isPartOfUsername={true} />{:else if headType == '2d'}
 		<Head2d {player} isPartOfUsername={true} />
-	{/if}
-	{#if prefix}
+	{/if}{#if prefix}
 		<span class="username-rank-prefix">
 			{@html formattingCodeToHtml(player.rank.colored)}
 		</span>
-	{/if}
-	<span class="username" style="color: {player.rank.color}">{player.username}</span>
+	{/if}<span class="username" style="color: {player.rank.color}">{player.username}</span>
 </ConditionalLink>
 
 <style>
