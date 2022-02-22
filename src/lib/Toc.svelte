@@ -4,12 +4,14 @@
 	export let categories: string[]
 </script>
 
-<ul id="toc">
+<div id="toc">
 	<h3>Contents</h3>
-	{#each categories as category}
-		<li><a href="#{category}">{cleanId(category)}</a></li>
-	{/each}
-</ul>
+	<ul>
+		{#each categories as category}
+			<li><a href="#{category}">{cleanId(category)}</a></li>
+		{/each}
+	</ul>
+</div>
 
 <style>
 	#toc {
@@ -20,6 +22,11 @@
 
 		display: inline-block;
 		background: rgba(0, 0, 0, 0.1);
+		margin-bottom: 1em;
+	}
+	#toc ul {
+		padding: 0;
+		margin: 0;
 	}
 	#toc li {
 		list-style-type: none;

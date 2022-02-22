@@ -152,8 +152,7 @@
 	.profile-skills {
 		display: inline-block;
 		position: absolute;
-		margin: 1em;
-		margin-top: 1.6em;
+		margin: 0.75em 1em 1em 1em;
 	}
 
 	#armor.armor-float {
