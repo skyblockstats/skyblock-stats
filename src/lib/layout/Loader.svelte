@@ -5,7 +5,6 @@
 
 	let opacity = 1
 	function navigationStart() {
-		console.log('navigation start')
 		widthTransitionDuration = 0
 		opacity = 1
 		progress = 0
@@ -15,7 +14,6 @@
 		})
 	}
 	function navigationEnd() {
-		console.log('navigation end', widthTransitionDuration)
 		opacity = 0
 		setTimeout(() => {
 			widthTransitionDuration = 0

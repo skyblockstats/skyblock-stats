@@ -21,7 +21,7 @@
 		<h3>{cleanId(categoryName)}</h3>
 		<ul>
 			{#each collections as collection}
-				<ListItemWithIcon url={skyblockItemToUrl(collection.name)}>
+				<ListItemWithIcon url={skyblockItemToUrl(collection.name)} alt={cleanId(collection.name)}>
 					<Tooltip>
 						<span slot="tooltip">
 							Amount: {collection.xp.toLocaleString()}

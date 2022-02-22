@@ -3,15 +3,28 @@
 	
 	Non-JS collapsible content.
  -->
+<script lang="ts">
+	let open: boolean
+</script>
 
-<details>
+<details bind:open>
 	<summary>
 		<slot name="title">
 			<h2>Details</h2>
 		</slot>
 	</summary>
 	<div>
-		<slot />
+		<!--
+			We do this so images inside the content are not loaded until it's
+			open. The browser (only tested on FF) doesn't handle this, although
+			it probably should.
+		-->
+		<noscript>
+			<slot />
+		</noscript>
+		{#if open}
+			<slot />
+		{/if}
 	</div>
 </details>
 

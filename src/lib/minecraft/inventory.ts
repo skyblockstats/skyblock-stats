@@ -60,7 +60,6 @@ export function itemToUrl(item: Item, packName?: string): string {
 
 export function skyblockItemToUrl(skyblockItemName: string) {
     const item = skyblockItemNameToItem(skyblockItemName)
-    console.log(skyblockItemName, item)
     const itemTextureUrl = itemToUrl(item, 'packshq')
     return itemTextureUrl
 }
