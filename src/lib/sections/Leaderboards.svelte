@@ -20,3 +20,12 @@
 		{/each}
 	</ul>
 {/await}
+
+<style>
+	.leaderboard-item-anchor {
+		color: inherit;
+	}
+	.leaderboard-item {
+		list-style-type: none;
+	}
+</style>
