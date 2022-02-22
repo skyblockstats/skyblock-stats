@@ -17,6 +17,7 @@
 	}
 
 	.head3d {
+		display: inline-block;
 		/* make the head centered correctly */
 		position: relative;
 		top: 0.2em;

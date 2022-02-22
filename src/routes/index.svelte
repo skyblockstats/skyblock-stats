@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>SkyBlock Stats</title>
 </svelte:head>
 
 <Header />

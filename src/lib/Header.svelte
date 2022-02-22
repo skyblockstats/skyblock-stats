@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
+	import SearchUser from './SearchUser.svelte'
 
 	export let backArrowHref = '/'
 	let searchUserValue = ''
@@ -11,28 +12,9 @@
 			<path d="M 14 0 l -13 13 l 13 13" stroke-width="2" fill="none" />
 		</svg>
 	</a>
-	<form
-		action="/player"
-		method="post"
-		class="user-form"
-		on:submit={e => {
-			goto(`/player/${searchUserValue}`)
-			e.preventDefault()
-		}}
-	>
-		<input
-			class="enter-username-input"
-			type="text"
-			placeholder="Enter username"
-			name="user-search"
-			autocomplete="off"
-			autocorrect="off"
-			autocapitalize="off"
-			spellcheck="false"
-			aria-label="Enter username"
-			bind:value={searchUserValue}
-		/>
-	</form>
+	<span class="username-input-container">
+		<SearchUser bind:value={searchUserValue} />
+	</span>
 </header>
 
 <style>
@@ -42,16 +24,14 @@
 		padding: 0.5rem 10%;
 	}
 
-	.user-form {
+	.username-input-container {
 		display: inline-block;
 		text-align: center;
 		font-size: 1.25rem;
 		/* center the forms */
 		margin: 0 auto;
 		width: max-content;
-	}
 
-	.enter-username-input {
 		box-shadow: none;
 		/* add a slight shadow on the form in the index page */
 		max-width: calc(90vw - 8em);
