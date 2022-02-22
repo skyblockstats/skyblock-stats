@@ -11,10 +11,6 @@ const config = {
 	// for more information about preprocessors
 	preprocess: preprocess(),
 
-	compilerOptions: {
-		preserveWhitespace: false
-	},
-
 	kit: {
 		adapter: adapter(),
 		// adapter: adapter({
