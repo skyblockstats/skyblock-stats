@@ -146,6 +146,9 @@
 </main>
 
 <style>
+	.profile-emoji {
+		display: inline;
+	}
 	.profile-skills {
 		display: inline-block;
 		position: absolute;

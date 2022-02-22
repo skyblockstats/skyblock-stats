@@ -22,12 +22,19 @@
 	}
 </script>
 
-<div class:inventory-container-{name}={name !== ''}>
+<div class="inventory-container" style="--group-limit:{groupLimit}">
 	{#each itemGroups as itemGroup}
-		<div>
-			{#each itemGroup as item}
-				<Item {item} {pack} isslot />
-			{/each}
-		</div>
+		{#each itemGroup as item}
+			<Item {item} {pack} isslot />
+		{/each}
 	{/each}
 </div>
+
+<style>
+	.inventory-container {
+		width: fit-content;
+		display: grid;
+		grid-template-columns: repeat(var(--group-limit), 1fr);
+		grid-gap: 0;
+	}
+</style>

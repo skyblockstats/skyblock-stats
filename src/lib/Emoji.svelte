@@ -1,13 +1,8 @@
-<!-- 
-	@component
-	
-	All the emojis inside the value will be turned into Twemojis.
--->
 <script lang="ts">
-	// Interestingly, the comment above adds whitespace so we don't need to add
-	// padding before the emoji like we usually would.
-	// This is very likely a SvelteKit bug, so when it's fixed we should add
-	// `margin-left: .25em` to .profile-emoji
+	// All the emojis inside the value will be turned into Twemojis.
+
+	// Note: We can't make an @component comment because SvelteKit is dumb and
+	// will replace the comment with whitespace
 
 	import { twemojiHtml } from './utils'
 
