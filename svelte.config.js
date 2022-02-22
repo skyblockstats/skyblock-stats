@@ -25,6 +25,13 @@ function fetch(url) {
 		req.end()
 	})
 }
+function shuffle(a) {
+	for (let i = a.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1))
+			;[a[i], a[j]] = [a[j], a[i]]
+	}
+	return a
+}
 
 (async () => {
 	const API_URL = 'https://skyblock-api.matdoes.dev/'
@@ -39,7 +46,7 @@ function fetch(url) {
 			.then(r => JSON.parse(r).player)
 		)
 	)
-	await fs.promises.writeFile('src/_donators.json', JSON.stringify(donators), {
+	await fs.promises.writeFile('src/_donators.json', JSON.stringify(shuffle(donators)), {
 		encoding: 'utf8'
 	})
 })()
