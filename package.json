@@ -38,8 +38,7 @@
     "@sveltejs/adapter-static": "^1.0.0-next.28",
     "@sveltejs/adapter-vercel": "^1.0.0-next.43",
     "cookie": "^0.4.1",
-    "skyblock-assets": "^2.0.6",
-    "svelte-adapter-deno": "^0.5.0"
+    "skyblock-assets": "^2.0.6"
   },
   "packageManager": "yarn@3.1.1"
 }
