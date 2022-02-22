@@ -133,7 +133,7 @@ export function twemojiHtml(s: string) {
     const htmlEncoded = s.replace('<', '&lt;').replace('>', '&gt;').replace('&', '&amp;')
     // replace unicode emojis with <img src="/emoji/[hex].svg">
     const asTwemoji = htmlEncoded.replace(emojiRegex, (match) => {
-        return `<img src="/emoji/${[...match].map(p => p.codePointAt(0)!.toString(16)).join('-')}.svg" class="emoji">`
+        return `<img src="/emoji/${[...match].map(p => p.codePointAt(0)!.toString(16)).join('-')}.svg" class="emoji" alt="${match}">`
     })
     return asTwemoji
 }
