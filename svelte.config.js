@@ -1,7 +1,48 @@
 // import adapter from '@sveltejs/adapter-cloudflare'
 import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
-// import { createHtmlPlugin } from 'vite-plugin-html'
+import fs from 'fs'
+import https from 'https'
+
+function fetch(url) {
+	return new Promise((resolve, reject) => {
+		let data = ''
+
+		const req = https.request(new URL(url), res => {
+			res.on('data', d => {
+				data += d
+			})
+
+			res.on('end', () => {
+				resolve(data)
+			})
+		})
+
+		req.on('error', error => {
+			reject(error)
+		})
+
+		req.end()
+	})
+}
+
+(async () => {
+	const API_URL = 'https://skyblock-api.matdoes.dev/'
+
+	// create a donators.json from the donators.txt
+	const donatorUuidsText = await fs.promises.readFile('src/donators.txt', {
+		encoding: 'utf8'
+	})
+	const donatorUuids = donatorUuidsText.split('\n').map(u => u.split(' ')[0]).filter(u => u)
+	const donators = await Promise.all(
+		donatorUuids.map(u => fetch(`${API_URL}player/${u}`)
+			.then(r => JSON.parse(r).player)
+		)
+	)
+	await fs.promises.writeFile('src/_donators.json', JSON.stringify(donators), {
+		encoding: 'utf8'
+	})
+})()
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -18,7 +59,7 @@ const config = {
 		// 		host: '127.0.0.1'
 		// 	}
 		// }),
-		
+
 
 		// Override http methods in the Todo forms
 		methodOverride: {
@@ -27,9 +68,9 @@ const config = {
 
 		// https://vitejs.dev/config/
 		vite: {
-		// 	plugins: [createHtmlPlugin({
-		// 		minify: true
-		// 	})],
+			// 	plugins: [createHtmlPlugin({
+			// 		minify: true
+			// 	})],
 			build: {
 				rollupOptions: {
 					// external: ['discord-api-types/payloads/v9', 'discord-api-types', 'discord-api-types/v9'],

@@ -22,6 +22,8 @@
 		autocapitalize="off"
 		spellcheck="false"
 		aria-label="Enter username"
+		required
 		bind:value
 	/>
+	<slot />
 </form>
