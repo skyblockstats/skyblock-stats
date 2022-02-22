@@ -3,6 +3,7 @@
 	import SearchUser from '$lib/SearchUser.svelte'
 	import type { CleanUser } from '$lib/APITypes'
 	import donators from '../_donators.json'
+	import Head from '$lib/Head.svelte'
 
 	export const prerender = true
 	export const hydrate = false
@@ -11,6 +12,8 @@
 <svelte:head>
 	<title>SkyBlock Stats</title>
 </svelte:head>
+
+<Head title='SkyBlock Stats' description='Check SkyBlock stats, see leaderboards, mayors, and way more.' />
 
 <main>
 	<section class="title-section">
