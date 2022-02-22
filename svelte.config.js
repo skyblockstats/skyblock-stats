@@ -1,9 +1,16 @@
 // import adapter from '@sveltejs/adapter-static'
 // import adapter from '@sveltejs/adapter-node'
 import adapter from '@sveltejs/adapter-auto'
+import adapters from '@sveltejs/adapter-auto/adapters'
 // import adapter from '@sveltejs/adapter-vercel'
 import preprocess from 'svelte-preprocess'
 // import { createHtmlPlugin } from 'vite-plugin-html'
+
+adapters.push({
+	name: 'Deno Deploy',
+	test: () => !!process.env.DENO_DEPLOYMENT_ID,
+	module: 'svelte-adapter-deno'
+})
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
