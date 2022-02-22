@@ -5,7 +5,7 @@
     When you hover or click on the element, it shows the content in a box above the element.
  -->
 
-<span class="tooltip-container" tabindex="1">
+<span class="tooltip-container" tabindex="-1">
 	<span class="tooltip-content">
 		<slot name="tooltip">No tooltip!</slot>
 	</span>
