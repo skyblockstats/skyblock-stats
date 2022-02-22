@@ -21,24 +21,25 @@
 </script>
 
 <script lang="ts">
+	import Leaderboards from '$lib/sections/Leaderboards.svelte'
 	import Inventories from '$lib/sections/Inventories.svelte'
+	import Collections from '$lib/sections/Collections.svelte'
 	import Username from '$lib/minecraft/Username.svelte'
 	import StatList from '$lib/sections/StatList.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
+	import Minions from '$lib/sections/Minions.svelte'
+	import Collapsible from '$lib/Collapsible.svelte'
 	import Skills from '$lib/sections/Skills.svelte'
 	import { generateInfobox } from '$lib/profile'
+	import Zones from '$lib/sections/Zones.svelte'
 	import Armor from '$lib/sections/Armor.svelte'
 	import Header from '$lib/Header.svelte'
 	import Emoji from '$lib/Emoji.svelte'
+	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
 
 	import type { CleanMemberProfile } from '$lib/APITypes'
-	import { cleanId } from '$lib/utils'
-	import Collapsible from '$lib/Collapsible.svelte'
-	import Minions from '$lib/sections/Minions.svelte'
-	import Zones from '$lib/sections/Zones.svelte'
-	import Collections from '$lib/sections/Collections.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: string
@@ -114,8 +115,8 @@
 			{#if data.member.stats}
 				{#each categories as category}
 					{#if data.member.stats?.find(s => s.category === category)}
-						<section id={category}>
-							<Collapsible>
+						<section>
+							<Collapsible id={category}>
 								<h2 slot="title">{cleanId(category)}</h2>
 								<StatList stats={data.member.stats.filter(s => s.category === category)} />
 							</Collapsible>
@@ -123,22 +124,28 @@
 					{/if}
 				{/each}
 			{/if}
-			<section id="minions">
-				<Collapsible>
+			<section>
+				<Collapsible id="minions">
 					<h2 slot="title">Minions</h2>
 					<Minions {data} />
 				</Collapsible>
 			</section>
-			<section id="zones">
-				<Collapsible>
+			<section>
+				<Collapsible id="zones">
 					<h2 slot="title">Zones</h2>
 					<Zones {data} />
 				</Collapsible>
 			</section>
-			<section id="collections">
-				<Collapsible>
+			<section>
+				<Collapsible id="collections">
 					<h2 slot="title">Collections</h2>
 					<Collections {data} />
+				</Collapsible>
+			</section>
+			<section>
+				<Collapsible id="leaderboards">
+					<h2 slot="title">Leaderboards</h2>
+					<Leaderboards {data} />
 				</Collapsible>
 			</section>
 		</div>

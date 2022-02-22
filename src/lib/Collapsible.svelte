@@ -1,13 +1,25 @@
 <!-- 
 	@component
 	
-	Non-JS collapsible content.
+	Collapsible content that works without JS but is enhanced by it.
  -->
 <script lang="ts">
+	import { browser } from '$app/env'
+
 	let open: boolean
+	export let id: string | undefined = undefined
+
+	function checkHash() {
+		if (id && id === location.hash.slice(1)) {
+			open = true
+		}
+	}
+	if (browser) checkHash()
 </script>
 
-<details bind:open>
+<svelte:window on:hashchange={checkHash} />
+
+<details bind:open {id}>
 	<summary>
 		<slot name="title">
 			<h2>Details</h2>
@@ -15,9 +27,9 @@
 	</summary>
 	<div>
 		<!--
-			We do this so images inside the content are not loaded until it's
-			open. The browser (only tested on FF) doesn't handle this, although
-			it probably should.
+			We do this so images and other things inside the content are not
+			loaded until it's open.
+			For some reason browsers don't handle this, although they should.
 		-->
 		<noscript>
 			<slot />
