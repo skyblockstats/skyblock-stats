@@ -187,6 +187,8 @@ hr {
 button {
 	outline: none;
 	font-family: inherit;
+	/* safari adds a bit of margin for some reason */
+	margin: 0;
 }
 
 tr {

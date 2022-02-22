@@ -47,6 +47,7 @@
 		padding: 1em;
 		cursor: pointer;
 		transition-duration: 200ms;
+		
 	}
 	.inventory-tab:hover,
 	.inventory-tab-active {
