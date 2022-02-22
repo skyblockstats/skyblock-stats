@@ -58,9 +58,10 @@ export function itemToUrl(item: Item, packName?: string): string {
     return textureUrl
 }
 
-export async function skyblockItemToUrl(skyblockItemName: string) {
+export function skyblockItemToUrl(skyblockItemName: string) {
     const item = skyblockItemNameToItem(skyblockItemName)
-    const itemTextureUrl = await itemToUrl(item, 'packshq')
+    console.log(skyblockItemName, item)
+    const itemTextureUrl = itemToUrl(item, 'packshq')
     return itemTextureUrl
 }
 

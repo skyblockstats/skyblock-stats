@@ -41,9 +41,10 @@
 		left: 0px;
 		top: 0px;
 		transition: width 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 100ms linear;
-		height: 8px;
+		height: 6px;
 		z-index: 20;
 		/* add a faint glow effect */
-		background: -moz-linear-gradient(top, #16e 0%, #16e 50%, #16e5 50%, #16e0 100%);
+		/* background: -moz-linear-gradient(top, #16e 0%, #16e 50%, #16e5 50%, #16e0 100%); */
+		background: linear-gradient(to bottom, #16e 0%, #16e 50%, #16e5 50%, #16e0 100%);
 	}
 </style>

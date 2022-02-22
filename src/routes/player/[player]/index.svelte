@@ -36,19 +36,22 @@
 
 	let activeProfile: CleanProfile | null = null
 	let activeProfileLastSave: number = 0
+	let isActiveProfileOnline: boolean
 
-	if (data.profiles)
-		for (const profile of data.profiles) {
-			if (profile.members)
-				for (const member of profile.members) {
-					if (member.uuid === data.player?.uuid && member.last_save > activeProfileLastSave) {
-						activeProfile = profile
-						activeProfileLastSave = member.last_save
+	$: {
+		if (data.profiles)
+			for (const profile of data.profiles) {
+				if (profile.members)
+					for (const member of profile.members) {
+						if (member.uuid === data.player?.uuid && member.last_save > activeProfileLastSave) {
+							activeProfile = profile
+							activeProfileLastSave = member.last_save
+						}
 					}
-				}
-		}
+			}
 
-	const isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
+		isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
+	}
 
 	// cursed svelte :D
 	$: bodyStyle = data.customization?.backgroundUrl

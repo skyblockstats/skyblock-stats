@@ -24,18 +24,6 @@
 	{/each}
 </table>
 
-<!-- 
-<p class="darker-text">Unique minions: <span class="main-text"><b>{{ data.profile.minion_count }}</b>/{{ getConstants().max_minions }}</span></p>
-<table>
-{%- for minion in data.profile.minions -%}
-    <tr>
-        <th>{{ minion.name|clean }}</th>
-        {%- for unlocked in minion.levels -%}
-        <td class="minions-table-{% if unlocked %}unlocked{% else %}locked{% endif %}">{{ loop.index|romanNumerals }}</td>
-        {%- endfor -%}
-    </tr>
-{%- endfor -%}
-</table> -->
 <style>
 	.unique-minions-text {
 		color: var(--theme-darker-text);

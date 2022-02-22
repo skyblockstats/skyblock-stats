@@ -37,6 +37,8 @@
 	import { cleanId } from '$lib/utils'
 	import Collapsible from '$lib/Collapsible.svelte'
 	import Minions from '$lib/sections/Minions.svelte'
+	import Zones from '$lib/sections/Zones.svelte'
+	import Collections from '$lib/sections/Collections.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: string
@@ -125,6 +127,18 @@
 				<Collapsible>
 					<h2 slot="title">Minions</h2>
 					<Minions {data} />
+				</Collapsible>
+			</section>
+			<section id="zones">
+				<Collapsible>
+					<h2 slot="title">Zones</h2>
+					<Zones {data} />
+				</Collapsible>
+			</section>
+			<section id="collections">
+				<Collapsible>
+					<h2 slot="title">Collections</h2>
+					<Collections {data} />
 				</Collapsible>
 			</section>
 		</div>

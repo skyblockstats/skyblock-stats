@@ -122,3 +122,19 @@ export interface CleanFullProfileBasicMembers extends CleanProfile {
 	minion_count: number
 	maxUniqueMinions: number
 }
+
+declare const COLLECTIONS: {
+	readonly farming: readonly ["wheat", "carrot", "potato", "pumpkin", "melon_slice", "wheat_seeds", "red_mushroom", "cocoa_beans", "cactus", "sugar_cane", "feather", "leather", "porkchop", "chicken", "mutton", "rabbit", "nether_wart"]
+	readonly mining: readonly ["cobblestone", "coal", "iron_ingot", "gold_ingot", "diamond", "lapis_lazuli", "emerald", "redstone", "quartz", "obsidian", "glowstone_dust", "gravel", "ice", "netherrack", "sand", "end_stone", "mithril_ore", "gemstone", "hard_stone"]
+	readonly combat: readonly ["rotten_flesh", "bone", "string", "spider_eye", "gunpowder", "ender_pearl", "ghast_tear", "slime_ball", "blaze_rod", "magma_cream"]
+	readonly foraging: readonly ["oak_log", "spruce_log", "birch_log", "jungle_log", "acacia_log", "dark_oak_log"]
+	readonly fishing: readonly ["cod", "salmon", "tropical_fish", "pufferfish", "prismarine_shard", "prismarine_crystals", "clay_ball", "lily_pad", "ink_sac", "sponge"]
+	readonly unknown: readonly []
+}
+declare type CollectionCategory = keyof typeof COLLECTIONS
+export interface Collection {
+	name: string
+	xp: number
+	level: number
+	category: CollectionCategory
+}
