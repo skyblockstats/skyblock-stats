@@ -5,6 +5,7 @@
  -->
 <script lang="ts">
 	import { browser } from '$app/env'
+	import { cleanId } from './utils'
 
 	let open: boolean
 	export let id: string | undefined = undefined
@@ -22,7 +23,7 @@
 <details bind:open {id}>
 	<summary>
 		<slot name="title">
-			<h2>Details</h2>
+			<h2>{id ? cleanId(id) : 'Details'}</h2>
 		</slot>
 	</summary>
 	<div>
