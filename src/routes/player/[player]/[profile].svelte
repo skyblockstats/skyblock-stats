@@ -40,6 +40,7 @@
 	import Toc from '$lib/Toc.svelte'
 
 	import type { CleanMemberProfile } from '$lib/APITypes'
+	import { onDestroy } from 'svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: string
@@ -61,6 +62,12 @@
 	$: bodyStyle = data.customization?.backgroundUrl
 		? `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
 		: ''
+
+	// get rid of the body style when we leave the page
+	// not doing this will sometimes cause the background to stay
+	onDestroy(() => {
+		bodyStyle = ''
+	})
 </script>
 
 <svelte:head>

@@ -31,6 +31,7 @@
 	import Username from '$lib/minecraft/Username.svelte'
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
+	import { onDestroy } from 'svelte'
 
 	export let data: CleanUser
 
@@ -57,6 +58,12 @@
 	$: bodyStyle = data.customization?.backgroundUrl
 		? `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
 		: ''
+
+	// get rid of the body style when we leave the page
+	// not doing this will sometimes cause the background to stay
+	onDestroy(() => {
+		bodyStyle = ''
+	})
 </script>
 
 <svelte:head>
