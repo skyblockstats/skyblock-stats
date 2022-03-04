@@ -75,6 +75,10 @@
 </main>
 
 <style>
+	h1 {
+		text-align: center;
+	}
+
 	.title-section {
 		margin: 0 auto;
 		width: fit-content;
