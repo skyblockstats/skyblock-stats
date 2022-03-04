@@ -13,7 +13,10 @@
 	<title>SkyBlock Stats</title>
 </svelte:head>
 
-<Head title='SkyBlock Stats' description='Check SkyBlock stats, see leaderboards, mayors, and way more.' />
+<Head
+	title="SkyBlock Stats"
+	description="Check SkyBlock stats, see leaderboards, mayors, and way more."
+/>
 
 <main>
 	<section class="title-section">

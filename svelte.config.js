@@ -33,6 +33,7 @@ function shuffle(a) {
 	return a
 }
 
+console.log('svelte.config.js');
 (async () => {
 	const API_URL = 'https://skyblock-api.matdoes.dev/'
 
@@ -49,6 +50,7 @@ function shuffle(a) {
 	await fs.promises.writeFile('src/_donators.json', JSON.stringify(shuffle(donators)), {
 		encoding: 'utf8'
 	})
+	console.log('wrote file!')
 })()
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -88,6 +90,6 @@ const config = {
 			},
 		},
 	}
-};
+}
 
-export default config;
+export default config
