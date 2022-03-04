@@ -42,7 +42,10 @@
 		{toTitleCase(cleanId(data.name))}
 	</h1>
 	{#if data.info}
-		<p class="leaderboard-info">{data.info}</p>
+		<p class="leaderboard-info">
+			<span class="leaderboard-info-icon">ⓘ</span>
+			<span class="leaderboard-info-content">{data.info}</span>
+		</p>
 	{/if}
 
 	<ol class="leaderboard-profile-list">
@@ -82,5 +85,17 @@
 
 	.leaderboard-profile-player {
 		margin-right: 0.5em;
+	}
+
+	.leaderboard-info {
+		background-color: var(--theme-lighter-background);
+		padding: 0.5em 0.7em;
+		border-radius: 0.5rem;
+		width: max-content;
+
+		box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+	}
+	.leaderboard-info-content {
+		font-style: italic;
 	}
 </style>
