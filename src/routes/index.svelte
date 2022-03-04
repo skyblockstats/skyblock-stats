@@ -69,8 +69,8 @@
 			Minecraft skin APIs: <a href="//mc-heads.net">mc-heads.net</a> for 3d renders and
 			<a href="//mc-crafatar.com">crafatar.com</a> for 2d heads.
 		</p>
-		<p>Emojis: <a href="https://twemoji.twitter.com/">Twemoji</a></p>
-		<p>Font: <a href="https://brailleinstitute.org/freefont">Atkinson Hyperlegible</a></p>
+		<p>Emojis: <a href="//twemoji.twitter.com/">Twemoji</a>.</p>
+		<p>Font: <a href="//brailleinstitute.org/freefont">Atkinson Hyperlegible</a>.</p>
 	</section>
 </main>
 

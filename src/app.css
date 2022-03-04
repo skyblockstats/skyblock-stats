@@ -4,6 +4,8 @@
 	--theme-lightest-background: #333;
 	--theme-main-text: #eee;
 	--theme-darker-text: #999;
+	--theme-anchor-color: #19f;
+
 	--theme-transparent-border: rgba(128, 128, 128, 0.3);
 	--theme-yellow: #ff0;
 }
@@ -168,7 +170,7 @@ button:hover {
 
 /* base styles for anchor tags */
 a {
-	color: #19f;
+	color: var(--theme-anchor-color);
 	text-decoration: none;
 }
 

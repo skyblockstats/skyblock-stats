@@ -47,9 +47,11 @@ console.log('svelte.config.js');
 			.then(r => JSON.parse(r).player)
 		)
 	)
-	await fs.promises.writeFile('src/_donators.json', JSON.stringify(shuffle(donators)), {
-		encoding: 'utf8'
-	})
+	await fs.promises.writeFile(
+		'src/_donators.json',
+		JSON.stringify(donators),
+		{ encoding: 'utf8' }
+	)
 	console.log('wrote file!')
 })()
 

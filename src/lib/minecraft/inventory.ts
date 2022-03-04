@@ -3,7 +3,6 @@ import vanilla from 'skyblock-assets/matchers/vanilla.json'
 import packshq from 'skyblock-assets/matchers/vanilla.json'
 import furfsky_reborn from 'skyblock-assets/matchers/furfsky_reborn.json'
 
-
 interface Item {
     id?: string
     count?: number

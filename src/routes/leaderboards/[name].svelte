@@ -44,7 +44,7 @@
 	{#if data.info}
 		<p class="leaderboard-info">
 			<span class="leaderboard-info-icon">ⓘ</span>
-			<span class="leaderboard-info-content">{data.info}</span>
+			<span class="leaderboard-info-content">{@html data.info}</span>
 		</p>
 	{/if}
 
@@ -54,7 +54,7 @@
 				<span>
 					{formatNumberFromUnit(
 						leaderboardItem.value,
-						leaderboardItem.unit ?? cleanId(data.name).toLowerCase()
+						data.unit ?? cleanId(data.name).toLowerCase()
 					)}
 				</span>
 				{#if leaderboardItem.player}
@@ -91,11 +91,15 @@
 		background-color: var(--theme-lighter-background);
 		padding: 0.5em 0.7em;
 		border-radius: 0.5rem;
-		width: max-content;
+		width: fit-content;
 
 		box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
 	}
 	.leaderboard-info-content {
 		font-style: italic;
+	}
+
+	.leaderboard-profile-list {
+		width: fit-content;
 	}
 </style>
