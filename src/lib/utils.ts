@@ -114,6 +114,13 @@ export function cleanId(id: string) {
         .replace(/_/g, ' ')
 }
 
+export function toTitleCase(s: string) {
+    return s.replace(
+        /\w\S*/g,
+        w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
+    )
+}
+
 export function toRomanNumerals(number: number) {
     return ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX'][number]
 }
@@ -151,4 +158,17 @@ export function formatNumber(n: number, digits = 3) {
     ]
     const item = numberSymbolsLookup.slice().reverse().find(item => n >= item.value)
     return (n / (item?.value ?? 1)).toPrecision(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + (item?.symbol ?? '')
+}
+
+export function formatNumberFromUnit(n: number, unit: null | 'date' | 'time' | string) {
+    switch (unit) {
+        case null:
+            return n.toLocaleString()
+        case 'date':
+            return (new Date(n * 1000)).toUTCString()
+        case 'time':
+            return millisecondsToTime(Math.abs(n))
+        default:
+            return `${n.toLocaleString()} ${unit}`
+    }
 }
