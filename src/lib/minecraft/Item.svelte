@@ -84,6 +84,6 @@
 		position: relative;
 		top: 1.21em;
 		right: 0.1em;
-		font-family: Minecraft;
+		font-family: Minecraft, 'Atkinson Hyperlegible', sans-serif;
 	}
 </style>

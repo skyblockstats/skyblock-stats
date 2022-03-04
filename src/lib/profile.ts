@@ -46,7 +46,7 @@ export function generateInfobox(data: CleanMemberProfile): string[] {
 
         if (mostSignificantKillsStat)
             result.push(
-                `⚔️ ${mostSignificantKillsStat.value.toLocaleString()} ${mostSignificantKillsStat.unit || cleanId(mostSignificantKillsStat.rawName).toLowerCase()}`
+                `⚔ ${mostSignificantKillsStat.value.toLocaleString()} ${mostSignificantKillsStat.unit || cleanId(mostSignificantKillsStat.rawName).toLowerCase()}`
             )
 
         if (mostSignificantDeathsStat)

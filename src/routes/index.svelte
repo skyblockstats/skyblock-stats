@@ -4,6 +4,7 @@
 	import type { CleanUser } from '$lib/APITypes'
 	import donators from '../_donators.json'
 	import Head from '$lib/Head.svelte'
+	import Emoji from '$lib/Emoji.svelte'
 
 	export const prerender = true
 	export const hydrate = false
@@ -44,7 +45,7 @@
 		<h2>Donators</h2>
 		<p>
 			Thank you to these people for
-			<a href="https://ko-fi.com/matdoesdev" target="_blank">donating</a>.
+			<a href="https://ko-fi.com/matdoesdev" target="_blank">donating</a>. <Emoji value="❤" />
 		</p>
 		<ul>
 			{#each donators as donator}

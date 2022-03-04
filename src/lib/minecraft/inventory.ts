@@ -3,7 +3,7 @@ import vanilla from 'skyblock-assets/matchers/vanilla.json'
 import packshq from 'skyblock-assets/matchers/vanilla.json'
 import furfsky_reborn from 'skyblock-assets/matchers/furfsky_reborn.json'
 
-interface Item {
+export interface Item {
     id?: string
     count?: number
     vanillaId: string
@@ -57,8 +57,8 @@ export function itemToUrl(item: Item, packName?: string): string {
     return textureUrl
 }
 
-export function skyblockItemToUrl(skyblockItemName: string) {
-    const item = skyblockItemNameToItem(skyblockItemName)
+export function skyblockItemToUrl(skyblockItem: string | Item) {
+    const item: Item = typeof skyblockItem === 'string' ? skyblockItemNameToItem(skyblockItem) : skyblockItem
     const itemTextureUrl = itemToUrl(item, 'packshq')
     return itemTextureUrl
 }

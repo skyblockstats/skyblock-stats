@@ -34,14 +34,14 @@
 <style>
 	.username {
 		/* usernames have the minecraft font */
-		font-family: Minecraft, sans-serif;
+		font-family: Minecraft, 'Atkinson Hyperlegible', sans-serif;
 		/* reduce the size of the text because the font is too big */
 		font-size: 0.8em;
 		overflow-wrap: anywhere;
 	}
 
 	.username-rank-prefix {
-		font-family: Minecraft, sans-serif;
+		font-family: Minecraft, 'Atkinson Hyperlegible', sans-serif;
 		font-size: 0.8em;
 		overflow-wrap: anywhere;
 	}

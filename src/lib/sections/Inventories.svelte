@@ -2,7 +2,7 @@
 	import Inventory from '$lib/minecraft/Inventory.svelte'
 	import { fade } from 'svelte/transition'
 	import { cleanId } from '$lib/utils'
-	import { skyblockItemToUrl } from '$lib/minecraft/inventory'
+	import { skyblockItemToUrl, type Item } from '$lib/minecraft/inventory'
 
 	export let data
 	export let pack
@@ -13,11 +13,15 @@
 
 	let selectedInventoryName: string = displayingInventories[0]
 
-	const inventoryIconMap = {
-		inventory: 'nether_star',
+	const inventoryIconMap: Record<string, string | Item> = {
+		inventory: {
+			id: 'SKYBLOCK_MENU',
+			vanillaId: 'nether_star',
+			display: { name: 'SkyBlock Menu' },
+		},
 		ender_chest: 'ender_chest',
 		potion_bag: 'potion',
-		fishing_bag: 'cod',
+		fishing_bag: 'fishing_rod',
 		quiver: 'arrow',
 		wardrobe: 'leather_chestplate',
 	}
@@ -80,10 +84,10 @@
 		image-rendering: pixelated;
 	}
 	.inventory-tab-name {
-		vertical-align: middle;
+		vertical-align: text-top;
 	}
 	.inventory-tab:hover,
 	.inventory-tab-active {
-		background-color: rgba(20, 20, 20, 0.9);
+		background-color: rgba(40, 40, 40, 0.9);
 	}
 </style>

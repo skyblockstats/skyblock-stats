@@ -19,7 +19,7 @@
 		padding: 0 0.25rem;
 		border-radius: 3px;
 		box-shadow: 0 0 0 3px #206, 0 0 0 6px #000;
-		font-family: Minecraft;
+		font-family: Minecraft, 'Atkinson Hyperlegible', sans-serif;
 		white-space: nowrap;
 	}
 	#global-tooltip :global(p) {

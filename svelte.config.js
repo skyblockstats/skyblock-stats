@@ -14,6 +14,7 @@ function fetch(url) {
 			})
 
 			res.on('end', () => {
+				console.log(data)
 				resolve(data)
 			})
 		})
