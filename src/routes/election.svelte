@@ -43,14 +43,19 @@
 	$: nextSpecialMayorYear = Math.ceil(((data.current?.year || data.previous.year) + 1) / 8) * 8
 	const specialMayors = ['Scorpius', 'Derpy', 'Jerry']
 
+	let autoInvalidateTimeout: null | NodeJS.Timeout = null
+
 	// invalidate at the end of every minute
 	async function autoInvalidate(first: boolean) {
-		if (browser && !destroyed) {
+		if (browser) {
 			// don't invalidate the first time the function is called
 			if (!first) await invalidate('')
 
 			const lastUpdatedAgo = Date.now() - data.last_updated * 1000
-			setTimeout(() => autoInvalidate(false), lastUpdatedAgo + 10 * 60 * 1000)
+			autoInvalidateTimeout = setTimeout(
+				() => autoInvalidate(false),
+				lastUpdatedAgo + 10 * 60 * 1000
+			)
 		}
 	}
 
@@ -63,6 +68,7 @@
 
 	onDestroy(() => {
 		destroyed = true
+		if (autoInvalidateTimeout) clearTimeout(autoInvalidateTimeout)
 	})
 </script>
 

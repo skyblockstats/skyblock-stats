@@ -12,3 +12,4 @@ node_modules
 .yarn
 /.vercel_build_output
 
+/src/_donators.json
