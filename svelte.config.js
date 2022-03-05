@@ -14,7 +14,6 @@ function fetch(url) {
 			})
 
 			res.on('end', () => {
-				console.log(data)
 				resolve(data)
 			})
 		})
@@ -52,7 +51,6 @@ function shuffle(a) {
 		JSON.stringify(donators),
 		{ encoding: 'utf8' }
 	)
-	console.log('wrote file!')
 })()
 
 /** @type {import('@sveltejs/kit').Config} */

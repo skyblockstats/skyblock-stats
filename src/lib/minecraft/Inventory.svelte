@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { Inventory, Item as APIItem } from '$lib/APITypes'
+	import type { MatcherFile } from 'skyblock-assets'
 
 	import Item from './Item.svelte'
 
 	export let items: Inventory
 	export let name = ''
-	export let pack = ''
+	export let pack: MatcherFile | undefined = undefined
 	export let groupLimit = 9
 
 	// each item group has 9 items

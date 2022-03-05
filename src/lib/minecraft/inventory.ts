@@ -1,7 +1,6 @@
 import * as skyblockAssets from 'skyblock-assets'
 import vanilla from 'skyblock-assets/matchers/vanilla.json'
-import packshq from 'skyblock-assets/matchers/vanilla.json'
-import furfsky_reborn from 'skyblock-assets/matchers/furfsky_reborn.json'
+
 
 export interface Item {
     id?: string
@@ -36,7 +35,7 @@ const INVENTORIES = {
 
 export type Inventories = { [name in keyof typeof INVENTORIES]: Item[] }
 
-export function itemToUrl(item: Item, packName?: string): string {
+export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string {
     const itemNbt: skyblockAssets.NBT = {
         display: {
             Name: item.display?.name
@@ -46,20 +45,28 @@ export function itemToUrl(item: Item, packName?: string): string {
         },
     }
     let textureUrl: string
-    if (item.head_texture)
-        textureUrl = `https://mc-heads.net/head/${item.head_texture}`
-    else
+    if (item.head_texture) {
+        // if it's a head, try without vanilla and if it fails just use the mc-heads url
         textureUrl = skyblockAssets.getTextureUrl({
             id: item.vanillaId,
             nbt: itemNbt,
-            packs: [furfsky_reborn, vanilla]
+            packs: pack ? [pack] : [],
+            noNullTexture: true
+        })
+        if (textureUrl === null)
+            textureUrl = `https://mc-heads.net/head/${item.head_texture}`
+    } else
+        textureUrl = skyblockAssets.getTextureUrl({
+            id: item.vanillaId,
+            nbt: itemNbt,
+            packs: pack ? [pack, vanilla as skyblockAssets.MatcherFile] : [vanilla as skyblockAssets.MatcherFile],
         })
     return textureUrl
 }
 
-export function skyblockItemToUrl(skyblockItem: string | Item) {
+export function skyblockItemToUrl(skyblockItem: string | Item, pack?: skyblockAssets.MatcherFile) {
     const item: Item = typeof skyblockItem === 'string' ? skyblockItemNameToItem(skyblockItem) : skyblockItem
-    const itemTextureUrl = itemToUrl(item, 'packshq')
+    const itemTextureUrl = itemToUrl(item, pack)
     return itemTextureUrl
 }
 

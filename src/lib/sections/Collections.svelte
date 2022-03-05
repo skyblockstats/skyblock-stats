@@ -1,9 +1,10 @@
 <script lang="ts">
+	import furfskyReborn from 'skyblock-assets/matchers/furfsky_reborn.json'
 	import type { CleanMemberProfile, Collection } from '$lib/APITypes'
 	import { skyblockItemToUrl } from '$lib/minecraft/inventory'
 	import ListItemWithIcon from '$lib/ListItemWithIcon.svelte'
-	import { cleanId } from '$lib/utils'
 	import Tooltip from '$lib/Tooltip.svelte'
+	import { cleanId } from '$lib/utils'
 
 	export let data: CleanMemberProfile
 
@@ -21,7 +22,10 @@
 		<h3>{cleanId(categoryName)}</h3>
 		<ul>
 			{#each collections as collection}
-				<ListItemWithIcon url={skyblockItemToUrl(collection.name)} alt={cleanId(collection.name)}>
+				<ListItemWithIcon
+					url={skyblockItemToUrl(collection.name, furfskyReborn)}
+					alt={cleanId(collection.name)}
+				>
 					<Tooltip>
 						<span slot="tooltip">
 							Amount: {collection.xp.toLocaleString()}

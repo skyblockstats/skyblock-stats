@@ -1,11 +1,12 @@
 <script lang="ts">
-	import MinecraftTooltip from './MinecraftTooltip.svelte'
 	import { formattingCodeToHtml, removeFormattingCode } from '$lib/utils'
+	import MinecraftTooltip from './MinecraftTooltip.svelte'
+	import type { MatcherFile } from 'skyblock-assets'
 	import { itemToUrl } from './inventory'
 
 	export let item: any | null
 	export let isslot = true
-	export let pack = ''
+	export let pack: MatcherFile | undefined = undefined
 
 	let itemLoreHtml: string | null
 	let itemNameHtml: string | null

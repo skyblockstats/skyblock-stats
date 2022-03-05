@@ -9,7 +9,40 @@
 			r.json()
 		)
 
-		const pack = params.pack ?? data?.customization?.pack
+		const packName = params.pack ?? data?.customization?.pack
+
+		let pack: MatcherFile | undefined
+
+		switch (packName) {
+			case 'ectoplasm':
+				pack = (await import('skyblock-assets/matchers/ectoplasm.json')) as any
+				break
+			case 'furfsky':
+				pack = (await import('skyblock-assets/matchers/furfsky.json')) as any
+				break
+			case 'furfsky_reborn':
+				pack = (await import('skyblock-assets/matchers/furfsky_reborn.json')) as any
+				break
+			case 'hypixel+':
+				pack = (await import('skyblock-assets/matchers/hypixel+.json')) as any
+				break
+			case 'packshq':
+				pack = (await import('skyblock-assets/matchers/packshq.json')) as any
+				break
+			case 'rnbw':
+				pack = (await import('skyblock-assets/matchers/rnbw.json')) as any
+				break
+			case 'vanilla':
+				pack = (await import('skyblock-assets/matchers/vanilla.json')) as any
+				break
+			case 'worlds_and_beyond':
+				pack = (await import('skyblock-assets/matchers/worlds_and_beyond.json')) as any
+				break
+			default:
+				// packshq is the default pack
+				pack = (await import('skyblock-assets/matchers/furfsky_reborn.json')) as any
+				break
+		}
 
 		return {
 			props: {
@@ -24,9 +57,11 @@
 	import Leaderboards from '$lib/sections/Leaderboards.svelte'
 	import Inventories from '$lib/sections/Inventories.svelte'
 	import Collections from '$lib/sections/Collections.svelte'
+	import BackgroundImage from '$lib/BackgroundImage.svelte'
 	import Username from '$lib/minecraft/Username.svelte'
 	import StatList from '$lib/sections/StatList.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
+	import type { MatcherFile } from 'skyblock-assets'
 	import Minions from '$lib/sections/Minions.svelte'
 	import Collapsible from '$lib/Collapsible.svelte'
 	import Skills from '$lib/sections/Skills.svelte'
@@ -40,10 +75,9 @@
 	import Toc from '$lib/Toc.svelte'
 
 	import type { CleanMemberProfile } from '$lib/APITypes'
-	import { onDestroy } from 'svelte'
 
 	export let data: CleanMemberProfile
-	export let pack: string
+	export let pack: MatcherFile
 
 	const categories = [
 		'deaths',
@@ -57,22 +91,11 @@
 		'collections',
 		'leaderboards',
 	]
-
-	// cursed svelte :D
-	$: bodyStyle = data.customization?.backgroundUrl
-		? `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
-		: ''
-
-	// get rid of the body style when we leave the page
-	// not doing this will sometimes cause the background to stay
-	onDestroy(() => {
-		bodyStyle = ''
-	})
 </script>
 
-<svelte:head>
-	{@html bodyStyle}
-</svelte:head>
+{#if data.customization?.backgroundUrl}
+	<BackgroundImage url={data.customization.backgroundUrl} />
+{/if}
 
 <Head
 	title="{data.member.username}'s SkyBlock profile ({data.member.profileName})"

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Inventory from '$lib/minecraft/Inventory.svelte'
-	import { fade } from 'svelte/transition'
-	import { cleanId } from '$lib/utils'
 	import { skyblockItemToUrl, type Item } from '$lib/minecraft/inventory'
+	import Inventory from '$lib/minecraft/Inventory.svelte'
+	import type { MatcherFile } from 'skyblock-assets'
+	import { cleanId } from '$lib/utils'
 
 	export let data
-	export let pack
+	export let pack: MatcherFile
 
 	let displayingInventories: string[] = []
 	for (const inventoryName in data.member.inventories)
@@ -19,11 +19,38 @@
 			vanillaId: 'nether_star',
 			display: { name: 'SkyBlock Menu' },
 		},
-		ender_chest: 'ender_chest',
-		potion_bag: 'potion',
-		fishing_bag: 'fishing_rod',
-		quiver: 'arrow',
-		wardrobe: 'leather_chestplate',
+		ender_chest: {
+			vanillaId: 'ender_chest',
+			display: { name: '\\u00a7aEnder Chest' },
+		},
+		talisman_bag: {
+			vanillaId: 'skull:3',
+			display: { name: 'Accessory Bag' },
+			head_texture: '961a918c0c49ba8d053e522cb91abc74689367b4d8aa06bfc1ba9154730985ff',
+		},
+		potion_bag: {
+			vanillaId: 'skull:3',
+			display: { name: 'Potion Bag' },
+			head_texture: '9f8b82427b260d0a61e6483fc3b2c35a585851e08a9a9df372548b4168cc817c',
+		},
+		fishing_bag: {
+			vanillaId: 'skull:3',
+			display: { name: 'Fishing Bag' },
+			head_texture: 'eb8e297df6b8dffcf135dba84ec792d420ad8ecb458d144288572a84603b1631',
+		},
+		quiver: {
+			vanillaId: 'skull:3',
+			display: {
+				name: 'Quiver',
+			},
+			head_texture: '4cb3acdc11ca747bf710e59f4c8e9b3d949fdd364c6869831ca878f0763d1787',
+		},
+		wardrobe: {
+			vanillaId: 'leather_chestplate',
+			display: {
+				name: '\\u00a7aWardrobe',
+			},
+		},
 	}
 </script>
 
@@ -38,7 +65,7 @@
 				<img
 					class="inventory-tab-icon"
 					loading="lazy"
-					src={skyblockItemToUrl(inventoryIconMap[inventoryName])}
+					src={skyblockItemToUrl(inventoryIconMap[inventoryName], pack)}
 					alt={cleanId(inventoryName)}
 				/>
 			{/if}
@@ -68,7 +95,7 @@
 		color: var(--theme-main-text);
 		border: none;
 		border-radius: 0;
-		/* padding: 0.8em; */
+		padding: 0 0.5em;
 		cursor: pointer;
 		transition-duration: 200ms;
 		height: 2.5em;

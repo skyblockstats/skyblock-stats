@@ -28,10 +28,10 @@
 
 <script lang="ts">
 	import type { CleanProfile, CleanUser } from '$lib/APITypes'
+	import BackgroundImage from '$lib/BackgroundImage.svelte'
 	import Username from '$lib/minecraft/Username.svelte'
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import { onDestroy } from 'svelte'
 
 	export let data: CleanUser
 
@@ -53,22 +53,11 @@
 
 		isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
 	}
-
-	// cursed svelte :D
-	$: bodyStyle = data.customization?.backgroundUrl
-		? `<style>:root{--background:url(${data.customization.backgroundUrl})}</style>`
-		: ''
-
-	// get rid of the body style when we leave the page
-	// not doing this will sometimes cause the background to stay
-	onDestroy(() => {
-		bodyStyle = ''
-	})
 </script>
 
-<svelte:head>
-	{@html bodyStyle}
-</svelte:head>
+{#if data.customization?.backgroundUrl}
+	<BackgroundImage url={data.customization.backgroundUrl} />
+{/if}
 
 <Head title={data.player ? `${data.player.username}'s SkyBlock profiles` : 'Invalid player'} />
 <Header />
