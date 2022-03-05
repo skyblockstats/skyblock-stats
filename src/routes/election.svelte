@@ -105,7 +105,7 @@
 		<h2>Ongoing election <span class="candidate-year">(Year {data.current.year})</span></h2>
 		<p class="election-ends-in-text">
 			<b>Ends in:</b>
-			{millisecondsToTime(skyblockTime(data.previous.year + 1, 3, 27) - Date.now())}
+			{millisecondsToTime(skyblockTime(data.previous.year + 1, 3, 27) - currentTime)}
 		</p>
 		<div class="mayor-candidates">
 			{#each data.current.candidates.sort((a, b) => a.votes - b.votes) as candidate}
@@ -206,7 +206,9 @@
 			<li>
 				<b>{specialMayors[(nextSpecialMayorYear / 8 + i) % 3]}</b>
 				<span class="next-special-mayor-time">
-					({millisecondsToTime(skyblockTime(nextSpecialMayorYear + 8 * i + 1, 3, 27) - Date.now())})
+					({millisecondsToTime(
+						skyblockTime(nextSpecialMayorYear + 8 * i + 1, 3, 27) - currentTime
+					)})
 				</span>
 			</li>
 		{/each}
