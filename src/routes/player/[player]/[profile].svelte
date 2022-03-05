@@ -186,4 +186,12 @@
 	section {
 		margin-bottom: 0.5em;
 	}
+
+	@media only screen and (max-width: 1040px) {
+		.profile-skills {
+			position: unset;
+			display: block;
+			width: max-content;
+		}
+	}
 </style>

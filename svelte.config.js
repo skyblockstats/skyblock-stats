@@ -34,7 +34,6 @@ function shuffle(a) {
 	return a
 }
 
-console.log('svelte.config.js');
 (async () => {
 	const API_URL = 'https://skyblock-api.matdoes.dev/'
 
