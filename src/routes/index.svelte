@@ -30,8 +30,8 @@
 	<hr style="margin: 25vh 0 2em 0" />
 
 	<section>
-		<h3>Other SkyBlock tools</h3>
-		<ul>
+		<h2>Other SkyBlock tools</h2>
+		<ul id="other-tools-list">
 			<li><a>Auction prices (coming soon)</a></li>
 			<li><a href="/leaderboards">Leaderboards</a></li>
 			<li><a>Bazaar (coming soon)</a></li>
@@ -87,5 +87,9 @@
 
 	#donators p {
 		margin: 0;
+	}
+
+	li {
+		padding: 0.2em 0;
 	}
 </style>

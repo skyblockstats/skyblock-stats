@@ -81,28 +81,40 @@ function moveToEndOfId(word: string, thing: string) {
     return thing
 }
 
-export function millisecondsToTime(totalMilliseconds: number) {
+interface MillisecondsToTimeOpts {
+    parts: number
+}
+
+export function millisecondsToTime(totalMilliseconds: number, opts: MillisecondsToTimeOpts = { parts: 2 }) {
     const totalSeconds = totalMilliseconds / 1000
     const totalMinutes = totalSeconds / 60
     const totalHours = totalMinutes / 60
     const totalDays = totalHours / 24
     const milliseconds = Math.floor(totalMilliseconds) % 1000
+
     const seconds = Math.floor(totalSeconds) % 60
     const minutes = Math.floor(totalMinutes) % 60
     const hours = Math.floor(totalHours) % 24
     const days = Math.floor(totalDays)
+
     const stringUnits: string[] = []
-    if (days > 1) stringUnits.push(`${days} days`)
-    else if (days == 1) stringUnits.push(`${days} day`)
-    if (hours > 1) stringUnits.push(`${hours} hours`)
-    else if (hours == 1) stringUnits.push(`${hours} hour`)
-    if (minutes > 1) stringUnits.push(`${minutes} minutes`)
-    else if (minutes == 1) stringUnits.push(`${minutes} minute`)
-    if (seconds > 1) stringUnits.push(`${seconds} seconds`)
-    else if (seconds == 1) stringUnits.push(`${seconds} second`)
-    if (milliseconds > 1) stringUnits.push(`${milliseconds} milliseconds`)
-    else if (milliseconds == 1) stringUnits.push(`${milliseconds} millisecond`)
-    return stringUnits.slice(0, 2).join(' and ')
+
+    if (totalDays > 1) stringUnits.push(`${days} days`)
+    else if (totalDays == 1) stringUnits.push(`${days} day`)
+    if (totalHours > 1) stringUnits.push(`${hours} hours`)
+    else if (totalHours == 1) stringUnits.push(`${hours} hour`)
+    if (totalMinutes > 1) stringUnits.push(`${minutes} minutes`)
+    else if (totalMinutes == 1) stringUnits.push(`${minutes} minute`)
+    if (totalSeconds > 1) stringUnits.push(`${seconds} seconds`)
+    else if (totalSeconds == 1) stringUnits.push(`${seconds} second`)
+    if (totalMilliseconds > 1) stringUnits.push(`${milliseconds} milliseconds`)
+    else if (totalMilliseconds == 1) stringUnits.push(`${milliseconds} millisecond`)
+    // comma separated, "and" before last
+
+    let partsCount = opts.parts
+    if (stringUnits.length < opts.parts) partsCount = stringUnits.length
+    if (partsCount === 1) return stringUnits[0]
+    return stringUnits.slice(0, partsCount - 1).join(', ') + ' and ' + stringUnits[partsCount - 1]
 }
 
 export function cleanId(id: string) {
@@ -171,4 +183,14 @@ export function formatNumberFromUnit(n: number, unit: null | 'date' | 'time' | s
         default:
             return `${n.toLocaleString()} ${unit}`
     }
+}
+
+/** Get the milliseconds since epoch for a given SkyBlock date. The year, month, and day are 1 indexed. */
+export function skyblockTime(year: number, month = 1, day = 1) {
+    const sbEpoch = 1560275700000
+    let time = sbEpoch
+    if (year) time += 446400000 * (year)
+    if (month) time += 37200000 * (month - 1)
+    if (day) time += 1200000 * (day - 1)
+    return time
 }

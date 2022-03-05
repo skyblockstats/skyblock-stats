@@ -138,3 +138,28 @@ export interface Collection {
 	level: number
 	category: CollectionCategory
 }
+
+export interface MayorPerk {
+	name: string
+	description: string
+}
+
+export interface Candidate {
+	name: string
+	perks: MayorPerk[]
+	votes: number
+	color: string | null
+}
+
+export interface ElectionData {
+	last_updated: number
+	previous: {
+		year: number
+		winner: string
+		candidates: Candidate[]
+	}
+	current: {
+		year: number
+		candidates: Candidate[]
+	} | null
+}
