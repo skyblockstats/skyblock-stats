@@ -15,8 +15,11 @@
 		bodyStyle = ''
 		// hack since sometimes the style is not removed
 		if (browser) {
-			let styleEl = document.getElementById('background-image-style')
-			if (styleEl) styleEl.remove()
+			// if we don't wait a frame, svelte gives an error sometimes
+			requestAnimationFrame(() => {
+				let styleEl = document.getElementById('background-image-style')
+				if (styleEl) styleEl.remove()
+			})
 		}
 	})
 </script>
