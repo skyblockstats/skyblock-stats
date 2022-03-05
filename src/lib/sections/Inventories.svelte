@@ -51,6 +51,13 @@
 				name: '\\u00a7aWardrobe',
 			},
 		},
+		trick_or_treat_bag: {
+			vanillaId: 'skull:3',
+			display: {
+				name: 'Trick or Treat Bag',
+			},
+			head_texture: 'e50f712e877dfd910c97f3819a200a05d49ee6b83b592686e099b9ecd443f228',
+		},
 	}
 </script>
 
