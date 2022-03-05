@@ -3,16 +3,16 @@
 	import { cleanId, formatNumber } from '$lib/utils'
 
 	const skillImages = {
-		runecrafting: 'https://cdn.matdoes.dev/images/runescape/runecrafting.webp',
-		alchemy: 'https://cdn.matdoes.dev/images/runescape/herblore.webp',
-		combat: 'https://cdn.matdoes.dev/images/runescape/attack.webp',
-		enchanting: 'https://cdn.matdoes.dev/images/runescape/magic.webp',
-		foraging: 'https://cdn.matdoes.dev/images/runescape/woodcutting.webp',
-		mining: 'https://cdn.matdoes.dev/images/runescape/mining.webp',
-		taming: 'https://cdn.matdoes.dev/images/runescape/hunter.webp',
-		farming: 'https://cdn.matdoes.dev/images/runescape/farming.webp',
-		fishing: 'https://cdn.matdoes.dev/images/runescape/fishing.webp',
-		carpentry: 'https://cdn.matdoes.dev/images/runescape/construction.webp',
+		runecrafting: '/skill-icons/runecrafting.webp',
+		alchemy: '/skill-icons/herblore.webp',
+		combat: '/skill-icons/attack.webp',
+		enchanting: '/skill-icons/magic.webp',
+		foraging: '/skill-icons/woodcutting.webp',
+		mining: '/skill-icons/mining.webp',
+		taming: '/skill-icons/hunter.webp',
+		farming: '/skill-icons/farming.webp',
+		fishing: '/skill-icons/fishing.webp',
+		carpentry: '/skill-icons/construction.webp',
 	}
 
 	export let data
