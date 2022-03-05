@@ -82,11 +82,11 @@
 			{millisecondsToTime(currentTime - data.last_updated * 1000, {
 				smallestUnit: 1,
 				parts: 1,
-			})}
+			})} ago
 		</p>
 		<p>
 			<b>Next API update:</b>
-			{millisecondsToTime(currentTime - data.last_updated * 1000 + 10 * 60 * 1000, {
+			{millisecondsToTime(10 * 60 * 1000 - (currentTime - data.last_updated * 1000), {
 				smallestUnit: 1,
 				parts: 1,
 			})}
