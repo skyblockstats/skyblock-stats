@@ -3,7 +3,9 @@
 	import { API_URL } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
-		const data = await fetch(`${API_URL}election`).then(r => r.json())
+		const data = await fetch(`${API_URL}election?t=${Math.floor(Date.now() / 1000)}`).then(r =>
+			r.json()
+		)
 
 		return {
 			props: {
