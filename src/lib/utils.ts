@@ -82,10 +82,19 @@ function moveToEndOfId(word: string, thing: string) {
 }
 
 interface MillisecondsToTimeOpts {
-    parts: number
+    parts?: number
+    /**
+     * 0: All units
+     * 1: Don't show milliseconds
+     * 2: Don't show seconds
+     * 3: Don't show minutes
+     * 4: Don't show hours
+     * 5: Don't show days
+     */
+    smallestUnit?: number
 }
 
-export function millisecondsToTime(totalMilliseconds: number, opts: MillisecondsToTimeOpts = { parts: 2 }) {
+export function millisecondsToTime(totalMilliseconds: number, opts: MillisecondsToTimeOpts = {}) {
     const totalSeconds = totalMilliseconds / 1000
     const totalMinutes = totalSeconds / 60
     const totalHours = totalMinutes / 60
@@ -99,20 +108,18 @@ export function millisecondsToTime(totalMilliseconds: number, opts: Milliseconds
 
     const stringUnits: string[] = []
 
-    if (totalDays > 1) stringUnits.push(`${days} days`)
-    else if (totalDays == 1) stringUnits.push(`${days} day`)
-    if (totalHours > 1) stringUnits.push(`${hours} hours`)
-    else if (totalHours == 1) stringUnits.push(`${hours} hour`)
-    if (totalMinutes > 1) stringUnits.push(`${minutes} minutes`)
-    else if (totalMinutes == 1) stringUnits.push(`${minutes} minute`)
-    if (totalSeconds > 1) stringUnits.push(`${seconds} seconds`)
-    else if (totalSeconds == 1) stringUnits.push(`${seconds} second`)
-    if (totalMilliseconds > 1) stringUnits.push(`${milliseconds} milliseconds`)
-    else if (totalMilliseconds == 1) stringUnits.push(`${milliseconds} millisecond`)
+    const smallestUnit = opts.smallestUnit ?? 0
+
+    if (totalDays > 1 && smallestUnit <= 4) stringUnits.push(days === 1 ? `${days} day` : `${days} days`)
+    if (totalHours > 1 && smallestUnit <= 3) stringUnits.push(hours === 1 ? `${hours} hour` : `${hours} hours`)
+    if (totalMinutes > 1 && smallestUnit <= 2) stringUnits.push(minutes === 1 ? `${minutes} minute` : `${minutes} minutes`)
+    if (totalSeconds > 1 && smallestUnit <= 1) stringUnits.push(seconds === 1 ? `${seconds} second` : `${seconds} seconds`)
+    if (totalMilliseconds > 0 && smallestUnit <= 0) stringUnits.push(`${milliseconds} ms`)
+
     // comma separated, "and" before last
 
-    let partsCount = opts.parts
-    if (stringUnits.length < opts.parts) partsCount = stringUnits.length
+    let partsCount = opts.parts ?? 2
+    if (stringUnits.length < partsCount) partsCount = stringUnits.length
     if (partsCount === 1) return stringUnits[0]
     return stringUnits.slice(0, partsCount - 1).join(', ') + ' and ' + stringUnits[partsCount - 1]
 }

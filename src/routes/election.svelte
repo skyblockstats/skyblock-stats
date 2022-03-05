@@ -73,17 +73,26 @@
 	<div class="next-mayor-update">
 		<p>
 			<b>Last API update:</b>
-			{millisecondsToTime(currentTime - data.last_updated * 1000)}
+			{millisecondsToTime(currentTime - data.last_updated * 1000, {
+				smallestUnit: 1,
+				parts: 1,
+			})}
 		</p>
 		<p>
 			<b>Next API update:</b>
-			{millisecondsToTime(currentTime - data.last_updated * 1000 + 10 * 60 * 1000)}
+			{millisecondsToTime(currentTime - data.last_updated * 1000 + 10 * 60 * 1000, {
+				smallestUnit: 1,
+				parts: 1,
+			})}
 		</p>
 	</div>
 	<h1>SkyBlock Mayor Election Status</h1>
 	<p>
 		<b>Next election:</b>
-		{millisecondsToTime(skyblockTime(data.previous.year + 1, 6, 27) - currentTime, { parts: 3 })}
+		{millisecondsToTime(skyblockTime(data.previous.year + 1, 6, 27) - currentTime, {
+			parts: 3,
+			smallestUnit: 1,
+		})}
 	</p>
 
 	{#if data.current}
