@@ -49,19 +49,14 @@
 
 	// invalidate at the end of every minute
 	async function autoInvalidate(first: boolean) {
-		if (browser) {
-			// don't invalidate the first time the function is called
-			if (!first) await invalidate('')
+		// don't invalidate the first time the function is called
+		if (!first) await invalidate('')
 
-			const lastUpdatedAgo = Date.now() - data.last_updated * 1000
-			autoInvalidateTimeout = setTimeout(
-				() => autoInvalidate(false),
-				lastUpdatedAgo + 10 * 60 * 1000
-			)
-		}
+		const lastUpdatedAgo = Date.now() - data.last_updated * 1000
+		autoInvalidateTimeout = setTimeout(() => autoInvalidate(false), lastUpdatedAgo + 10 * 60 * 1000)
 	}
 
-	autoInvalidate(true)
+	if (browser) autoInvalidate(true)
 
 	onMount(() => {
 		destroyed = false

@@ -36,6 +36,7 @@
 	img {
 		display: block;
 		width: 5em;
+		height: 12em;
 		margin: 0 auto;
 	}
 </style>

@@ -95,6 +95,9 @@ interface MillisecondsToTimeOpts {
 }
 
 export function millisecondsToTime(totalMilliseconds: number, opts: MillisecondsToTimeOpts = {}) {
+    if (totalMilliseconds < 0) {
+        return 'Invalid time'
+    }
     const totalSeconds = totalMilliseconds / 1000
     const totalMinutes = totalSeconds / 60
     const totalHours = totalMinutes / 60
