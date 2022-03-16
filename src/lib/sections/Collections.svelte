@@ -42,10 +42,11 @@
 <style>
 	ul {
 		margin: 0;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-column-gap: 0;
+		display: flex;
+		flex-wrap: wrap;
 		width: fit-content;
+		/* this ensures there's at most 2 lines */
+		max-width: 30em;
 	}
 
 	ul > :global(li) {

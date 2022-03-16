@@ -143,12 +143,14 @@
 			{/if}
 			{#if data.member.stats}
 				{#each categories as category}
-					<section>
-						<Collapsible id={category}>
-							<h2 slot="title">{cleanId(category)}</h2>
-							<StatList stats={data.member.stats.filter(s => s.category === category)} />
-						</Collapsible>
-					</section>
+					{#if data.member.stats?.find(s => s.category === category)}
+						<section>
+							<Collapsible id={category}>
+								<h2 slot="title">{cleanId(category)}</h2>
+								<StatList stats={data.member.stats.filter(s => s.category === category)} />
+							</Collapsible>
+						</section>
+					{/if}
 				{/each}
 			{/if}
 			<section>
@@ -207,6 +209,7 @@
 
 	section {
 		margin-bottom: 0.5em;
+		max-width: fit-content;
 	}
 
 	@media only screen and (max-width: 1040px) {

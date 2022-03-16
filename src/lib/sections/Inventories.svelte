@@ -124,4 +124,16 @@
 	.inventory-tab-active {
 		background-color: rgba(40, 40, 40, 0.9);
 	}
+
+	@media only screen and (max-width: 480px) {
+		.inventory-content:global(#inventory .item) {
+			/* there's no good way to override the existing 32px size without !important :( */
+			font-size: 24px !important;
+		}
+	}
+	@media only screen and (max-width: 350px) {
+		.inventory-content:global(#inventory .item) {
+			font-size: 16px !important;
+		}
+	}
 </style>

@@ -64,9 +64,9 @@
 
 	ul {
 		margin-top: 0;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-column-gap: 2em;
+		display: flex;
+		flex-wrap: wrap;
+		max-width: 30em;
 	}
 	ul > li {
 		width: 10em;
