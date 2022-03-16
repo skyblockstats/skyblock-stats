@@ -130,32 +130,6 @@
 		</div>
 	{/if}
 
-	<!-- 
-<h2>Previous election <span class="candidate-year">({{ skyblockYear(data.previous.year) }})</span></h2>
-<div class="mayor-candidates">
-	{% for candidate in data.previous.candidates|sort(true, false, 'votes') %}
-	<div class="mayor">
-		{% set color = colorCodes[candidate.color] if candidate.color else null %}
-		<div>
-			<h3{% if color %} style="color: {{color}}"{% endif %}>{{candidate.name}}</h3>
-			<p class="mayor-vote-count"><span class="mayor-vote-count-number"{% if color %} style="color: {{color}}"{% endif %}>{{candidate.votes.toLocaleString()}}</span> votes</p>
-			{% if candidate.name == data.previous.winner %}
-			<p class="mayor-winner">Winner</p>
-			{% endif %}
-			{{ renderMayor(candidate.name) }}
-		</div>
-		<ul class="mayor-perks">
-			{% for perk in candidate.perks %}
-			<div class="mayor-perk">
-				<h4{% if color %} style="color: {{ color }}"{% endif %}>{{ perk.name }}</h4>
-				<p>{{ perk.description|formattingCodeToHtml|safe }}</p>
-			</div>
-			{% endfor %}
-		</ul>
-	</div>
-	{% endfor %}
-</div> -->
-
 	<h2>
 		Previous election <span class="candidate-year">(Year {data.previous.year})</span>
 	</h2>
