@@ -79,18 +79,17 @@
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
 
-	const categories = [
-		'deaths',
-		'kills',
-		'auctions',
-		'fishing',
-		'races',
-		'misc',
-		'minions',
-		'zones',
-		'collections',
-		'leaderboards',
-	]
+	const categories: string[] = []
+	if (data.member.stats?.find(s => s.category === 'deaths')) categories.push('deaths')
+	if (data.member.stats?.find(s => s.category === 'kills')) categories.push('kills')
+	if (data.member.stats?.find(s => s.category === 'auctions')) categories.push('auctions')
+	if (data.member.stats?.find(s => s.category === 'fishing')) categories.push('fishing')
+	if (data.member.stats?.find(s => s.category === 'races')) categories.push('races')
+	categories.push('misc')
+	categories.push('minions')
+	categories.push('zones')
+	if (data.member.collections && data.member.collections.length > 0) categories.push('collections')
+	categories.push('leaderboards')
 </script>
 
 {#if data.customization?.backgroundUrl}
@@ -144,14 +143,12 @@
 			{/if}
 			{#if data.member.stats}
 				{#each categories as category}
-					{#if data.member.stats?.find(s => s.category === category)}
-						<section>
-							<Collapsible id={category}>
-								<h2 slot="title">{cleanId(category)}</h2>
-								<StatList stats={data.member.stats.filter(s => s.category === category)} />
-							</Collapsible>
-						</section>
-					{/if}
+					<section>
+						<Collapsible id={category}>
+							<h2 slot="title">{cleanId(category)}</h2>
+							<StatList stats={data.member.stats.filter(s => s.category === category)} />
+						</Collapsible>
+					</section>
 				{/each}
 			{/if}
 			<section>
@@ -166,12 +163,14 @@
 					<Zones {data} />
 				</Collapsible>
 			</section>
-			<section>
-				<Collapsible id="collections">
-					<h2 slot="title">Collections</h2>
-					<Collections {data} />
-				</Collapsible>
-			</section>
+			{#if categories.includes('collections')}
+				<section>
+					<Collapsible id="collections">
+						<h2 slot="title">Collections</h2>
+						<Collections {data} />
+					</Collapsible>
+				</section>
+			{/if}
 			<section>
 				<Collapsible id="leaderboards">
 					<h2 slot="title">Leaderboards</h2>

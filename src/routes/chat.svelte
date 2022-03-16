@@ -16,9 +16,7 @@
 	let imageDisplay: 'none' | 'block' = 'none'
 
 	function generateImage() {
-		// const mode = modesEl.value
 		let url = 'https://fake-chat.matdoes.dev/render.png?'
-		// console.log(userEl.innerText)
 		url = url + `m=${modeId}`
 		if (modeUsesIgn) url += `&u=${ign}`
 		if (modeUsesData) url += '&d=' + encodeURIComponent(data)
@@ -26,13 +24,6 @@
 
 		generatedUrl = url
 		imageDisplay = 'none'
-
-		// console.log(url)
-		// outputImageEl.src = url
-		// outputImageEl.style.display = 'none'
-		// outputImageEl.onload = () => {
-		// 	outputImageEl.style.display = 'block'
-		// }
 	}
 </script>
 
