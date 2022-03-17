@@ -2,14 +2,16 @@
 
 // // See https://kit.svelte.dev/docs/typescript
 // // for information about these interfaces
-// declare namespace App {
-// 	interface Locals {
-// 		userid: string;
-// 	}
+declare namespace App {
+	interface Locals {
+		sid: string | undefined
+	}
 
-// 	interface Platform {}
+	// interface Platform {}
 
-// 	interface Session {}
+	interface Session {
+		sid: string | undefined
+	}
 
-// 	interface Stuff {}
-// }
+	// interface Stuff {}
+}

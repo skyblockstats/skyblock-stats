@@ -1,4 +1,6 @@
-export async function post({ request }) {
+import type { RequestHandler } from '@sveltejs/kit'
+
+export const post: RequestHandler = async ({ request }) => {
     const form = await request.formData()
 
     const player = form.get('user-search')

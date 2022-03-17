@@ -163,3 +163,31 @@ export interface ElectionData {
 		candidates: Candidate[]
 	} | null
 }
+
+interface SessionSchema {
+	_id?: string
+	refresh_token: string
+	discord_user: {
+		id: string
+		name: string
+	}
+	lastUpdated: Date
+}
+
+export interface AccountCustomization {
+	backgroundUrl?: string
+	pack?: string
+	emoji?: string
+}
+
+export interface AccountSchema {
+	_id?: string
+	discordId: string
+	minecraftUuid?: string
+	customization?: AccountCustomization
+}
+
+export interface CleanSocialMedia {
+	discord: string | null
+	forums: string | null
+}

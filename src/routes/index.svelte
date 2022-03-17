@@ -1,13 +1,28 @@
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit'
+	import { API_URL } from '$lib/api'
+
+	export const load: Load = async ({ params, fetch, session }) => {
+		return {
+			props: {
+				loggedIn: session.sid !== undefined,
+			},
+		}
+	}
+</script>
+
 <script lang="ts">
 	import Username from '$lib/minecraft/Username.svelte'
 	import SearchUser from '$lib/SearchUser.svelte'
-	import type { CleanUser } from '$lib/APITypes'
 	import donators from '../_donators.json'
 	import Head from '$lib/Head.svelte'
 	import Emoji from '$lib/Emoji.svelte'
+	import LoginButton from '$lib/LoginButton.svelte'
 
-	export const prerender = true
+	// export const prerender = true
 	export const hydrate = false
+
+	export let loggedIn: boolean
 </script>
 
 <svelte:head>
@@ -20,6 +35,7 @@
 />
 
 <main>
+	<LoginButton {loggedIn} />
 	<section class="title-section">
 		<h1>SkyBlock Stats</h1>
 		<SearchUser>
@@ -56,7 +72,6 @@
 	<section>
 		<h2>Info</h2>
 		<p>Website made by <a href="https://matdoes.dev">mat</a>.</p>
-		<p>Join the <a href="https://discord.gg/nWQKpzPCPJ">Forum Sweats</a> Discord server.</p>
 		<p>
 			Resource packs: <a href="//packshq.com">PacksHQ</a> (default),
 			<a href="//hypixel.net/threads/2138599">Furfsky</a>,

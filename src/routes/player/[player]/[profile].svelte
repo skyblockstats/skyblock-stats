@@ -39,7 +39,7 @@
 				pack = (await import('skyblock-assets/matchers/worlds_and_beyond.json')) as any
 				break
 			default:
-				// packshq is the default pack
+				// furfsky reborn is the default pack
 				pack = (await import('skyblock-assets/matchers/furfsky_reborn.json')) as any
 				break
 		}
