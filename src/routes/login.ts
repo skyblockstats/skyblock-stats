@@ -1,13 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit'
+import { DISCORD_CLIENT_ID } from '../env'
 
-// @ts-ignore Cloudflare Workers can't read process.env
-const discordClientId = process?.env?.DISCORD_CLIENT_ID || DISCORD_CLIENT_ID
-if (!discordClientId)
-	console.warn('DISCORD_CLIENT_ID is not set as an environment variable. This is required for logging in with Discord to work.')
 
 export const get: RequestHandler = async ({ request }) => {
 	const host = request.headers.get('host')
-	if (!discordClientId)
+	if (!DISCORD_CLIENT_ID)
 		return {
 			status: 500,
 			headers: {
@@ -30,7 +27,7 @@ export const get: RequestHandler = async ({ request }) => {
 	return {
 		status: 303,
 		headers: {
-			location: `https://discord.com/oauth2/authorize?client_id=${discordClientId}&redirect_uri=${protocol}://${host}%2Floggedin&response_type=code&scope=identify`
+			location: `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${protocol}://${host}%2Floggedin&response_type=code&scope=identify`
 		}
 	}
 }

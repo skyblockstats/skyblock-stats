@@ -5,6 +5,7 @@ import backgroundFileNames from '../../_backgrounds.json'
 import donators from '../../_donators.json'
 import admins from '../../_admins.json'
 import type { JSONValue } from '@sveltejs/kit/types/internal'
+import { SKYBLOCK_STATS_API_KEY } from '../../env'
 
 const emojiRegex = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/
 
@@ -12,11 +13,6 @@ function isValidEmoji(emoji: string) {
 	const match = emojiRegex.exec(emoji)
 	return match && match[0] === emoji && match.index === 0
 }
-
-// @ts-ignore Cloudflare Workers can't read process.env
-const skyblockStatsApiKey = process?.env?.SKYBLOCK_STATS_API_KEY || SKYBLOCK_STATS_API_KEY
-if (!skyblockStatsApiKey)
-	console.warn('DISCORD_CLIENT_ID is not set as an environment variable. This is required for logging in with Discord to work.')
 
 
 export const patch: RequestHandler = async ({ request, locals }) => {
@@ -26,7 +22,7 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 			status: 401,
 		}
 	}
-	if (!skyblockStatsApiKey) {
+	if (!SKYBLOCK_STATS_API_KEY) {
 		return {
 			body: { ok: false, error: 'The SKYBLOCK_STATS_API_KEY environment variable is not set.' },
 			status: 500,
@@ -117,7 +113,7 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			key: skyblockStatsApiKey
+			key: SKYBLOCK_STATS_API_KEY
 		},
 		body: JSON.stringify(updatedAccount),
 	}).then(r => r.json())

@@ -1,11 +1,7 @@
 import { API_URL } from '$lib/api'
 import type { AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
 import type { RequestHandler } from '@sveltejs/kit'
-
-// @ts-ignore Cloudflare Workers can't read process.env
-const skyblockStatsApiKey = process?.env?.SKYBLOCK_STATS_API_KEY || SKYBLOCK_STATS_API_KEY
-if (!skyblockStatsApiKey)
-	console.warn('DISCORD_CLIENT_ID is not set as an environment variable. This is required for logging in with Discord to work.')
+import { SKYBLOCK_STATS_API_KEY } from '../env'
 
 
 function redirect(status: number, location: string) {
@@ -18,7 +14,7 @@ function redirect(status: number, location: string) {
 }
 
 export const post: RequestHandler = async ({ request, locals }) => {
-	if (!skyblockStatsApiKey) {
+	if (!SKYBLOCK_STATS_API_KEY) {
 		return redirect(303, `/verify?error=NO_KEY`)
 	}
 	if (locals.sid === undefined) {
@@ -69,7 +65,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			key: skyblockStatsApiKey
+			key: SKYBLOCK_STATS_API_KEY
 		},
 		body: JSON.stringify(updatedAccount),
 	}).then(r => r.json())
