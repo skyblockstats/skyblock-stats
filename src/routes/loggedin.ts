@@ -20,12 +20,13 @@ export const get: RequestHandler = async ({ url }) => {
 		return res.json()
 	})
 	console.log(response)
+
 	if (response.ok) {
 		return {
 			status: 303,
 			headers: {
 				location: '/verify',
-				'Set-Cookie': `sid=${response.session_id}; Max-Age=31536000000; Path=/; HttpOnly; SameSite=Strict`
+				'Set-Cookie': `sid=${response.session_id}; Max-Age=31536000000; Path=/; HttpOnly`
 			}
 		}
 	}

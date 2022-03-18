@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	export const load: Load = async ({ params, fetch, session, url }) => {
+	export const load: Load = async ({ session, url }) => {
+		console.log(session.sid)
 		if (session.sid === undefined) {
 			return { redirect: '/login', status: 303 }
 		}
@@ -39,7 +40,10 @@
 <main>
 	<h1>Verify Minecraft account</h1>
 	<p>Please enter your Minecraft username to verify that this is your account.</p>
-	<p>This will check with the Hypixel API that your Discord username matches your Hypixel name.</p>
+	<p>
+		This will check with the Hypixel API that your Discord username matches the Discord name set in
+		your Hypixel settings.
+	</p>
 	{#if errorCode && errorCode in errorCodes}
 		<div class="error">
 			<Emoji value="🚫" />

@@ -4,9 +4,12 @@
     A tooltip that works without requiring JavaScript to be enabled.
     When you hover or click on the element, it shows the content in a box above the element.
  -->
+<script lang="ts">
+	export let width = '10em'
+</script>
 
 <span class="tooltip-container" tabindex="-1">
-	<span class="tooltip-content">
+	<span class="tooltip-content" style="max-width: {width}">
 		<slot name="tooltip">No tooltip!</slot>
 	</span>
 	<span class="tooltip-inner">
@@ -47,7 +50,6 @@
 
 		width: max-content;
 		text-align: center;
-		max-width: 10em;
 		cursor: auto;
 		box-shadow: 0 0 1em 0.5em #0002;
 		pointer-events: none;

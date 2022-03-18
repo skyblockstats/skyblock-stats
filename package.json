@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "dev": "node ./scripts/updateDonators.js && svelte-kit dev",
-    "build": "node ./scripts/updateDonators.js && svelte-kit build",
+    "init": "node ./scripts/updateDonators.js && node ./scripts/updateBackgrounds.js",
+    "dev": "npm run init && svelte-kit dev",
+    "build": "npm run init && svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",

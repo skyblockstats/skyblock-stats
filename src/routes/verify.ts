@@ -12,16 +12,11 @@ function redirect(status: number, location: string) {
 }
 
 export const post: RequestHandler = async ({ request, locals }) => {
-	console.log('ok!')
+	console.log('verify', locals.sid)
 	if (!process.env.SKYBLOCK_STATS_API_KEY) {
 		return redirect(303, `/verify?error=NO_KEY`)
 	}
-	console.log('sid check')
 	if (locals.sid === undefined) {
-		// return {
-		// 	status: 303,
-		// 	redirect: '/login',
-		// }
 		return redirect(303, '/login')
 	}
 
@@ -29,12 +24,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
 
 	// username or uuid
 	const playerIdentifier = form.get('ign')
-	console.log('ign check')
 	if (!playerIdentifier) {
-		// return {
-		// 	status: 303,
-		// 	redirect: '/verify?error=NO_IGN',
-		// }
 		return redirect(303, `/verify?error=NO_IGN`)
 	}
 
@@ -49,36 +39,20 @@ export const post: RequestHandler = async ({ request, locals }) => {
 		}),
 	}).then(r => r.json())
 
-	console.log('session check')
 	if (!sessionResponse.session)
-		// return {
-		// 	status: 303,
-		// 	redirect: '/login',
-		// }
 		return redirect(303, '/login')
 
 	const hypixelDiscordName = playerResponse.player?.socials.discord
 
-	console.log('discord check')
 	if (!hypixelDiscordName)
-		// return {
-		// 	status: 303,
-		// 	redirect: '/verify?error=NOT_LINKED',
-		// }
 		return redirect(303, `/verify?error=NOT_LINKED`)
-
 
 	const discordUser = sessionResponse.session.discord_user
 	const actualDiscordName = discordUser.name
 	// some people link themselves as <id>#<discrim> instead of <name>#<discrim>
 	const actualDiscordIdDiscrim = `${discordUser.id}#${discordUser.name.split('#')[1]}`
 
-	console.log('name check')
 	if (!(hypixelDiscordName === actualDiscordName || hypixelDiscordName === actualDiscordIdDiscrim))
-		// return {
-		// 	status: 303,
-		// 	redirect: `/verify?error=WRONG_NAME?current=${hypixelDiscordName}&correct=${actualDiscordName}`,
-		// }
 		return redirect(303, `/verify?error=WRONG_NAME&current=${encodeURIComponent(hypixelDiscordName)}&correct=${encodeURIComponent(actualDiscordName)}`)
 
 	const updatedAccount: AccountSchema = {
@@ -95,10 +69,5 @@ export const post: RequestHandler = async ({ request, locals }) => {
 		body: JSON.stringify(updatedAccount),
 	}).then(r => r.json())
 
-	console.log('epic')
-	// return {
-	// 	status: 303,
-	// 	redirect: '/profile'
-	// }
 	return redirect(303, '/profile')
 }

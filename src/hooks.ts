@@ -9,6 +9,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '')
 	// event.locals.userid = cookies.userid || uuid();
 
+	console.log(cookies)
 	event.locals.sid = cookies.sid
 
 	const response = await resolve(event)
@@ -40,7 +41,7 @@ export const externalFetch: ExternalFetch = async (request) => {
 		request.headers.set('key', SKYBLOCK_STATS_API_KEY)
 	}
 
-	console.log('request', request.url)
+	const response = await fetch(request)
 
-	return fetch(request)
+	return response
 }
