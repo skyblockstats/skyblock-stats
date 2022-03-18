@@ -13,6 +13,12 @@ function isValidEmoji(emoji: string) {
 	return match && match[0] === emoji && match.index === 0
 }
 
+// @ts-ignore Cloudflare Workers can't read process.env
+const skyblockStatsApiKey = SKYBLOCK_STATS_API_KEY || process.env.SKYBLOCK_STATS_API_KEY
+if (!skyblockStatsApiKey)
+	console.warn('DISCORD_CLIENT_ID is not set as an environment variable. This is required for logging in with Discord to work.')
+
+
 export const patch: RequestHandler = async ({ request, locals }) => {
 	if (locals.sid === undefined) {
 		return {
@@ -20,7 +26,7 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 			status: 401,
 		}
 	}
-	if (!process.env.SKYBLOCK_STATS_API_KEY) {
+	if (!skyblockStatsApiKey) {
 		return {
 			body: { ok: false, error: 'The SKYBLOCK_STATS_API_KEY environment variable is not set.' },
 			status: 500,
@@ -111,7 +117,7 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			key: process.env.SKYBLOCK_STATS_API_KEY
+			key: skyblockStatsApiKey
 		},
 		body: JSON.stringify(updatedAccount),
 	}).then(r => r.json())
