@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit'
 
 // @ts-ignore Cloudflare Workers can't read process.env
-const discordClientId = DISCORD_CLIENT_ID || process.env.DISCORD_CLIENT_ID
+const discordClientId = process?.env?.DISCORD_CLIENT_ID || DISCORD_CLIENT_ID
 if (!discordClientId)
 	console.warn('DISCORD_CLIENT_ID is not set as an environment variable. This is required for logging in with Discord to work.')
 

@@ -3,7 +3,7 @@ import type { AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
 import type { RequestHandler } from '@sveltejs/kit'
 
 // @ts-ignore Cloudflare Workers can't read process.env
-const skyblockStatsApiKey = SKYBLOCK_STATS_API_KEY || process.env.SKYBLOCK_STATS_API_KEY
+const skyblockStatsApiKey = process?.env?.SKYBLOCK_STATS_API_KEY || SKYBLOCK_STATS_API_KEY
 if (!skyblockStatsApiKey)
 	console.warn('DISCORD_CLIENT_ID is not set as an environment variable. This is required for logging in with Discord to work.')
 
