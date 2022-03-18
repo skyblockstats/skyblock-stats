@@ -19,7 +19,6 @@ export const get: RequestHandler = async ({ url }) => {
 			throw new Error(res.statusText)
 		return res.json()
 	})
-	console.log(response)
 
 	if (response.ok) {
 		return {

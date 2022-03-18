@@ -13,13 +13,7 @@ function isValidEmoji(emoji: string) {
 	return match && match[0] === emoji && match.index === 0
 }
 
-console.log(isValidEmoji('😎'))
-console.log(isValidEmoji('😎'))
-console.log(isValidEmoji('😎'))
-console.log(isValidEmoji('😎'))
-
 export const patch: RequestHandler = async ({ request, locals }) => {
-	console.log('updating profile...')
 	if (locals.sid === undefined) {
 		return {
 			body: { ok: false, error: 'You are not logged in.' },
@@ -34,7 +28,6 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 	}
 	const data = await request.json()
 
-	console.log('sending request to get session')
 	const sessionResponse: { session: SessionSchema | null, account: AccountSchema | null } = await fetch(`${API_URL}accounts/session`, {
 		method: 'POST',
 		headers: {
@@ -56,7 +49,6 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 	const emoji = data.emoji
 
 	const isDonator = donators.find(d => d.uuid === sessionResponse.account?.minecraftUuid) !== undefined
-	console.log(sessionResponse.account?.minecraftUuid)
 	const isAdmin = admins.includes(sessionResponse.account?.minecraftUuid)
 
 	if (typeof backgroundName !== 'undefined' && typeof backgroundName !== 'string') {
@@ -77,9 +69,7 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 			status: 400,
 		}
 	}
-	console.log('emoji', emoji)
 	if (typeof emoji !== 'undefined' && typeof emoji !== 'string') {
-		console.log('a')
 		return {
 			body: { ok: false, error: 'Invalid emoji.' },
 			status: 400,
@@ -94,7 +84,6 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 		}
 	const backgroundUrl = backgroundName ? `/backgrounds/${backgroundName}` : undefined
 
-	console.log('emoji?', emoji)
 	if (emoji) {
 		if (!isDonator && !isAdmin)
 			return {
@@ -126,8 +115,6 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 		},
 		body: JSON.stringify(updatedAccount),
 	}).then(r => r.json())
-
-	console.log(response)
 
 
 	return {

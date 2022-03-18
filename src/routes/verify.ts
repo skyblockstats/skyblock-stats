@@ -12,7 +12,6 @@ function redirect(status: number, location: string) {
 }
 
 export const post: RequestHandler = async ({ request, locals }) => {
-	console.log('verify', locals.sid)
 	if (!process.env.SKYBLOCK_STATS_API_KEY) {
 		return redirect(303, `/verify?error=NO_KEY`)
 	}

@@ -1,7 +1,6 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
 	export const load: Load = async ({ session, url }) => {
-		console.log(session.sid)
 		if (session.sid === undefined) {
 			return { redirect: '/login', status: 303 }
 		}

@@ -7,9 +7,7 @@ if (!DISCORD_CLIENT_ID)
 
 export const get: RequestHandler = async ({ request, params, locals, url }) => {
 	// if the sid is wrong, nothing to do
-	console.log(url.searchParams.get('sid'), locals.sid)
 	if (url.searchParams.has('sid') && url.searchParams.get('sid') === locals.sid) {
-		console.log('ok sent logout')
 		await fetch(`${API_URL}accounts/session`, {
 			method: 'DELETE',
 			headers: {
