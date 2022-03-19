@@ -76,6 +76,11 @@
 		<h2>Info</h2>
 		<p>Website made by <a href="https://matdoes.dev">mat</a>.</p>
 		<p>
+			Official hangout/support Discord: <a href="//discord.gg/KtscNUnh4f">
+				discord.gg/KtscNUnh4f
+			</a>.
+		</p>
+		<p>
 			Resource packs: <a href="//packshq.com">PacksHQ</a> (default),
 			<a href="//hypixel.net/threads/2138599">Furfsky</a>,
 			<a href="//furfsky.net">Furfsky Reborn</a>,
