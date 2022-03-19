@@ -5,7 +5,7 @@ import env from '../env'
 export const get: RequestHandler = async ({ request, platform }) => {
 	const host = request.headers.get('host')
 
-	const clientId = env(platform).SKYBLOCK_STATS_API_KEY
+	const clientId = env(platform).DISCORD_CLIENT_ID
 
 	if (!clientId)
 		return {
