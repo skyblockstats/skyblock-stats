@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "init": "node ./scripts/updateDonators.js && node ./scripts/updateBackgrounds.js",
-    "dev": "npm run init && svelte-kit dev",
+    "dev": "svelte-kit dev",
     "build": "npm run init && svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
@@ -14,6 +14,7 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
+    "@squoosh/lib": "^0.4.0",
     "@sveltejs/adapter-auto": "^1.0.0-next.24",
     "@sveltejs/kit": "^1.0.0-next.269",
     "@types/cookie": "^0.4.1",

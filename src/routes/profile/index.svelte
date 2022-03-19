@@ -169,7 +169,7 @@
 			<span
 				class="selectable-background-option"
 				class:selected={thisBackgroundName === backgroundName}
-				style="background-image: url(/backgrounds/{thisBackgroundName})"
+				style="background-image: url(/backgrounds-small/{thisBackgroundName})"
 				on:click={() => (backgroundName = thisBackgroundName)}
 			/>
 		{/each}
