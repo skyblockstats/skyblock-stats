@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { browser } from '$app/env'
+	import { navigating } from '$app/stores'
+
 	let progress = 0
 
 	let widthTransitionDuration = 1000
@@ -20,12 +23,16 @@
 			progress = 0
 		}, 300)
 	}
-</script>
 
-<svelte:window
-	on:sveltekit:navigation-start={navigationStart}
-	on:sveltekit:navigation-end={navigationEnd}
-/>
+	let currentUrl: string | undefined = ''
+	navigating.subscribe(() => {
+		if (browser && $navigating?.to?.toString() !== currentUrl) {
+			if ($navigating) navigationStart()
+			else navigationEnd()
+			currentUrl = $navigating?.to?.toString()
+		}
+	})
+</script>
 
 <div
 	id="loader"
