@@ -45,6 +45,7 @@
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
 	import { chooseDefaultBackground } from '$lib/backgrounds'
+	import Slayers from '$lib/sections/Slayers.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -59,6 +60,7 @@
 		if (data.member.stats?.find(s => s.category === 'races')) categories.push('races')
 		categories.push('misc')
 		categories.push('minions')
+		if (data.member.slayers) categories.push('slayers')
 		categories.push('zones')
 		if (data.member.collections && data.member.collections.length > 0)
 			categories.push('collections')
@@ -147,6 +149,14 @@
 					<Minions {data} />
 				</Collapsible>
 			</section>
+			{#if categories.includes('slayers')}
+				<section>
+					<Collapsible id="slayers">
+						<h2 slot="title">Slayers</h2>
+						<Slayers {data} />
+					</Collapsible>
+				</section>
+			{/if}
 			<section>
 				<Collapsible id="zones">
 					<h2 slot="title">Zones</h2>

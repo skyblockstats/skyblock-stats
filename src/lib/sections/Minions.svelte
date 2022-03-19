@@ -16,7 +16,7 @@
 		<tr>
 			<th>{cleanId(minion.name)}</th>
 			{#each minion.levels as unlocked, i}
-				<td class="minions-table" class:unlocked>
+				<td class="minion-table-item" class:unlocked>
 					{toRomanNumerals(i)}
 				</td>
 			{/each}
@@ -31,10 +31,10 @@
 	.minions-fraction {
 		color: var(--theme-main-text);
 	}
-	.minions-table:not(.unlocked) {
+	.minion-table-item:not(.unlocked) {
 		opacity: 0.2;
 	}
-	.minions-table.unlocked {
+	.minion-table-item.unlocked {
 		color: #3e3;
 	}
 </style>
