@@ -40,7 +40,7 @@
 	let activeProfileLastSave: number = 0
 	let isActiveProfileOnline: boolean
 
-	$: {
+	function updateActiveProfile() {
 		if (data.profiles)
 			for (const profile of data.profiles) {
 				if (profile.members)
@@ -54,6 +54,8 @@
 
 		isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
 	}
+
+	$: [data, updateActiveProfile()]
 
 	$: backgroundUrl =
 		data.customization?.backgroundUrl ??
