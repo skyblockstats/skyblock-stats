@@ -34,7 +34,7 @@
 	description="Check SkyBlock stats, see leaderboards, mayors, and way more."
 />
 <a class="github" href="https://github.com/skyblockstats/skyblock-stats">
-	<img src="/github-mark-light.png" alt="GitHub Logo" />
+	<img src="/github-mark-light.png" alt="View source on GitHub" />
 </a>
 
 <main>
