@@ -33,6 +33,9 @@
 	title="SkyBlock Stats"
 	description="Check SkyBlock stats, see leaderboards, mayors, and way more."
 />
+<a class="github" href="https://github.com/skyblockstats/skyblock-stats">
+	<img src="/github-mark-light.png" alt="GitHub Logo" />
+</a>
 
 <main>
 	<LoginButton {loggedIn} />
@@ -106,5 +109,19 @@
 
 	li {
 		padding: 0.2em 0;
+	}
+
+	.github {
+		position: absolute;
+		top: 0.5rem;
+		left: 0.5rem;
+		opacity: 0.2;
+		transition: opacity 200ms;
+	}
+	.github:hover {
+		opacity: 0.9;
+	}
+	.github > img {
+		width: 2rem;
 	}
 </style>
