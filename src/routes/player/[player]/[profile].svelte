@@ -102,9 +102,20 @@
 	metaTitle={(data.member.rank.name ? `[${data.member.rank.name}] ` : '') +
 		`${data.member.username}\'s SkyBlock profile (${data.member.profileName})`}
 />
-<Header backArrowHref="/player/{data.member.username}" />
+<Header
+	backArrowHref="/player/{data.member.username}"
+	blurred={data.customization?.blurBackground ?? false}
+/>
 
 <main>
+	{#if data.customization?.blurBackground && data.customization?.backgroundUrl}
+		<div class="blurred-background-container-container">
+			<div class="blurred-background-container">
+				<img class="blurred-background" src={data.customization.backgroundUrl} alt="Background" />
+			</div>
+		</div>
+	{/if}
+
 	<h1>
 		<!-- this is weird like this so svelte doesn't add whitespace -->
 		<Username player={data.member} headType="3d" />{#if data.customization?.emoji}<span
@@ -184,6 +195,9 @@
 </main>
 
 <style>
+	main {
+		position: relative;
+	}
 	.profile-emoji {
 		display: inline;
 	}
@@ -212,11 +226,44 @@
 		max-width: fit-content;
 	}
 
+	.blurred-background-container-container {
+		position: absolute;
+		width: 47rem;
+		height: calc(100% + 1em);
+		z-index: -9;
+		overflow: hidden;
+		clip: rect(-1em, auto, auto, -2em);
+	}
+	.blurred-background {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -10;
+		object-fit: cover;
+		background-blend-mode: overlay;
+		filter: blur(1em) brightness(0.6);
+	}
+	@media only screen and (max-width: 1400px) {
+		.blurred-background-container-container {
+			left: calc(5em + 5%);
+			width: 90%;
+			clip: rect(-1.7em, auto, auto, -10em);
+		}
+		main {
+			margin-top: 0.75em;
+		}
+	}
 	@media only screen and (max-width: 1040px) {
 		.profile-skills {
 			position: unset;
 			display: block;
 			width: max-content;
+		}
+		.blurred-background-container-container {
+			left: 0 !important;
+			width: 100vw !important;
 		}
 	}
 </style>

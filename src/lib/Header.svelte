@@ -3,10 +3,11 @@
 	import SearchUser from './SearchUser.svelte'
 
 	export let backArrowHref = '/'
+	export let blurred: boolean
 	let searchUserValue = ''
 </script>
 
-<header id="main-header">
+<header id="main-header" class:blurred={blurred}>
 	<a href={backArrowHref} class="back-arrow-anchor" aria-label="back" sveltekit:prefetch>
 		<svg class="back-arrow" height="33" width="23">
 			<path d="M 14 0 l -13 13 l 13 13" stroke-width="2" fill="none" />
@@ -46,5 +47,9 @@
 	}
 	.back-arrow:hover {
 		stroke: var(--theme-main-text);
+	}
+	#main-header.blurred {
+		background-color: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(1em);
 	}
 </style>
