@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	import { API_URL } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch, session }) => {
 		return {
@@ -19,7 +18,6 @@
 	import Emoji from '$lib/Emoji.svelte'
 	import LoginButton from '$lib/LoginButton.svelte'
 
-	// export const prerender = true
 	export const hydrate = false
 
 	export let loggedIn: boolean

@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit'
-import env from '../env'
+import env from '$lib/env'
 
 
 export const get: RequestHandler = async ({ request, platform }) => {

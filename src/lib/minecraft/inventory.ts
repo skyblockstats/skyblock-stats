@@ -1,5 +1,5 @@
 import * as skyblockAssets from 'skyblock-assets'
-import vanilla from 'skyblock-assets/matchers/vanilla.json'
+import { vanilla } from '$lib/packs'
 
 
 export interface Item {

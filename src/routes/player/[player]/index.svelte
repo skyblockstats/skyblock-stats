@@ -32,6 +32,7 @@
 	import Username from '$lib/minecraft/Username.svelte'
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
+	import { chooseDefaultBackground } from '$lib/backgrounds'
 
 	export let data: CleanUser
 
@@ -53,10 +54,14 @@
 
 		isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
 	}
+
+	$: backgroundUrl =
+		data.customization?.backgroundUrl ??
+		(data.player ? chooseDefaultBackground(data.player.uuid) : null)
 </script>
 
-{#if data.customization?.backgroundUrl}
-	<BackgroundImage url={data.customization.backgroundUrl} />
+{#if backgroundUrl}
+	<BackgroundImage url={backgroundUrl} />
 {/if}
 
 <Head title={data.player ? `${data.player.username}'s SkyBlock profiles` : 'Invalid player'} />

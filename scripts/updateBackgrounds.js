@@ -6,6 +6,8 @@ const imagePool = new ImagePool(cpus().length)
 
 // read the file names in the backgrounds folder
 const backgrounds = await fs.readdir('static/backgrounds')
+// sort by natural order
+backgrounds.sort((a, b) => a.localeCompare(b, 'en', { numeric: true, ignorePunctuation: true }))
 
 await fs.writeFile(
 	'src/_backgrounds.json',

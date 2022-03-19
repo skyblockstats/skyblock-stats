@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
+	import { loadPack } from '$lib/packs'
 	import { API_URL } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
@@ -11,38 +12,7 @@
 
 		const packName = params.pack ?? data?.customization?.pack
 
-		let pack: MatcherFile | undefined
-
-		switch (packName) {
-			case 'ectoplasm':
-				pack = (await import('skyblock-assets/matchers/ectoplasm.json')) as any
-				break
-			case 'furfsky':
-				pack = (await import('skyblock-assets/matchers/furfsky.json')) as any
-				break
-			case 'furfsky_reborn':
-				pack = (await import('skyblock-assets/matchers/furfsky_reborn.json')) as any
-				break
-			case 'hypixel+':
-				pack = (await import('skyblock-assets/matchers/hypixel+.json')) as any
-				break
-			case 'packshq':
-				pack = (await import('skyblock-assets/matchers/packshq.json')) as any
-				break
-			case 'rnbw':
-				pack = (await import('skyblock-assets/matchers/rnbw.json')) as any
-				break
-			case 'vanilla':
-				pack = (await import('skyblock-assets/matchers/vanilla.json')) as any
-				break
-			case 'worlds_and_beyond':
-				pack = (await import('skyblock-assets/matchers/worlds_and_beyond.json')) as any
-				break
-			default:
-				// furfsky reborn is the default pack
-				pack = (await import('skyblock-assets/matchers/furfsky_reborn.json')) as any
-				break
-		}
+		let pack = await loadPack(packName)
 
 		return {
 			props: {
@@ -58,11 +28,12 @@
 	import Inventories from '$lib/sections/Inventories.svelte'
 	import Collections from '$lib/sections/Collections.svelte'
 	import BackgroundImage from '$lib/BackgroundImage.svelte'
+	import type { CleanMemberProfile } from '$lib/APITypes'
 	import Username from '$lib/minecraft/Username.svelte'
 	import StatList from '$lib/sections/StatList.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
-	import type { MatcherFile } from 'skyblock-assets'
 	import Minions from '$lib/sections/Minions.svelte'
+	import type { MatcherFile } from 'skyblock-assets'
 	import Collapsible from '$lib/Collapsible.svelte'
 	import Skills from '$lib/sections/Skills.svelte'
 	import { generateInfobox } from '$lib/profile'
@@ -73,27 +44,33 @@
 	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
-
-	import type { CleanMemberProfile } from '$lib/APITypes'
+	import { chooseDefaultBackground } from '$lib/backgrounds'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
 
-	const categories: string[] = []
-	if (data.member.stats?.find(s => s.category === 'deaths')) categories.push('deaths')
-	if (data.member.stats?.find(s => s.category === 'kills')) categories.push('kills')
-	if (data.member.stats?.find(s => s.category === 'auctions')) categories.push('auctions')
-	if (data.member.stats?.find(s => s.category === 'fishing')) categories.push('fishing')
-	if (data.member.stats?.find(s => s.category === 'races')) categories.push('races')
-	categories.push('misc')
-	categories.push('minions')
-	categories.push('zones')
-	if (data.member.collections && data.member.collections.length > 0) categories.push('collections')
-	categories.push('leaderboards')
+	let categories: string[] = []
+	function setCategories() {
+		categories = []
+		if (data.member.stats?.find(s => s.category === 'deaths')) categories.push('deaths')
+		if (data.member.stats?.find(s => s.category === 'kills')) categories.push('kills')
+		if (data.member.stats?.find(s => s.category === 'auctions')) categories.push('auctions')
+		if (data.member.stats?.find(s => s.category === 'fishing')) categories.push('fishing')
+		if (data.member.stats?.find(s => s.category === 'races')) categories.push('races')
+		categories.push('misc')
+		categories.push('minions')
+		categories.push('zones')
+		if (data.member.collections && data.member.collections.length > 0)
+			categories.push('collections')
+		categories.push('leaderboards')
+	}
+
+	$: [data, setCategories()]
+	$: backgroundUrl = data.customization?.backgroundUrl ?? chooseDefaultBackground(data.member.uuid)
 </script>
 
-{#if data.customization?.backgroundUrl}
-	<BackgroundImage url={data.customization.backgroundUrl} />
+{#if backgroundUrl}
+	<BackgroundImage url={backgroundUrl} />
 {/if}
 
 <Head
@@ -108,10 +85,10 @@
 />
 
 <main>
-	{#if data.customization?.blurBackground && data.customization?.backgroundUrl}
+	{#if data.customization?.blurBackground && backgroundUrl}
 		<div class="blurred-background-container-container">
 			<div class="blurred-background-container">
-				<img class="blurred-background" src={data.customization.backgroundUrl} alt="Background" />
+				<img class="blurred-background" src={backgroundUrl} alt="Background" />
 			</div>
 		</div>
 	{/if}
@@ -180,7 +157,7 @@
 				<section>
 					<Collapsible id="collections">
 						<h2 slot="title">Collections</h2>
-						<Collections {data} />
+						<Collections {data} {pack} />
 					</Collapsible>
 				</section>
 			{/if}

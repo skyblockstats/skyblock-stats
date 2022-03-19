@@ -18,12 +18,8 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import Toc from '$lib/Toc.svelte'
-	import Collapsible from '$lib/Collapsible.svelte'
-	import { skyblockItemNameToItem, skyblockItemToUrl } from '$lib/minecraft/inventory'
+	import { skyblockItemToUrl } from '$lib/minecraft/inventory'
 	import { cleanId, formatNumberFromUnit, toTitleCase } from '$lib/utils'
-	import ListItemWithIcon from '$lib/ListItemWithIcon.svelte'
-	import Leaderboards from '$lib/sections/Leaderboards.svelte'
 	import Username from '$lib/minecraft/Username.svelte'
 
 	export let data

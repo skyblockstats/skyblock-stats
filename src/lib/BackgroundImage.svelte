@@ -1,26 +1,30 @@
 <script lang="ts">
-	import { browser } from '$app/env'
-
 	import { onDestroy } from 'svelte'
+	import { browser } from '$app/env'
 
 	export let url: string
 
-	// cursed svelte :D
-	$: bodyStyle =
-		'<sty' + 'le id="background-image-style">:root{--background:url(' + url + ')}</st' + 'yle>'
+	function updateUrl() {
+		if (!browser) return
+
+		for (const styleEl of document.getElementsByClassName('background-image-style'))
+			styleEl.innerHTML = ''
+
+		// add bodyStyle to the head
+		const style = document.createElement('style')
+		style.classList.add('background-image-style')
+		style.innerHTML = `:root{--background:url(${url})}`
+		document.head.appendChild(style)
+	}
+
+	$: [url, updateUrl()]
 
 	// get rid of the body style when we leave the page
 	// not doing this will sometimes cause the background to stay
 	onDestroy(() => {
-		bodyStyle = ''
-		// hack since sometimes the style is not removed
 		if (browser) {
-			let styleEl = document.getElementById('background-image-style')
-			if (styleEl) styleEl.innerHTML = ''
+			for (const styleEl of document.getElementsByClassName('background-image-style'))
+				styleEl.innerHTML = ''
 		}
 	})
 </script>
-
-<svelte:head>
-	{@html bodyStyle}
-</svelte:head>

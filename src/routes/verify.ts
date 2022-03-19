@@ -1,7 +1,7 @@
 import { API_URL } from '$lib/api'
 import type { AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
 import type { RequestHandler } from '@sveltejs/kit'
-import env from '../env'
+import env from '$lib/env'
 
 
 function redirect(status: number, location: string) {

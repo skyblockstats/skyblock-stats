@@ -170,6 +170,7 @@
 				class="selectable-background-option"
 				class:selected={thisBackgroundName === backgroundName}
 				style="background-image: url(/backgrounds-small/{thisBackgroundName})"
+				title={thisBackgroundName}
 				on:click={() => (backgroundName = thisBackgroundName)}
 			/>
 		{/each}
