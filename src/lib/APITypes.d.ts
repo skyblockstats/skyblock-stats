@@ -192,3 +192,24 @@ export interface CleanSocialMedia {
 	discord: string | null
 	forums: string | null
 }
+
+export interface SlayerData {
+	xp: number
+	kills: number
+	bosses: Slayer[]
+}
+
+interface SlayerTier {
+	tier: number,
+	kills: number
+}
+
+export interface Slayer {
+	name?: SlayerName
+	raw_name: string
+	xp: number
+	level: number
+	kills: number
+	tiers: SlayerTier[]
+}
+

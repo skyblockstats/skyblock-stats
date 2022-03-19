@@ -16,12 +16,12 @@
 <style>
 	#toc {
 		border: 1px solid rgba(255, 255, 255, 0.1);
-		max-width: max-content;
+		background: rgba(0, 0, 0, 0.1);
 		padding: 0.75em;
 		border-radius: 1em;
 
+		max-width: max-content;
 		display: inline-block;
-		background: rgba(0, 0, 0, 0.1);
 		margin-bottom: 1em;
 	}
 	#toc ul {
