@@ -39,7 +39,7 @@
 		{#if imageUrl}
 			<img src={imageUrl} alt={cleanId(data.name.slice(11))} />
 		{/if}
-		{toTitleCase(cleanId(data.name))}
+		{toTitleCase(cleanId(data.name))} Leaderboard
 	</h1>
 	{#if data.info}
 		<p class="leaderboard-info">

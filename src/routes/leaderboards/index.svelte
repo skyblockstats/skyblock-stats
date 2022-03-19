@@ -29,6 +29,7 @@
 <Header />
 
 <main>
+	<h1>SkyBlock Leaderboards</h1>
 	<Toc categories={Object.keys(data)} />
 
 	{#each Object.entries(data) as [category, leaderboards]}

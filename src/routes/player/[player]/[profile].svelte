@@ -222,7 +222,6 @@
 	}
 
 	section {
-		margin-bottom: 0.5em;
 		max-width: fit-content;
 	}
 

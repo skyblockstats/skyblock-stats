@@ -42,6 +42,9 @@
 </details>
 
 <style>
+	details {
+		margin-bottom: 0.5em;
+	}
 	summary > :global(*) {
 		display: inline;
 	}

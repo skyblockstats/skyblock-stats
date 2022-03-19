@@ -3,11 +3,11 @@
 	import SearchUser from './SearchUser.svelte'
 
 	export let backArrowHref = '/'
-	export let blurred: boolean
+	export let blurred = false
 	let searchUserValue = ''
 </script>
 
-<header id="main-header" class:blurred={blurred}>
+<header id="main-header" class:blurred>
 	<a href={backArrowHref} class="back-arrow-anchor" aria-label="back" sveltekit:prefetch>
 		<svg class="back-arrow" height="33" width="23">
 			<path d="M 14 0 l -13 13 l 13 13" stroke-width="2" fill="none" />
