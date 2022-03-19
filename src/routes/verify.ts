@@ -1,7 +1,7 @@
 import { API_URL } from '$lib/api'
 import type { AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
 import type { RequestHandler } from '@sveltejs/kit'
-import { SKYBLOCK_STATS_API_KEY } from '../env'
+import env from '../env'
 
 
 function redirect(status: number, location: string) {
@@ -13,8 +13,9 @@ function redirect(status: number, location: string) {
 	}
 }
 
-export const post: RequestHandler = async ({ request, locals }) => {
-	if (!SKYBLOCK_STATS_API_KEY) {
+export const post: RequestHandler = async ({ request, locals, platform }) => {
+	const key = env(platform).SKYBLOCK_STATS_API_KEY
+	if (!key) {
 		return redirect(303, `/verify?error=NO_KEY`)
 	}
 	if (locals.sid === undefined) {
@@ -65,7 +66,7 @@ export const post: RequestHandler = async ({ request, locals }) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			key: SKYBLOCK_STATS_API_KEY
+			key: key
 		},
 		body: JSON.stringify(updatedAccount),
 	}).then(r => r.json())

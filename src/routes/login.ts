@@ -1,10 +1,13 @@
 import type { RequestHandler } from '@sveltejs/kit'
-import { DISCORD_CLIENT_ID } from '../env'
+import env from '../env'
 
 
-export const get: RequestHandler = async ({ request }) => {
+export const get: RequestHandler = async ({ request, platform }) => {
 	const host = request.headers.get('host')
-	if (!DISCORD_CLIENT_ID)
+
+	const clientId = env(platform).SKYBLOCK_STATS_API_KEY
+
+	if (!clientId)
 		return {
 			status: 500,
 			headers: {
@@ -27,7 +30,7 @@ export const get: RequestHandler = async ({ request }) => {
 	return {
 		status: 303,
 		headers: {
-			location: `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${protocol}://${host}%2Floggedin&response_type=code&scope=identify`
+			location: `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${protocol}://${host}%2Floggedin&response_type=code&scope=identify`
 		}
 	}
 }

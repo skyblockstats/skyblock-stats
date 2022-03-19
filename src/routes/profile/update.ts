@@ -5,7 +5,7 @@ import backgroundFileNames from '../../_backgrounds.json'
 import donators from '../../_donators.json'
 import admins from '../../_admins.json'
 import type { JSONValue } from '@sveltejs/kit/types/internal'
-import { SKYBLOCK_STATS_API_KEY } from '../../env'
+import env from '../../env'
 
 const emojiRegex = /^(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])$/
 
@@ -15,14 +15,15 @@ function isValidEmoji(emoji: string) {
 }
 
 
-export const patch: RequestHandler = async ({ request, locals }) => {
+export const patch: RequestHandler = async ({ request, locals, platform }) => {
 	if (locals.sid === undefined) {
 		return {
 			body: { ok: false, error: 'You are not logged in.' },
 			status: 401,
 		}
 	}
-	if (!SKYBLOCK_STATS_API_KEY) {
+	const key = env(platform).SKYBLOCK_STATS_API_KEY
+	if (!key) {
 		return {
 			body: { ok: false, error: 'The SKYBLOCK_STATS_API_KEY environment variable is not set.' },
 			status: 500,
@@ -113,7 +114,7 @@ export const patch: RequestHandler = async ({ request, locals }) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			key: SKYBLOCK_STATS_API_KEY
+			key: key
 		},
 		body: JSON.stringify(updatedAccount),
 	}).then(r => r.json())

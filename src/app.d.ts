@@ -7,7 +7,16 @@ declare namespace App {
 		sid: string | undefined
 	}
 
-	// interface Platform {}
+
+	interface Platform {
+		env: {
+			DISCORD_CLIENT_ID: string | undefined
+			SKYBLOCK_STATS_API_KEY: string | undefined
+		}
+		context: {
+			waitUntil(promise: Promise<any>): void
+		}
+	}
 
 	interface Session {
 		sid: string | undefined
