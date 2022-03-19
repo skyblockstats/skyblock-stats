@@ -1,6 +1,5 @@
 import { API_URL } from '$lib/api'
 import type { RequestHandler } from '@sveltejs/kit'
-import type { JSONValue } from '@sveltejs/kit/types/internal'
 
 export const get: RequestHandler = async ({ url }) => {
 	const code = url.searchParams.get('code')

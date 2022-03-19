@@ -126,13 +126,13 @@
 	}
 
 	@media only screen and (max-width: 480px) {
-		.inventory-content:global(#inventory .item) {
+		.inventory-content :global(.item) {
 			/* there's no good way to override the existing 32px size without !important :( */
 			font-size: 24px !important;
 		}
 	}
 	@media only screen and (max-width: 350px) {
-		.inventory-content:global(#inventory .item) {
+		.inventory-content :global(.item) {
 			font-size: 16px !important;
 		}
 	}
