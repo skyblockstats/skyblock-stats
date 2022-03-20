@@ -35,8 +35,11 @@
 		opacity: 0;
 		position: absolute;
 
-		background: var(--theme-lightest-background);
+		background: rgba(20, 20, 20, 0.9);
 		border-radius: 0.25em;
+
+		backdrop-filter: blur(0.2em);
+
 		bottom: 125%;
 		color: var(--theme-main-text);
 		margin-left: max(calc(-50% - 1em), -5em);
@@ -56,7 +59,7 @@
 	}
 	.tooltip-container:hover > .tooltip-content,
 	.tooltip-container:focus > .tooltip-content {
-		opacity: 0.9;
+		opacity: 1;
 		transform: scale(1) translateY(0);
 	}
 
