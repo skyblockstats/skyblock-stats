@@ -9,8 +9,9 @@
 
 {#if data.member.zones}
 	<p class="zones-visited-text">
+		Zones visited:
 		<span class="zones-visited-number">
-			<b>{zonesVisitedCount}</b>/{data.member.zones.length} zones visited
+			<b>{zonesVisitedCount}</b>/{data.member.zones.length}
 		</span>
 	</p>
 	<ul>
@@ -26,11 +27,16 @@
 <style>
 	.zones-visited-text {
 		color: var(--theme-darker-text);
+		margin: 0.5em 0;
 	}
 	.zones-visited-number {
 		color: var(--theme-main-text);
 	}
 	.unvisited-zone {
 		opacity: 0.5;
+	}
+	ul {
+		padding-left: 1em;
+		margin: 0;
 	}
 </style>

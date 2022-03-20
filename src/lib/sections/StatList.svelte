@@ -13,30 +13,36 @@
 <ul>
 	{#each stats.sort((a, b) => b.value - a.value) as stat}
 		<li class:total-stat={stat.categorizedName === 'total'}>
-			<span class="stat-name">{cleanId(stat.categorizedName)}</span>:
-			{#if stat.unit === 'time'}
-				{millisecondsToTime(stat.value)}
-			{:else}
-				{stat.value.toLocaleString()}
-			{/if}
+			<span class="stat-name">{cleanId(stat.categorizedName)}:</span>
+			<span class="stat-value">
+				{#if stat.unit === 'time'}
+					{millisecondsToTime(stat.value)}
+				{:else}
+					{stat.value.toLocaleString()}
+				{/if}
+			</span>
 		</li>
 	{/each}
 </ul>
 
 <style>
 	.total-stat .stat-name {
+		color: var(--theme-darker-text);
+	}
+	.total-stat .stat-value {
 		font-weight: bold;
 	}
 
 	.total-stat {
-		font-size: 1.2em;
 		list-style-type: none;
-		position: relative;
+		padding: 0 0 0.5em 0;
 		right: 1em;
-		bottom: 0.2em;
 	}
-
+	li {
+		position: relative;
+	}
 	ul {
 		margin-top: 0.5em;
+		padding-left: 1em;
 	}
 </style>

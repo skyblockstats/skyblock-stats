@@ -14,7 +14,7 @@
 		{#each leaderboards as leaderboard}
 			<li class="leaderboard-item">
 				<a href="/leaderboard/{leaderboard.name}" class="leaderboard-item-anchor">
-					{leaderboard.positionIndex}) <b>{cleanId(leaderboard.name)}</b>: {leaderboard.value}
+					{leaderboard.positionIndex}) <b>{cleanId(leaderboard.name)}</b>: {leaderboard.value.toLocaleString()}
 				</a>
 			</li>
 		{/each}
@@ -27,5 +27,9 @@
 	}
 	.leaderboard-item {
 		list-style-type: none;
+	}
+	ul {
+		padding-left: 0;
+		margin-top: 0.5em;
 	}
 </style>

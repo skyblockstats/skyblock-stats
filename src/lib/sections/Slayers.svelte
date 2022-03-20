@@ -6,7 +6,7 @@
 </script>
 
 {#if data.member.slayers}
-	<div class="slayer-info-text">
+	<div class="slayer-info-text total-slayer-info-text">
 		<p>Xp: <b>{data.member.slayers.xp}</b></p>
 		<p>Kills: <b>{data.member.slayers.kills}</b></p>
 	</div>
@@ -40,6 +40,10 @@
 <style>
 	p {
 		margin: 0;
+	}
+
+	.total-slayer-info-text {
+		margin: 0.5em 0;
 	}
 
 	.slayer-tier-kills {
