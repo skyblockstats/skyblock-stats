@@ -6,22 +6,21 @@ export interface CleanMemberProfile {
 
 export interface CleanMemberProfilePlayer extends CleanPlayer {
 	profileName: string
-	first_join: number
-	last_save: number
-	bank?: Bank
-	purse?: number
-	stats?: StatItem[]
-	rawHypixelStats?: {
+	firstJoin: number
+	lastSave: number
+	purse: number
+	stats: StatItem[]
+	rawHypixelStats: {
 		[key: string]: number
 	}
-	minions?: CleanMinion[]
-	fairy_souls?: FairySouls
+	minions: CleanMinion[]
+	fairySouls: FairySouls
 	inventories?: Inventories
-	objectives?: Objective[]
-	skills?: Skill[]
-	visited_zones?: Zone[]
-	collections?: Collection[]
-	slayers?: SlayerData
+	objectives: Objective[]
+	skills: Skill[]
+	zones: Zone[]
+	collections: Collection[]
+	slayers: SlayerData
 }
 
 export interface CleanBasicPlayer {
@@ -53,12 +52,12 @@ interface Item {
 		glint: boolean
 	}
 	reforge?: string
-	anvil_uses?: number
+	anvilUses?: number
 	timestamp?: string
 	enchantments?: {
 		[name: string]: number
 	}
-	head_texture?: string
+	headTexture?: string
 }
 export declare type Inventory = Item[]
 export declare const INVENTORIES: {
@@ -113,14 +112,14 @@ export interface CleanFullProfile extends CleanProfile {
 	members: CleanMember[]
 	bank: Bank
 	minions: CleanMinion[]
-	minion_count: number
+	minionCount: number
 	maxUniqueMinions: number
 }
 export interface CleanFullProfileBasicMembers extends CleanProfile {
 	members: CleanBasicMember[]
 	bank: Bank
 	minions: CleanMinion[]
-	minion_count: number
+	minionCount: number
 	maxUniqueMinions: number
 }
 
@@ -135,7 +134,7 @@ declare const COLLECTIONS: {
 declare type CollectionCategory = keyof typeof COLLECTIONS
 export interface Collection {
 	name: string
-	xp: number
+	amount: number
 	level: number
 	category: CollectionCategory
 }
@@ -153,7 +152,7 @@ export interface Candidate {
 }
 
 export interface ElectionData {
-	last_updated: number
+	lastUpdated: number
 	previous: {
 		year: number
 		winner: string
@@ -200,16 +199,23 @@ export interface SlayerData {
 }
 
 interface SlayerTier {
-	tier: number,
+	tier: number
 	kills: number
 }
 
 export interface Slayer {
 	name?: SlayerName
-	raw_name: string
+	rawName: string
 	xp: number
 	level: number
 	kills: number
 	tiers: SlayerTier[]
 }
 
+export interface CleanBasicMember {
+	uuid: string
+	username: string
+	lastSave: number
+	firstJoin: number
+	rank: CleanRank
+}

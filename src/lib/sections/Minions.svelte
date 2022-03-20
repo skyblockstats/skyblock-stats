@@ -8,7 +8,7 @@
 <p class="unique-minions-text">
 	Unique minions:
 	<span class="minions-fraction">
-		<b>{data.profile.minion_count}</b>/{data.profile.maxUniqueMinions}
+		<b>{data.profile.minionCount}</b>/{data.profile.maxUniqueMinions}
 	</span>
 </p>
 <table>

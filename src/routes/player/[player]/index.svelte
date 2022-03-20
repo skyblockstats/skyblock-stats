@@ -45,9 +45,9 @@
 			for (const profile of data.profiles) {
 				if (profile.members)
 					for (const member of profile.members) {
-						if (member.uuid === data.player?.uuid && member.last_save > activeProfileLastSave) {
+						if (member.uuid === data.player?.uuid && member.lastSave > activeProfileLastSave) {
 							activeProfile = profile
-							activeProfileLastSave = member.last_save
+							activeProfileLastSave = member.lastSave
 						}
 					}
 			}

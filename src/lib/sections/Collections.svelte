@@ -29,7 +29,7 @@
 				>
 					<Tooltip>
 						<span slot="tooltip">
-							Amount: {collection.xp.toLocaleString()}
+							Amount: {collection.amount.toLocaleString()}
 						</span>
 						{cleanId(collection.name)}
 						<span class="coll-level">{collection.level}</span>

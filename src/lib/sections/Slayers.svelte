@@ -13,7 +13,7 @@
 	<div class="slayers-list">
 		{#each data.member.slayers.bosses as slayer}
 			<div class="individual-slayer-data">
-				<h3>{slayer.name ? cleanId(slayer.name) : cleanId(slayer.raw_name)}</h3>
+				<h3>{slayer.name ? cleanId(slayer.name) : cleanId(slayer.rawName)}</h3>
 				<div class="slayer-info-text">
 					<p>Xp: <b>{slayer.xp.toLocaleString()}</b></p>
 					<p>Level: <b>{slayer.level}</b></p>

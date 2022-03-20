@@ -31,7 +31,8 @@
 			"$lib": ["src/lib"],
 			"$lib/*": ["src/lib/*"]
 		},
-		"strictNullChecks": true
+		"strictNullChecks": true,
+		"outDir": "dist",
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"],
 	"extends": "./.svelte-kit/tsconfig.json"

@@ -14,14 +14,14 @@ export function prettyTimestamp(ms: number) {
 export function generateInfobox(data: CleanMemberProfile): string[] {
     const result: string[] = []
 
-    result.push(`💾 Last save: ${prettyTimestamp(data.member.last_save * 1000)}`)
+    result.push(`💾 Last save: ${prettyTimestamp(data.member.lastSave * 1000)}`)
 
-    result.push(`🚶 Profile created: ${prettyTimestamp(data.member.first_join * 1000)}`)
+    result.push(`🚶 Profile created: ${prettyTimestamp(data.member.firstJoin * 1000)}`)
 
-    result.push(`✨ Fairy souls: ${data.member.fairy_souls.total}/${data.member.fairy_souls.max}`)
+    result.push(`✨ Fairy souls: ${data.member.fairySouls.total}/${data.member.fairySouls.max}`)
 
-    if (data.profile.minion_count >= data.profile.maxUniqueMinions)
-        result.push(`🤖 Minion count: ${data.profile.minion_count}`)
+    if (data.profile.minionCount >= data.profile.maxUniqueMinions)
+        result.push(`🤖 Minion count: ${data.profile.minionCount}`)
 
     if (data.member.stats) {
         let mostSignificantKillsStat: StatItem | null = null
