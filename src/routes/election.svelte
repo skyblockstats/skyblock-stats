@@ -52,7 +52,7 @@
 		// don't invalidate the first time the function is called
 		if (!first) await invalidate('')
 
-		const lastUpdatedAgo = Date.now() - data.lastUpdated * 1000
+		const lastUpdatedAgo = Date.now() - data.lastUpdated
 		autoInvalidateTimeout = setTimeout(() => autoInvalidate(false), lastUpdatedAgo + 10 * 60 * 1000)
 	}
 
@@ -76,14 +76,14 @@
 	<div class="next-mayor-update">
 		<p>
 			<b>Last API update:</b>
-			{millisecondsToTime(currentTime - data.lastUpdated * 1000, {
+			{millisecondsToTime(currentTime - data.lastUpdated, {
 				smallestUnit: 1,
 				parts: 1,
 			})} ago
 		</p>
 		<p>
 			<b>Next API update:</b>
-			{millisecondsToTime(10 * 60 * 1000 - (currentTime - data.lastUpdated * 1000), {
+			{millisecondsToTime(10 * 60 * 1000 - (currentTime - data.lastUpdated), {
 				smallestUnit: 1,
 				parts: 1,
 			})}

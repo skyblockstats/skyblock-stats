@@ -52,7 +52,7 @@
 					}
 			}
 
-		isActiveProfileOnline = Date.now() / 1000 - 60 < activeProfileLastSave
+		isActiveProfileOnline = Date.now() - 60 < activeProfileLastSave
 	}
 
 	$: [data, updateActiveProfile()]

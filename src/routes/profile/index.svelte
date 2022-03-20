@@ -34,7 +34,7 @@
 		}
 
 		const isDonator =
-			donators.find(d => d.uuid === sessionResponse.account?.minecraftUuid) !== undefined
+			donators.find(d => d?.uuid === sessionResponse.account?.minecraftUuid) !== undefined
 		const isAdmin = admins.find(a => a === sessionResponse.account?.minecraftUuid) !== undefined
 
 		return {
