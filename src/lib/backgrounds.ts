@@ -1,6 +1,5 @@
 // a hand picked list of backgrounds that i think look pretty good on the user profile
 const coolBackgrounds = [
-	'2.jpg',
 	'4.jpg',
 	'5.jpg',
 	'7.jpg',
