@@ -46,6 +46,7 @@
 	import Toc from '$lib/Toc.svelte'
 	import { chooseDefaultBackground } from '$lib/backgrounds'
 	import Slayers from '$lib/sections/Slayers.svelte'
+	import PlayerSocials from '$lib/PlayerSocials.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -103,6 +104,11 @@
 		{/if}
 		({data.member.profileName})
 	</h1>
+	{#if data.member.socials.discord || data.member.socials.forums}
+		<div class="socials">
+			<PlayerSocials socials={data.member.socials} />
+		</div>
+	{/if}
 
 	<Infobox {data} />
 
@@ -187,6 +193,10 @@
 	}
 	.profile-emoji {
 		display: inline;
+	}
+	.socials {
+		position: relative;
+		bottom: 1rem;
 	}
 	.profile-skills {
 		display: inline-block;
