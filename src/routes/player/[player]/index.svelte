@@ -8,7 +8,10 @@
 		const data = await fetch(`${API_URL}player/${player}?customization=true`).then(r => r.json())
 
 		if (!data.player) {
-			return { fallthrough: true } as unknown
+			return {
+				status: 404,
+				error: 'Unknown player',
+			}
 		}
 
 		if (data.player.username !== player) {
@@ -55,11 +58,14 @@
 		isActiveProfileOnline = Date.now() - 60 < activeProfileLastSave
 	}
 
-	$: [data, updateActiveProfile()]
+	let backgroundUrl: string | null
 
-	$: backgroundUrl =
-		data.customization?.backgroundUrl ??
-		(data.player ? chooseDefaultBackground(data.player.uuid) : null)
+	$: {
+		backgroundUrl =
+			data.customization?.backgroundUrl ??
+			(data.player ? chooseDefaultBackground(data.player.uuid) : null)
+		updateActiveProfile()
+	}
 </script>
 
 {#if backgroundUrl}

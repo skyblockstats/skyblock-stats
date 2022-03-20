@@ -5,7 +5,7 @@
 	export const load: Load = async ({ params, fetch }) => {
 		const data = await fetch(`${API_URL}leaderboards/${params.name}`).then(r => r.json())
 
-		if (data.list.length === 0) return { fallthrough: true } as unknown
+		if (data.list.length === 0) return { status: 404, error: 'Unknown leaderboard' }
 
 		return {
 			props: {
