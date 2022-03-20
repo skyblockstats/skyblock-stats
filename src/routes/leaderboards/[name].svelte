@@ -3,7 +3,11 @@
 	import { API_URL } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
-		const data = await fetch(`${API_URL}leaderboards/${params.name}`).then(r => r.json())
+		const dataText = await fetch(`${API_URL}leaderboards/${params.name}`).then(r => r.text())
+
+		throw Error(dataText)
+
+		const data = JSON.parse(dataText)
 
 		if (data.list.length === 0) return { fallthrough: true } as unknown
 
