@@ -239,3 +239,14 @@ export interface CleanBasicMember {
 	rank: CleanRank
 	left?: boolean
 }
+
+export interface Bank {
+	balance?: number;
+	history: BankHistoryItem[];
+}
+export interface BankHistoryItem {
+	change: number;
+	total: number;
+	timestamp: number;
+	name: string;
+}

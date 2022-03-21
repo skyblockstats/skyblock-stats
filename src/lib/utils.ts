@@ -21,7 +21,7 @@ const specialCodes: { [key: string]: string } = {
     'l': 'font-weight: bold'
 }
 
-const colorCodeCharacter = '§'
+export const colorCodeCharacter = '§'
 
 export function formattingCodeToHtml(formatted: string): string {
     let htmlOutput = ''

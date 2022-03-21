@@ -46,6 +46,7 @@
 	import Toc from '$lib/Toc.svelte'
 	import { chooseDefaultBackground } from '$lib/backgrounds'
 	import Slayers from '$lib/sections/Slayers.svelte'
+	import Bank from '$lib/sections/Bank.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -64,6 +65,7 @@
 		categories.push('zones')
 		if (data.member.collections && data.member.collections.length > 0)
 			categories.push('collections')
+		if (data.profile.bank.balance !== undefined) categories.push('bank')
 		categories.push('leaderboards')
 	}
 
@@ -168,6 +170,14 @@
 					<Collapsible id="collections">
 						<h2 slot="title">Collections</h2>
 						<Collections {data} {pack} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('bank')}
+				<section>
+					<Collapsible id="bank">
+						<h2 slot="title">Bank</h2>
+						<Bank {data} />
 					</Collapsible>
 				</section>
 			{/if}

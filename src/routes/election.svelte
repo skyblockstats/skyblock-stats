@@ -18,13 +18,7 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import {
-		cleanId,
-		colorCodes,
-		formattingCodeToHtml,
-		millisecondsToTime,
-		skyblockTime,
-	} from '$lib/utils'
+	import { colorCodes, formattingCodeToHtml, millisecondsToTime, skyblockTime } from '$lib/utils'
 	import type { ElectionData } from '$lib/APITypes'
 	import { onDestroy, onMount } from 'svelte'
 	import MayorSkin from '$lib/MayorSkin.svelte'
