@@ -18,7 +18,7 @@ export interface Item {
     timestamp?: string
     enchantments?: { [name: string]: number }
 
-    head_texture?: string
+    headTexture?: string
 }
 
 const INVENTORIES = {
@@ -45,7 +45,7 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string
         },
     }
     let textureUrl: string
-    if (item.head_texture) {
+    if (item.headTexture) {
         // if it's a head, try without vanilla and if it fails just use the mc-heads url
         textureUrl = skyblockAssets.getTextureUrl({
             id: item.vanillaId,
@@ -54,7 +54,7 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string
             noNullTexture: true
         })
         if (textureUrl === null)
-            textureUrl = `https://mc-heads.net/head/${item.head_texture}`
+            textureUrl = `https://mc-heads.net/head/${item.headTexture}`
     } else
         textureUrl = skyblockAssets.getTextureUrl({
             id: item.vanillaId,
@@ -103,7 +103,7 @@ const skyblockItems: { [itemName: string]: Item } = {
     spruce_log: { vanillaId: 'minecraft:log:1' },
     gemstone: {
         vanillaId: 'minecraft:skull',
-        head_texture: '39b6e047d3b2bca85e8cc49e5480f9774d8a0eafe6dfa9559530590283715142'
+        headTexture: '39b6e047d3b2bca85e8cc49e5480f9774d8a0eafe6dfa9559530590283715142'
     },
     hard_stone: { vanillaId: 'minecraft:stone' },
 }

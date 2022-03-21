@@ -26,24 +26,24 @@
 		talisman_bag: {
 			vanillaId: 'skull:3',
 			display: { name: 'Accessory Bag' },
-			head_texture: '961a918c0c49ba8d053e522cb91abc74689367b4d8aa06bfc1ba9154730985ff',
+			headTexture: '961a918c0c49ba8d053e522cb91abc74689367b4d8aa06bfc1ba9154730985ff',
 		},
 		potion_bag: {
 			vanillaId: 'skull:3',
 			display: { name: 'Potion Bag' },
-			head_texture: '9f8b82427b260d0a61e6483fc3b2c35a585851e08a9a9df372548b4168cc817c',
+			headTexture: '9f8b82427b260d0a61e6483fc3b2c35a585851e08a9a9df372548b4168cc817c',
 		},
 		fishing_bag: {
 			vanillaId: 'skull:3',
 			display: { name: 'Fishing Bag' },
-			head_texture: 'eb8e297df6b8dffcf135dba84ec792d420ad8ecb458d144288572a84603b1631',
+			headTexture: 'eb8e297df6b8dffcf135dba84ec792d420ad8ecb458d144288572a84603b1631',
 		},
 		quiver: {
 			vanillaId: 'skull:3',
 			display: {
 				name: 'Quiver',
 			},
-			head_texture: '4cb3acdc11ca747bf710e59f4c8e9b3d949fdd364c6869831ca878f0763d1787',
+			headTexture: '4cb3acdc11ca747bf710e59f4c8e9b3d949fdd364c6869831ca878f0763d1787',
 		},
 		wardrobe: {
 			vanillaId: 'leather_chestplate',
@@ -56,7 +56,7 @@
 			display: {
 				name: 'Trick or Treat Bag',
 			},
-			head_texture: 'e50f712e877dfd910c97f3819a200a05d49ee6b83b592686e099b9ecd443f228',
+			headTexture: 'e50f712e877dfd910c97f3819a200a05d49ee6b83b592686e099b9ecd443f228',
 		},
 	}
 </script>
