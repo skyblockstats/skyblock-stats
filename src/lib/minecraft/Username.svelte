@@ -8,6 +8,9 @@
 	export let headType: null | '3d' | '2d' = null
 	export let hyperlinkToProfile = false
 	export let prefix = false
+
+	/** whether the username should be crossed out */
+	export let strikethrough = false
 </script>
 
 <!-- {%- macro username(player, headType=none, hyperlinkToProfile=false, prefix=false) -%}
@@ -28,7 +31,10 @@
 		<span class="username-rank-prefix">
 			{@html formattingCodeToHtml(player.rank.colored)}
 		</span>
-	{/if}<span class="username" style="color: {player.rank.color}">{player.username}</span>
+	{/if}<span class="username" style="color: {player.rank.color}">
+		{#if strikethrough}<span class="strikethrough" />{/if}
+		{player.username}
+	</span>
 </ConditionalLink>
 
 <style>
@@ -38,6 +44,19 @@
 		/* reduce the size of the text because the font is too big */
 		font-size: 0.8em;
 		overflow-wrap: anywhere;
+		width: 100%;
+		/* display: inline-block; */
+		position: relative;
+	}
+
+	.strikethrough {
+		position: absolute;
+		right: 0;
+		left: 0;
+		top: 0.7em;
+		display: inline-block;
+		width: auto;
+		border-bottom: 2px solid #fff;
 	}
 
 	.username-rank-prefix {

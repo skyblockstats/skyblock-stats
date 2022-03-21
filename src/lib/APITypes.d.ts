@@ -23,6 +23,25 @@ export interface CleanMemberProfilePlayer extends CleanPlayer {
 	slayers: SlayerData
 }
 
+export interface CleanMember extends CleanBasicMember {
+	purse: number
+	stats: StatItem[]
+	rawHypixelStats: {
+		[key: string]: number
+	}
+	minions: CleanMinion[]
+	fairySouls: FairySouls
+	inventories?: Inventories
+	objectives: Objective[]
+	skills: Skill[]
+	zones: Zone[]
+	collections: Collection[]
+	slayers: SlayerData
+	/** Whether the user left the coop */
+	left: boolean
+}
+
+
 export interface CleanBasicPlayer {
 	uuid: string
 	username: string
@@ -218,4 +237,5 @@ export interface CleanBasicMember {
 	lastSave: number
 	firstJoin: number
 	rank: CleanRank
+	left?: boolean
 }

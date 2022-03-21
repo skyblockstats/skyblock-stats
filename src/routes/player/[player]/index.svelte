@@ -95,12 +95,22 @@
 				</a>
 				<span class="profile-members">
 					{#if (profile.members?.length ?? 0) > 1}
-						{#each profile.members ?? [] as player}
+						{#each profile.members?.filter(m => !m.left) ?? [] as player}
 							<span class="member">
 								<Username
 									{player}
 									headType="2d"
 									hyperlinkToProfile={player.uuid != data.player?.uuid}
+								/>
+							</span>
+						{/each}
+						{#each profile.members?.filter(m => m.left) ?? [] as player}
+							<span class="member">
+								<Username
+									{player}
+									headType="2d"
+									hyperlinkToProfile={player.uuid != data.player?.uuid}
+									strikethrough
 								/>
 							</span>
 						{/each}
@@ -117,7 +127,6 @@
 	.profile-name {
 		margin-right: 0.5em;
 	}
-
 	.profile-members {
 		color: var(--theme-main-text);
 	}
