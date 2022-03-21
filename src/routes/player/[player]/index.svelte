@@ -129,7 +129,6 @@
 	}
 	.profile-members {
 		color: var(--theme-main-text);
-		display: inline-flex;
 	}
 	.profile-members > .member {
 		margin-right: 0.35em;
@@ -137,11 +136,14 @@
 
 	.profile-list {
 		font-size: 1.5em;
+		display: inline-flex;
+		flex-wrap: wrap;
 	}
 
 	.profile-list-item {
 		margin-bottom: 0.5em;
 		color: var(--theme-darker-text);
+		width: 100%;
 	}
 	.profile-list-item-active {
 		color: #fff;
