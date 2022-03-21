@@ -110,7 +110,7 @@
 									{player}
 									headType="2d"
 									hyperlinkToProfile={player.uuid != data.player?.uuid}
-									strikethrough
+									disabled
 								/>
 							</span>
 						{/each}
@@ -129,6 +129,7 @@
 	}
 	.profile-members {
 		color: var(--theme-main-text);
+		display: inline-flex;
 	}
 	.profile-members > .member {
 		margin-right: 0.35em;

@@ -9,8 +9,8 @@
 	export let hyperlinkToProfile = false
 	export let prefix = false
 
-	/** whether the username should be crossed out */
-	export let strikethrough = false
+	/** whether the username should be crossed out and the avatar grayscaled */
+	export let disabled = false
 </script>
 
 <!-- {%- macro username(player, headType=none, hyperlinkToProfile=false, prefix=false) -%}
@@ -25,15 +25,15 @@
 
 <ConditionalLink href="/player/{player.username}" isWrapped={hyperlinkToProfile}>
 	{#if headType == '3d'}
-		<Head3d {player} isPartOfUsername={true} />{:else if headType == '2d'}
-		<Head2d {player} isPartOfUsername={true} />
+		<span class="head" class:grayscale={disabled}><Head3d {player} isPartOfUsername={true} /></span
+		>{:else if headType == '2d'}
+		<span class="head" class:grayscale={disabled}><Head2d {player} isPartOfUsername={true} /></span>
 	{/if}{#if prefix}
 		<span class="username-rank-prefix">
 			{@html formattingCodeToHtml(player.rank.colored)}
 		</span>
 	{/if}<span class="username" style="color: {player.rank.color}">
-		{#if strikethrough}<span class="strikethrough" />{/if}
-		{player.username}
+		{#if disabled}<span class="strikethrough" />{/if}{player.username}
 	</span>
 </ConditionalLink>
 
@@ -57,6 +57,9 @@
 		display: inline-block;
 		width: auto;
 		border-bottom: 2px solid #fff;
+	}
+	.grayscale {
+		filter: grayscale(100%);
 	}
 
 	.username-rank-prefix {
