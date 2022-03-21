@@ -13,11 +13,20 @@
 </script>
 
 {#if data.profile.bank}
-	<p class="bank-main-current-balance">
-		Current balance: <span class="bank-main-current-balance-value"
-			><b>{data.profile.bank.balance}</b> coins</span
-		>
-	</p>
+	<div class="bank-main-current-balance">
+		<p>
+			Current bank balance:
+			<span class="bank-main-current-balance-value">
+				<b>{data.profile.bank.balance?.toLocaleString()}</b> coins
+			</span>
+		</p>
+		<p>
+			Purse:
+			<span class="bank-main-current-balance-value">
+				<b>{data.member.purse.toLocaleString()}</b> coins
+			</span>
+		</p>
+	</div>
 	{#each data.profile.bank.history as transaction}
 		<div>
 			<span class="transaction-player">
@@ -30,7 +39,7 @@
 			</span>
 			<Tooltip>
 				<span slot="tooltip">
-					New balance: <b>{transaction.total}</b>
+					New balance: <b>{transaction.total.toLocaleString()}</b>
 				</span>
 				<span
 					class:difference-positive={transaction.change > 0}
@@ -43,7 +52,7 @@
 			</Tooltip>
 
 			<span class="transaction-timeago">
-				{millisecondsToTime(Date.now() - transaction.timestamp)}
+				{millisecondsToTime(Date.now() - transaction.timestamp)} ago
 			</span>
 		</div>
 	{/each}
@@ -73,5 +82,8 @@
 
 	.bank-main-current-balance-value {
 		color: var(--theme-main-text);
+	}
+	p {
+		margin: 0;
 	}
 </style>
