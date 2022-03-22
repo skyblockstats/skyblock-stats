@@ -24,7 +24,8 @@
 
 <style>
 	.minecraft-tooltip {
-		height: fit-content;
+		/* this makes it be less dumb about the height so it doesn't add extra or anything */
+		display: grid;
 	}
 	/* these elements exist so we can copy them later from GlobalTooltip */
 	.tooltip-name,

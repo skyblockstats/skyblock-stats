@@ -54,6 +54,7 @@
 	.item-slot {
 		border: 1px solid #888;
 		border-radius: 0.1em;
+		margin: 0.05em;
 	}
 	.item img {
 		position: absolute;
@@ -73,10 +74,6 @@
 		height: 0.75em;
 		margin-top: 0.1875em;
 		margin-left: 0.1875em;
-	}
-
-	.item-slot {
-		margin: 0.05em;
 	}
 
 	.item-count {
