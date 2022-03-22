@@ -71,6 +71,8 @@
 
 	$: [data, setCategories()]
 	$: backgroundUrl = data.customization?.backgroundUrl ?? chooseDefaultBackground(data.member.uuid)
+	$: showingInventories =
+		data.member.inventories?.inventory || data.member.inventories?.personal_vault
 </script>
 
 {#if backgroundUrl}
@@ -122,14 +124,20 @@
 	<div>
 		<div id="categories">
 			{#if data.member.inventories?.armor}
-				<section id="armor" class:armor-float={data.member.inventories.inventory}>
+				<section id="armor" class:armor-float={showingInventories}>
 					<h2>Armor</h2>
 					<Armor {data} {pack} />
 				</section>
 			{/if}
-			{#if data.member.inventories?.inventory}
+			{#if showingInventories}
 				<section id="inventories">
-					<h2>Inventories</h2>
+					<h2>
+						{#if data.member.inventories?.inventory}
+							Inventories
+						{:else}
+							Personal Vault
+						{/if}
+					</h2>
 					<Inventories {data} {pack} />
 				</section>
 			{/if}

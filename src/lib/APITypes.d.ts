@@ -88,7 +88,8 @@ export declare const INVENTORIES: {
 	fishing_bag: string
 	quiver: string
 	trick_or_treat_bag: string
-	wardrobe: string
+	wardrobe: string,
+	personal_vault: string
 }
 export declare type Inventories = {
 	[name in keyof typeof INVENTORIES]: Item[]

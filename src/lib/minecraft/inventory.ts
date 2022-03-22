@@ -30,7 +30,8 @@ const INVENTORIES = {
     fishing_bag: 'fishing_bag',
     quiver: 'quiver',
     trick_or_treat_bag: 'candy_inventory_contents',
-    wardrobe: 'wardrobe_contents'
+    wardrobe: 'wardrobe_contents',
+    personal_vault: 'personal_vault_contents'
 }
 
 export type Inventories = { [name in keyof typeof INVENTORIES]: Item[] }

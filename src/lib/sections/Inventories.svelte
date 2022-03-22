@@ -58,28 +58,43 @@
 			},
 			headTexture: 'e50f712e877dfd910c97f3819a200a05d49ee6b83b592686e099b9ecd443f228',
 		},
+		personal_vault: {
+			vanillaId: 'iron_door',
+			display: {
+				lore: [
+					'§7Store your valuable items in a',
+					'§7safe place that only you can',
+					'§7access!',
+					'',
+					'§eClick to view!',
+				],
+				name: '§aPersonal Vault',
+			},
+		},
 	}
 </script>
 
-<div id="inventory-tabs">
-	{#each displayingInventories as inventoryName}
-		<button
-			class="inventory-tab"
-			class:inventory-tab-active={inventoryName === selectedInventoryName}
-			on:click={() => (selectedInventoryName = inventoryName)}
-		>
-			{#if inventoryName in inventoryIconMap}
-				<img
-					class="inventory-tab-icon"
-					loading="lazy"
-					src={skyblockItemToUrl(inventoryIconMap[inventoryName], pack)}
-					alt={cleanId(inventoryName)}
-				/>
-			{/if}
-			<span class="inventory-tab-name">{cleanId(inventoryName)}</span>
-		</button>
-	{/each}
-</div>
+{#if displayingInventories.length > 1}
+	<div id="inventory-tabs">
+		{#each displayingInventories as inventoryName}
+			<button
+				class="inventory-tab"
+				class:inventory-tab-active={inventoryName === selectedInventoryName}
+				on:click={() => (selectedInventoryName = inventoryName)}
+			>
+				{#if inventoryName in inventoryIconMap}
+					<img
+						class="inventory-tab-icon"
+						loading="lazy"
+						src={skyblockItemToUrl(inventoryIconMap[inventoryName], pack)}
+						alt={cleanId(inventoryName)}
+					/>
+				{/if}
+				<span class="inventory-tab-name">{cleanId(inventoryName)}</span>
+			</button>
+		{/each}
+	</div>
+{/if}
 {#each displayingInventories as inventoryName}
 	{#if inventoryName === selectedInventoryName}
 		<div id={inventoryName} class="inventory-content">
