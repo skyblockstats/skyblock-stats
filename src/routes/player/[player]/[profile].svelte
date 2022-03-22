@@ -24,29 +24,30 @@
 </script>
 
 <script lang="ts">
+	import { inventoryIconMap, skyblockItemToUrl } from '$lib/minecraft/inventory'
 	import Leaderboards from '$lib/sections/Leaderboards.svelte'
 	import Inventories from '$lib/sections/Inventories.svelte'
 	import Collections from '$lib/sections/Collections.svelte'
+	import { chooseDefaultBackground } from '$lib/backgrounds'
 	import BackgroundImage from '$lib/BackgroundImage.svelte'
 	import type { CleanMemberProfile } from '$lib/APITypes'
 	import Username from '$lib/minecraft/Username.svelte'
 	import StatList from '$lib/sections/StatList.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
 	import Minions from '$lib/sections/Minions.svelte'
+	import Slayers from '$lib/sections/Slayers.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
 	import Collapsible from '$lib/Collapsible.svelte'
 	import Skills from '$lib/sections/Skills.svelte'
 	import { generateInfobox } from '$lib/profile'
 	import Zones from '$lib/sections/Zones.svelte'
 	import Armor from '$lib/sections/Armor.svelte'
+	import Bank from '$lib/sections/Bank.svelte'
 	import Header from '$lib/Header.svelte'
 	import Emoji from '$lib/Emoji.svelte'
 	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
-	import { chooseDefaultBackground } from '$lib/backgrounds'
-	import Slayers from '$lib/sections/Slayers.svelte'
-	import Bank from '$lib/sections/Bank.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -135,6 +136,12 @@
 						{#if data.member.inventories?.inventory}
 							Inventories
 						{:else}
+							<img
+								class="inventory-tab-icon"
+								loading="lazy"
+								src={skyblockItemToUrl(inventoryIconMap.personal_vault, pack)}
+								alt={cleanId('personal_vault')}
+							/>
 							Personal Vault
 						{/if}
 					</h2>

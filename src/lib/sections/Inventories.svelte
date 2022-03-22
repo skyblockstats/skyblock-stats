@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { skyblockItemToUrl, type Item } from '$lib/minecraft/inventory'
+	import { inventoryIconMap, skyblockItemToUrl, type Item } from '$lib/minecraft/inventory'
 	import Inventory from '$lib/minecraft/Inventory.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
 	import { cleanId } from '$lib/utils'
@@ -12,66 +12,6 @@
 		if (inventoryName !== 'armor') displayingInventories.push(inventoryName)
 
 	let selectedInventoryName: string = displayingInventories[0]
-
-	const inventoryIconMap: Record<string, string | Item> = {
-		inventory: {
-			id: 'SKYBLOCK_MENU',
-			vanillaId: 'nether_star',
-			display: { name: 'SkyBlock Menu' },
-		},
-		ender_chest: {
-			vanillaId: 'ender_chest',
-			display: { name: '\\u00a7aEnder Chest' },
-		},
-		talisman_bag: {
-			vanillaId: 'skull:3',
-			display: { name: 'Accessory Bag' },
-			headTexture: '961a918c0c49ba8d053e522cb91abc74689367b4d8aa06bfc1ba9154730985ff',
-		},
-		potion_bag: {
-			vanillaId: 'skull:3',
-			display: { name: 'Potion Bag' },
-			headTexture: '9f8b82427b260d0a61e6483fc3b2c35a585851e08a9a9df372548b4168cc817c',
-		},
-		fishing_bag: {
-			vanillaId: 'skull:3',
-			display: { name: 'Fishing Bag' },
-			headTexture: 'eb8e297df6b8dffcf135dba84ec792d420ad8ecb458d144288572a84603b1631',
-		},
-		quiver: {
-			vanillaId: 'skull:3',
-			display: {
-				name: 'Quiver',
-			},
-			headTexture: '4cb3acdc11ca747bf710e59f4c8e9b3d949fdd364c6869831ca878f0763d1787',
-		},
-		wardrobe: {
-			vanillaId: 'leather_chestplate',
-			display: {
-				name: '\\u00a7aWardrobe',
-			},
-		},
-		trick_or_treat_bag: {
-			vanillaId: 'skull:3',
-			display: {
-				name: 'Trick or Treat Bag',
-			},
-			headTexture: 'e50f712e877dfd910c97f3819a200a05d49ee6b83b592686e099b9ecd443f228',
-		},
-		personal_vault: {
-			vanillaId: 'iron_door',
-			display: {
-				lore: [
-					'§7Store your valuable items in a',
-					'§7safe place that only you can',
-					'§7access!',
-					'',
-					'§eClick to view!',
-				],
-				name: '§aPersonal Vault',
-			},
-		},
-	}
 </script>
 
 {#if displayingInventories.length > 1}
