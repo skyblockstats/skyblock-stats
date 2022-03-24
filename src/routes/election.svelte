@@ -67,22 +67,24 @@
 <Header />
 
 <main>
-	<div class="next-mayor-update">
-		<p>
-			<b>Last API update:</b>
-			{millisecondsToTime(currentTime - data.lastUpdated, {
-				smallestUnit: 1,
-				parts: 1,
-			})} ago
-		</p>
-		<p>
-			<b>Next API update:</b>
-			{millisecondsToTime(10 * 60 * 1000 - (currentTime - data.lastUpdated), {
-				smallestUnit: 1,
-				parts: 1,
-			})}
-		</p>
-	</div>
+	{#if data.current}
+		<div class="next-mayor-update">
+			<p>
+				<b>Last API update:</b>
+				{millisecondsToTime(currentTime - data.lastUpdated, {
+					smallestUnit: 1,
+					parts: 1,
+				})} ago
+			</p>
+			<p>
+				<b>Next API update:</b>
+				{millisecondsToTime(10 * 60 * 1000 - (currentTime - data.lastUpdated), {
+					smallestUnit: 1,
+					parts: 1,
+				})}
+			</p>
+		</div>
+	{/if}
 	<h1>SkyBlock Mayor Election Status</h1>
 	<p>
 		<b>Next election:</b>
