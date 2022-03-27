@@ -48,6 +48,7 @@
 	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
+	import Harp from '$lib/sections/Harp.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -61,12 +62,13 @@
 		if (data.member.stats?.find(s => s.category === 'fishing')) categories.push('fishing')
 		if (data.member.stats?.find(s => s.category === 'races')) categories.push('races')
 		categories.push('misc')
-		categories.push('minions')
-		if (data.member.slayers) categories.push('slayers')
+		if (data.member.minions.some(m => m.levels.some(l => l))) categories.push('minions')
+		if (data.member.slayers && data.member.slayers.xp > 0) categories.push('slayers')
 		categories.push('zones')
 		if (data.member.collections && data.member.collections.length > 0)
 			categories.push('collections')
 		if (data.profile.bank.balance !== undefined) categories.push('bank')
+		if (data.member.harp.selected !== null) categories.push('harp')
 		categories.push('leaderboards')
 	}
 
@@ -160,12 +162,14 @@
 					{/if}
 				{/each}
 			{/if}
-			<section>
-				<Collapsible id="minions">
-					<h2 slot="title">Minions</h2>
-					<Minions {data} />
-				</Collapsible>
-			</section>
+			{#if categories.includes('minions')}
+				<section>
+					<Collapsible id="minions">
+						<h2 slot="title">Minions</h2>
+						<Minions {data} />
+					</Collapsible>
+				</section>
+			{/if}
 			{#if categories.includes('slayers')}
 				<section>
 					<Collapsible id="slayers">
@@ -193,6 +197,14 @@
 					<Collapsible id="bank">
 						<h2 slot="title">Bank</h2>
 						<Bank {data} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('harp')}
+				<section>
+					<Collapsible id="harp">
+						<h2 slot="title">Harp</h2>
+						<Harp {data} />
 					</Collapsible>
 				</section>
 			{/if}

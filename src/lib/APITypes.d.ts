@@ -5,14 +5,13 @@ export interface CleanMemberProfile {
 }
 
 export interface CleanMemberProfilePlayer extends CleanPlayer {
+	// The profile name may be different for each player, so we put it here
 	profileName: string
 	firstJoin: number
 	lastSave: number
 	purse: number
 	stats: StatItem[]
-	rawHypixelStats: {
-		[key: string]: number
-	}
+	rawHypixelStats: { [key: string]: number }
 	minions: CleanMinion[]
 	fairySouls: FairySouls
 	inventories?: Inventories
@@ -21,6 +20,8 @@ export interface CleanMemberProfilePlayer extends CleanPlayer {
 	zones: Zone[]
 	collections: Collection[]
 	slayers: SlayerData
+	pets: PetsData
+	harp: HarpData
 }
 
 export interface CleanMember extends CleanBasicMember {
@@ -242,12 +243,30 @@ export interface CleanBasicMember {
 }
 
 export interface Bank {
-	balance?: number;
-	history: BankHistoryItem[];
+	balance?: number
+	history: BankHistoryItem[]
 }
 export interface BankHistoryItem {
-	change: number;
-	total: number;
-	timestamp: number;
-	name: string;
+	change: number
+	total: number
+	timestamp: number
+	name: string
+}
+
+
+export interface HarpSong {
+	id: string
+	/** A number between 0 and 1 representing the user's best completion */
+	progress: number
+	completions: number
+	perfectCompletions: number
+}
+
+export interface HarpData {
+	selected: {
+		id: string
+		timestamp: number
+	} | null
+	claimedMelodysHair: boolean
+	songs: HarpSong[]
 }
