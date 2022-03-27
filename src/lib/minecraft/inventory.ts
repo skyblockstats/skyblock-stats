@@ -97,7 +97,7 @@ export const inventoryIconMap: Record<string, string | Item> = {
 
 export type Inventories = { [name in keyof typeof INVENTORIES]: Item[] }
 
-export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string {
+export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile, headSize?: number): string {
     const itemNbt: skyblockAssets.NBT = {
         display: {
             Name: item.display?.name
@@ -115,8 +115,11 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string
             packs: pack ? [pack] : [],
             noNullTexture: true
         })
-        if (textureUrl === null)
+        if (textureUrl === null) {
             textureUrl = `https://mc-heads.net/head/${item.headTexture}`
+            if (headSize)
+                textureUrl += `/${headSize}`
+        }
     } else
         textureUrl = skyblockAssets.getTextureUrl({
             id: item.vanillaId,
@@ -126,9 +129,9 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string
     return textureUrl
 }
 
-export function skyblockItemToUrl(skyblockItem: string | Item, pack?: skyblockAssets.MatcherFile) {
+export function skyblockItemToUrl(skyblockItem: string | Item, pack?: skyblockAssets.MatcherFile, headSize?: number) {
     const item: Item = typeof skyblockItem === 'string' ? skyblockItemNameToItem(skyblockItem) : skyblockItem
-    const itemTextureUrl = itemToUrl(item, pack)
+    const itemTextureUrl = itemToUrl(item, pack, headSize)
     return itemTextureUrl
 }
 

@@ -26,7 +26,7 @@
 					<img
 						class="inventory-tab-icon"
 						loading="lazy"
-						src={skyblockItemToUrl(inventoryIconMap[inventoryName], pack)}
+						src={skyblockItemToUrl(inventoryIconMap[inventoryName], pack, 50)}
 						alt={cleanId(inventoryName)}
 					/>
 				{/if}

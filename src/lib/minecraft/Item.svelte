@@ -7,6 +7,7 @@
 	export let item: any | null
 	export let isslot = true
 	export let pack: MatcherFile | undefined = undefined
+	export let headSize: number | undefined = undefined
 
 	let itemLoreHtml: string | null
 	let itemNameHtml: string | null
@@ -15,7 +16,7 @@
 	$: itemLoreHtml = item ? item.display.lore.map(l => formattingCodeToHtml(l)).join('<br>') : null
 	$: itemNameHtml = item ? formattingCodeToHtml(item.display.name) : null
 
-	$: imageUrl = item ? itemToUrl(item, pack) : null
+	$: imageUrl = item ? itemToUrl(item, pack, headSize) : null
 </script>
 
 {#if item}
