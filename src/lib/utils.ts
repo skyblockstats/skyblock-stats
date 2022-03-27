@@ -130,6 +130,8 @@ export function millisecondsToTime(totalMilliseconds: number, opts: Milliseconds
 export function cleanId(id: string) {
     for (const string of ['deaths', 'kills', 'collection', 'skill'])
         id = moveToEndOfId(string, id)
+    if (id.startsWith('harp_') && id.endsWith('_completions'))
+        id = id.slice('harp_'.length)
 
     return id
         .replace(/^./, id[0].toUpperCase())
