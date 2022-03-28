@@ -49,6 +49,7 @@
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
 	import Harp from '$lib/sections/Harp.svelte'
+	import Claimed from '$lib/sections/Claimed.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -69,6 +70,7 @@
 			categories.push('collections')
 		if (data.profile.bank.balance !== undefined) categories.push('bank')
 		if (data.member.harp.selected !== null) categories.push('harp')
+		if (data.member.claimed) categories.push('claimed')
 		categories.push('leaderboards')
 	}
 
@@ -205,6 +207,14 @@
 					<Collapsible id="harp">
 						<h2 slot="title">Harp</h2>
 						<Harp {data} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('claimed')}
+				<section>
+					<Collapsible id="claimed">
+						<h2 slot="title">Claimed</h2>
+						<Claimed {data} />
 					</Collapsible>
 				</section>
 			{/if}

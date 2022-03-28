@@ -52,6 +52,7 @@ export interface CleanPlayer extends CleanBasicPlayer {
 	rank: CleanRank
 	socials: CleanSocialMedia
 	profiles?: CleanBasicProfile[]
+	claimed?: ClaimedSkyBlockItem[]
 }
 
 export interface StatItem {
@@ -269,4 +270,9 @@ export interface HarpData {
 	} | null
 	claimedMelodysHair: boolean
 	songs: HarpSong[]
+}
+
+export interface ClaimedSkyBlockItem {
+	name: string
+	timestamp: number
 }
