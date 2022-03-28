@@ -70,7 +70,7 @@
 			categories.push('collections')
 		if (data.profile.bank.balance !== undefined) categories.push('bank')
 		if (data.member.harp.selected !== null) categories.push('harp')
-		if (data.member.claimed) categories.push('claimed')
+		if (data.member.claimed && data.member.claimed.length > 0) categories.push('claimed')
 		categories.push('leaderboards')
 	}
 
