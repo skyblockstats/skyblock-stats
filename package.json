@@ -41,7 +41,8 @@
     "@sveltejs/adapter-vercel": "^1.0.0-next.43",
     "cookie": "^0.4.1",
     "dotenv": "^16.0.0",
-    "skyblock-assets": "^2.0.7"
+    "skyblock-assets": "^2.0.7",
+    "typed-hypixel-api": "^0.3.4"
   },
   "packageManager": "yarn@3.1.1"
 }

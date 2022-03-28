@@ -1,3 +1,6 @@
+import type typedHypixelApi from 'typed-hypixel-api'
+
+
 export interface CleanMemberProfile {
 	member: CleanMemberProfilePlayer
 	profile: CleanFullProfileBasicMembers
@@ -275,4 +278,40 @@ export interface HarpData {
 export interface ClaimedSkyBlockItem {
 	name: string
 	timestamp: number
+}
+
+export interface Pet {
+	id: string
+	xp: number
+	level: number
+	tier: typedHypixelApi.Pet['tier']
+	skin: string | null
+	item: ItemListItem | null
+}
+export interface PetsData {
+	active: Pet | null
+	list: Pet[]
+	missingIds: string[]
+}
+
+export interface ItemRequirement {
+	dungeon: {
+		type: string
+		level: number
+	}
+}
+export interface ItemListItem {
+	id: string
+	vanillaId: string
+	tier: string | null
+	display: {
+		name: string
+		glint: boolean
+	}
+	npcSellPrice: number | null
+	requirements: ItemRequirement | null
+}
+export interface ItemListData {
+	lastUpdated: number
+	list: ItemListItem[]
 }
