@@ -13,6 +13,7 @@
 		farming: '/skill-icons/farming.webp',
 		fishing: '/skill-icons/fishing.webp',
 		carpentry: '/skill-icons/construction.webp',
+		social: '/skill-icons/agility.webp',
 	}
 
 	export let data

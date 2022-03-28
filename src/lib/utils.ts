@@ -189,7 +189,7 @@ export function formatNumberFromUnit(n: number, unit: null | 'date' | 'time' | s
         case null:
             return n.toLocaleString()
         case 'date':
-            return (new Date(n * 1000)).toUTCString()
+            return (new Date(n)).toUTCString()
         case 'time':
             return millisecondsToTime(Math.abs(n))
         default:
