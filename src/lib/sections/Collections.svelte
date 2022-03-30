@@ -24,7 +24,7 @@
 		<ul>
 			{#each collections as collection}
 				<ListItemWithIcon
-					url={skyblockItemToUrl(collection.name, pack)}
+					src={skyblockItemToUrl(collection.name, pack)}
 					alt={cleanId(collection.name)}
 				>
 					<Tooltip>

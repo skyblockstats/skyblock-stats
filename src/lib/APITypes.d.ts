@@ -8,23 +8,26 @@ export interface CleanMemberProfile {
 }
 
 export interface CleanMemberProfilePlayer extends CleanPlayer {
-	// The profile name may be different for each player, so we put it here
-	profileName: string
-	firstJoin: number
-	lastSave: number
-	purse: number
-	stats: StatItem[]
-	rawHypixelStats: { [key: string]: number }
-	minions: CleanMinion[]
-	fairySouls: FairySouls
-	inventories?: Inventories
-	objectives: Objective[]
-	skills: Skill[]
-	zones: Zone[]
-	collections: Collection[]
-	slayers: SlayerData
-	pets: PetsData
-	harp: HarpData
+	profileName: string;
+	firstJoin: number | null;
+	lastSave: number | null;
+	purse: number;
+	stats: StatItem[];
+	rawHypixelStats: {
+		[key: string]: number;
+	};
+	minions: CleanMinion[];
+	fairySouls: FairySouls;
+	inventories?: Inventories;
+	objectives: Objective[];
+	skills: Skill[];
+	zones: Zone[];
+	collections: Collection[];
+	slayers: SlayerData;
+	pets: PetsData;
+	harp: HarpData;
+	coopInvitation: CoopInvitation | null;
+	farmingContests: FarmingContests;
 }
 
 export interface CleanMember extends CleanBasicMember {
@@ -314,4 +317,26 @@ export interface ItemListItem {
 export interface ItemListData {
 	lastUpdated: number
 	list: ItemListItem[]
+}
+
+export interface PlayerFarmingContestStats {
+	year: number;
+	month: number;
+	day: number;
+	crops: {
+		item: string;
+		amount: number;
+		/** The position (1-indexed) that the user got on the contest. */
+		position: number | null;
+		/** Whether the player has claimed their rewards. */
+		claimed: boolean | null;
+		/**
+		 * The number of people who participated in this contest.
+		 */
+		participants: number | null;
+	}[];
+}
+export interface FarmingContests {
+	talkedToJacob: boolean;
+	list: PlayerFarmingContestStats[];
 }

@@ -51,6 +51,7 @@
 	import Harp from '$lib/sections/Harp.svelte'
 	import Claimed from '$lib/sections/Claimed.svelte'
 	import Pets from '$lib/sections/Pets.svelte'
+	import FarmingContests from '$lib/sections/FarmingContests.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -73,6 +74,7 @@
 		if (data.member.harp.selected !== null) categories.push('harp')
 		if (data.member.claimed && data.member.claimed.length > 0) categories.push('claimed')
 		if (data.member.pets.list.length > 0) categories.push('pets')
+		if (data.member.farmingContests.list.length > 0) categories.push('farming_contests')
 		categories.push('leaderboards')
 	}
 
@@ -225,6 +227,14 @@
 					<Collapsible id="pets">
 						<h2 slot="title">Pets</h2>
 						<Pets {data} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('farming_contests')}
+				<section>
+					<Collapsible id="farming-contests">
+						<h2 slot="title">Farming Contests</h2>
+						<FarmingContests {data} />
 					</Collapsible>
 				</section>
 			{/if}

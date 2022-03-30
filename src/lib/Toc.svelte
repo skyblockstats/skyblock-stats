@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cleanId } from './utils'
+	import { cleanId, toTitleCase } from './utils'
 
 	export let categories: string[]
 </script>
@@ -8,7 +8,7 @@
 	<h3>Contents</h3>
 	<ul>
 		{#each categories as category}
-			<li><a href="#{category}">{cleanId(category)}</a></li>
+			<li><a href="#{category.replace(/[ _]/, '-')}">{toTitleCase(cleanId(category))}</a></li>
 		{/each}
 	</ul>
 </div>

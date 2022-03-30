@@ -41,7 +41,7 @@
 							? skyblockItemToUrl(leaderboard.slice(11))
 							: null}
 						{#if imageUrl}
-							<ListItemWithIcon url={imageUrl}>
+							<ListItemWithIcon src={imageUrl}>
 								<a href="/leaderboards/{leaderboard}">{cleanId(leaderboard)}</a>
 							</ListItemWithIcon>
 						{:else}

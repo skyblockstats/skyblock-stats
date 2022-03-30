@@ -1,10 +1,10 @@
 <script lang="ts">
-	export let url: string
+	export let src: string
 	export let alt: string | undefined = undefined
 </script>
 
 <li class="list-item-with-icon">
-	<img class="list-item-icon" src={url} {alt} loading="lazy" />
+	<img class="list-item-icon" {src} {alt} loading="lazy" />
 	<slot />
 </li>
 
