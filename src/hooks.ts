@@ -18,8 +18,8 @@ export const getSession: GetSession = async ({ locals }) => {
 	}
 }
 
-export const externalFetch: ExternalFetch = async (request) => {
-	const response = await fetch(request)
+// export const externalFetch: ExternalFetch = async (request) => {
+// 	const response = await fetch(request)
 
-	return response
-}
+// 	return response
+// }
