@@ -4,6 +4,9 @@
 
 	export const load: Load = async ({ params, fetch }) => {
 		const dataText = await fetch(`${API_URL}leaderboards/${params.name}`).then(r => r.text())
+
+		throw new Error(dataText)
+
 		const data = JSON.parse(dataText)
 
 		if (data.list.length === 0) return { status: 404, error: 'Unknown leaderboard' }
