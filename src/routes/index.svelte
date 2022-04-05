@@ -92,6 +92,7 @@
 		</p>
 		<p>Emojis: <a href="//twemoji.twitter.com/">Twemoji</a>.</p>
 		<p>Font: <a href="//brailleinstitute.org/freefont">Atkinson Hyperlegible</a>.</p>
+		<p class="secret">Thank you to Duckie Cousin Gaming for the idea to add harp leaderboards.</p>
 	</section>
 </main>
 
@@ -125,5 +126,12 @@
 	}
 	.github > img {
 		width: 2rem;
+	}
+
+	.secret {
+		color: var(--theme-main-background);
+		margin: 0;
+		font-size: 6pt;
+		margin-top: -0.5rem;
 	}
 </style>
