@@ -25,6 +25,8 @@
 			<div class="info-text">
 				{#if song.completions}
 					<p>Completions: <b class="info-text-value">{song.completions}</b></p>
+				{/if}
+				{#if song.perfectCompletions}
 					<p>Perfect completions: <b class="info-text-value">{song.perfectCompletions}</b></p>
 				{:else}
 					<p>Progress: <b class="info-text-value">{Math.floor(song.progress * 100)}%</b></p>
