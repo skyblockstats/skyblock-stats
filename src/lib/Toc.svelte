@@ -30,5 +30,6 @@
 	}
 	#toc li {
 		list-style-type: none;
+		padding: 0.1em 0;
 	}
 </style>
