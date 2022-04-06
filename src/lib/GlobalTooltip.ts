@@ -28,7 +28,7 @@ function moveTooltipToMouse(e: MouseEvent) {
 		tooltipEl.style.left = `${window.innerWidth + window.scrollX - 10 - tooltipEl.offsetWidth}px`
 	} else {
 		// otherwise, put it at the mouse's x position
-		tooltipEl.style.left = mouseX + 'px'
+		tooltipEl.style.left = mouseX + 15 + 'px'
 	}
 }
 
