@@ -52,6 +52,7 @@
 	import Claimed from '$lib/sections/Claimed.svelte'
 	import Pets from '$lib/sections/Pets.svelte'
 	import FarmingContests from '$lib/sections/FarmingContests.svelte'
+	import Misc from '$lib/sections/Misc.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -158,7 +159,8 @@
 			{/if}
 			{#if data.member.stats}
 				{#each categories as category}
-					{#if data.member.stats?.find(s => s.category === category)}
+					<!-- misc is handled later so we can add stuff other than stats to it -->
+					{#if category !== 'misc' && data.member.stats?.find(s => s.category === category)}
 						<section>
 							<Collapsible id={category}>
 								<h2 slot="title">{cleanId(category)}</h2>
@@ -235,6 +237,14 @@
 					<Collapsible id="farming-contests">
 						<h2 slot="title">Farming Contests</h2>
 						<FarmingContests {data} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('misc')}
+				<section>
+					<Collapsible id="misc">
+						<h2 slot="title">Misc</h2>
+						<Misc {data} />
 					</Collapsible>
 				</section>
 			{/if}
