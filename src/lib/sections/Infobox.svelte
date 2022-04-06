@@ -69,4 +69,10 @@
 			border: 1px solid var(--theme-lighter-background);
 		}
 	}
+	@media only screen and (max-width: 460px) {
+		#infobox-container {
+			max-width: 100%;
+			float: left;
+		}
+	}
 </style>
