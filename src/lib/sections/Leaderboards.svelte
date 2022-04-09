@@ -16,7 +16,7 @@
 				<a href="/leaderboard/{leaderboard.name}" class="leaderboard-item-anchor">
 					{leaderboard.positionIndex + 1}) <b>{cleanId(leaderboard.name)}</b>: {formatNumberFromUnit(
 						leaderboard.value,
-						leaderboard.unit ?? cleanId(leaderboard.name).toLowerCase()
+						leaderboard.unit ?? null
 					)}
 				</a>
 			</li>

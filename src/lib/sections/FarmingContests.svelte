@@ -3,10 +3,15 @@
 	import Emoji from '$lib/Emoji.svelte'
 	import ListItemWithIcon from '$lib/ListItemWithIcon.svelte'
 	import { skyblockItemToUrl } from '$lib/minecraft/inventory'
-	import Item from '$lib/minecraft/Item.svelte'
-	import { cleanId, millisecondsToTime, skyblockTime, toTitleCase } from '$lib/utils'
+	import { skyblockTime } from '$lib/utils'
 
 	export let data: CleanMemberProfile
+
+	let cachedItemUrls: Record<string, string> = {}
+	function cachedSkyblockItemToUrl(item: string) {
+		if (!cachedItemUrls[item]) cachedItemUrls[item] = skyblockItemToUrl(item)
+		return cachedItemUrls[item]
+	}
 </script>
 
 <div class="info-text primary-info-text">
@@ -22,7 +27,7 @@
 			</p>
 			<ul>
 				{#each farmingContest.crops as crop}
-					<ListItemWithIcon src={skyblockItemToUrl(crop.item)}>
+					<ListItemWithIcon src={cachedSkyblockItemToUrl(crop.item)}>
 						<b>{crop.amount.toLocaleString()}</b> collected
 						{#if crop.position}
 							<span class="farming-contest-item-placement">

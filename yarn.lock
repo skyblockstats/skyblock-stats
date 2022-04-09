@@ -153,7 +153,7 @@
   dependencies:
     esbuild "^0.14.21"
 
-"@sveltejs/kit@^1.0.0-next.269":
+"@sveltejs/kit@^1.0.0-next.310":
   version "1.0.0-next.310"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.310.tgz#d4085327e536a8ab54165e64f0fe14a5ac4afa8f"
   integrity sha512-pTyMyaoyHS+V5cQZIQMfQXmLkhw1VaRwT9avOSgwDc0QBpnNw2LdzwoPYsUr96ca5B6cfT3SMUNolxErTNHmPQ==
