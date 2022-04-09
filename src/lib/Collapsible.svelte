@@ -9,6 +9,7 @@
 
 	let open: boolean
 	export let id: string | undefined = undefined
+	export let lazy = true
 
 	function checkHash() {
 		if (id && id === location.hash.slice(1)) {
@@ -27,15 +28,19 @@
 		</slot>
 	</summary>
 	<div>
-		<!--
+		{#if lazy}
+			<!--
 			We do this so images and other things inside the content are not
 			loaded until it's open.
 			For some reason browsers don't handle this, although they should.
 		-->
-		<noscript>
-			<slot />
-		</noscript>
-		{#if open}
+			<noscript>
+				<slot />
+			</noscript>
+			{#if open}
+				<slot />
+			{/if}
+		{:else}
 			<slot />
 		{/if}
 	</div>

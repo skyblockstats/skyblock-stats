@@ -34,7 +34,7 @@
 
 	{#each Object.entries(data) as [category, leaderboards]}
 		<section>
-			<Collapsible id={category}>
+			<Collapsible id={category} lazy={false}>
 				<ul>
 					{#each leaderboards as leaderboard}
 						{@const imageUrl = leaderboard.startsWith('collection_')
