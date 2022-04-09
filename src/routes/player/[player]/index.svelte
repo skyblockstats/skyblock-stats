@@ -30,14 +30,14 @@
 </script>
 
 <script lang="ts">
-	import type { CleanProfile, CleanUser } from '$lib/APITypes'
+	import type { CleanPlayer, CleanProfile, CleanUser } from '$lib/APITypes'
 	import BackgroundImage from '$lib/BackgroundImage.svelte'
 	import Username from '$lib/minecraft/Username.svelte'
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
 	import { chooseDefaultBackground } from '$lib/backgrounds'
 
-	export let data: CleanUser
+	export let data: CleanUser & { player: CleanPlayer }
 
 	let activeProfile: CleanProfile | null = null
 	let activeProfileLastSave: number = 0
@@ -61,9 +61,7 @@
 	let backgroundUrl: string | null
 
 	$: {
-		backgroundUrl =
-			data.customization?.backgroundUrl ??
-			(data.player ? chooseDefaultBackground(data.player.uuid) : null)
+		backgroundUrl = data.customization?.backgroundUrl ?? chooseDefaultBackground(data.player.uuid)
 		updateActiveProfile()
 	}
 </script>
@@ -76,7 +74,9 @@
 <Header />
 
 <main>
-	<h1><Username player={data.player} headType="3d" />'s profiles</h1>
+	<h1>
+		<Username player={data.player} headType="3d" />'s profiles
+	</h1>
 
 	<ul class="profile-list">
 		{#each data.profiles ?? [] as profile}
@@ -109,7 +109,7 @@
 								<Username
 									{player}
 									headType="2d"
-									hyperlinkToProfile={player.uuid != data.player?.uuid}
+									hyperlinkToProfile="{player.username}/{profile.uuid}"
 									disabled
 								/>
 							</span>

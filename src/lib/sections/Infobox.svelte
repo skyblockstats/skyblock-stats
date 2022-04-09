@@ -2,23 +2,17 @@
 	import { generateInfobox } from '$lib/profile'
 	import Username from '$lib/minecraft/Username.svelte'
 	import Emoji from '$lib/Emoji.svelte'
-	import { onMount } from 'svelte'
 
 	export let data
-
-	// onMount(() => {
-	// 	// reload the data every second so the infobox updates
-	// 	const interval = setInterval(() => {
-	// 		data = data
-	// 	}, 1000)
-
-	// 	return () => clearInterval(interval)
-	// })
 </script>
 
 <div id="infobox-container">
 	<div id="infobox">
-		<h2><Username player={data.member} prefix /> ({data.member.profileName})</h2>
+		<h2>
+			<Username player={data.member} prefix /> ({data.member.left
+				? 'Removed'
+				: data.member.profileName})
+		</h2>
 		{#each generateInfobox(data) as item}
 			<p><Emoji value={item} /></p>
 		{/each}

@@ -52,6 +52,7 @@
 	import Claimed from '$lib/sections/Claimed.svelte'
 	import Pets from '$lib/sections/Pets.svelte'
 	import FarmingContests from '$lib/sections/FarmingContests.svelte'
+	import Coop from '$lib/sections/Coop.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -75,6 +76,7 @@
 		if (data.member.claimed && data.member.claimed.length > 0) categories.push('claimed')
 		if (data.member.pets.list.length > 0) categories.push('pets')
 		if (data.member.farmingContests.list.length > 0) categories.push('farming_contests')
+		if (data.member.coopInvitation) categories.push('co-op')
 		categories.push('leaderboards')
 	}
 
@@ -82,6 +84,8 @@
 	$: backgroundUrl = data.customization?.backgroundUrl ?? chooseDefaultBackground(data.member.uuid)
 	$: showingInventories =
 		data.member.inventories?.inventory || data.member.inventories?.personal_vault
+
+	$: profileName = data.member.left ? 'Removed' : data.member.profileName
 </script>
 
 {#if backgroundUrl}
@@ -89,10 +93,10 @@
 {/if}
 
 <Head
-	title="{data.member.username}'s SkyBlock profile ({data.member.profileName})"
+	title="{data.member.username}'s SkyBlock profile ({profileName})"
 	description={generateInfobox(data).join('\n')}
 	metaTitle={(data.member.rank.name ? `[${data.member.rank.name}] ` : '') +
-		`${data.member.username}\'s SkyBlock profile (${data.member.profileName})`}
+		`${data.member.username}\'s SkyBlock profile (${profileName})`}
 />
 <Header
 	backArrowHref="/player/{data.member.username}"
@@ -114,7 +118,7 @@
 				class="profile-emoji"><Emoji value={data.customization.emoji} /></span
 			>
 		{/if}
-		({data.member.profileName})
+		({profileName})
 	</h1>
 
 	<Infobox {data} />
@@ -235,6 +239,14 @@
 					<Collapsible id="farming-contests">
 						<h2 slot="title">Farming Contests</h2>
 						<FarmingContests {data} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('co-op')}
+				<section>
+					<Collapsible id="co-op">
+						<h2 slot="title">Co-op</h2>
+						<Coop {data} />
 					</Collapsible>
 				</section>
 			{/if}

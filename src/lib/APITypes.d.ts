@@ -13,9 +13,7 @@ export interface CleanMemberProfilePlayer extends CleanPlayer {
 	lastSave: number | null
 	purse: number
 	stats: StatItem[]
-	rawHypixelStats: {
-		[key: string]: number
-	}
+	rawHypixelStats: { [key: string]: number }
 	minions: CleanMinion[]
 	fairySouls: FairySouls
 	inventories?: Inventories
@@ -28,6 +26,7 @@ export interface CleanMemberProfilePlayer extends CleanPlayer {
 	harp: HarpData
 	coopInvitation: CoopInvitation | null
 	farmingContests: FarmingContests
+	left: boolean
 }
 
 export interface CleanMember extends CleanBasicMember {
@@ -343,7 +342,7 @@ export interface FarmingContests {
 
 export interface CoopInvitation {
 	invitedTimestamp: number
-	invitedByUuid: string
+	invitedBy: CleanPlayer | null
 	accepted: boolean
 	acceptedTimestamp: number | null
 }

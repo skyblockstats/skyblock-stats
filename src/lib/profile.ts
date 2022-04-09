@@ -14,9 +14,14 @@ export function prettyTimestamp(ms: number) {
 export function generateInfobox(data: CleanMemberProfile): string[] {
     const result: string[] = []
 
-    result.push(`💾 Last save: ${prettyTimestamp(data.member.lastSave)}`)
+    if (data.member.left)
+        result.push(`🚪 Removed from profile`)
 
-    result.push(`🚶 Profile created: ${prettyTimestamp(data.member.firstJoin)}`)
+    if (data.member.lastSave)
+        result.push(`💾 Last save: ${prettyTimestamp(data.member.lastSave)}`)
+
+    if (data.member.firstJoin)
+        result.push(`🚶 Profile created: ${prettyTimestamp(data.member.firstJoin)}`)
 
     result.push(`✨ Fairy souls: ${data.member.fairySouls.total}/${data.member.fairySouls.max}`)
 

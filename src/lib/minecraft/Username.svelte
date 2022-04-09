@@ -1,29 +1,24 @@
 <script lang="ts">
+	import type { CleanPlayer, CleanBasicMember } from '$lib/APITypes'
+
 	import ConditionalLink from '$lib/ConditionalLink.svelte'
 	import Head2d from '$lib/minecraft/heads/Head2d.svelte'
 	import Head3d from '$lib/minecraft/heads/Head3d.svelte'
 	import { formattingCodeToHtml } from '../utils'
 
-	export let player
+	export let player: CleanPlayer | CleanBasicMember
 	export let headType: null | '3d' | '2d' = null
-	export let hyperlinkToProfile = false
+	export let hyperlinkToProfile: boolean | string = false
 	export let prefix = false
 
 	/** whether the username should be crossed out and the avatar grayscaled */
 	export let disabled = false
 </script>
 
-<!-- {%- macro username(player, headType=none, hyperlinkToProfile=false, prefix=false) -%}
-{%- if hyperlinkToProfile %}<a href="/player/{{ player.username }}{% if hyperlinkToProfile|isString %}/{{ hyperlinkToProfile }}{% endif %}">{% endif -%}
-{%- if headType === '3d' %}{{ head3d(player, isPartOfUsername=true) -}}
-{%- elif headType === '2d' %}{{ head2d(player, isPartOfUsername=true) -}}
-{%- endif -%}
-{%- if prefix -%}<span class="username-rank-prefix">{{ player.rank.colored|formattingCodeToHtml|safe }} </span>{%- endif -%}
-		<span class="username" style="color: {{ player.rank.color }}">{{ player.username }}</span>
-{%- if hyperlinkToProfile %}</a>{% endif -%}
-{%- endmacro -%} -->
-
-<ConditionalLink href="/player/{player.username}" isWrapped={hyperlinkToProfile}>
+<ConditionalLink
+	href="/player/{typeof hyperlinkToProfile === 'string' ? hyperlinkToProfile : player.username}"
+	isWrapped={!!hyperlinkToProfile}
+>
 	{#if headType == '3d'}
 		<span class="head" class:grayscale={disabled}><Head3d {player} isPartOfUsername={true} /></span
 		>{:else if headType == '2d'}
