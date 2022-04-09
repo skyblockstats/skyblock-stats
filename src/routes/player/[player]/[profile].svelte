@@ -78,7 +78,7 @@
 		if (data.member.stats?.find(s => s.category === 'auctions')) categories.push('auctions')
 		if (data.member.stats?.find(s => s.category === 'fishing')) categories.push('fishing')
 		if (data.member.stats?.find(s => s.category === 'races')) categories.push('races')
-		categories.push('misc')
+		if (data.member.stats?.find(s => s.category === 'misc')) categories.push('misc')
 		if (data.member.minions.some(m => m.levels.some(l => l))) categories.push('minions')
 		if (data.member.slayers && data.member.slayers.xp > 0) categories.push('slayers')
 		categories.push('zones')
