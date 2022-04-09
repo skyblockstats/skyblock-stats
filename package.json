@@ -5,7 +5,7 @@
   "scripts": {
     "init": "node ./scripts/updateDonators.js && node ./scripts/updateBackgrounds.js",
     "dev": "svelte-kit dev",
-    "build": "npm run init && svelte-kit build",
+    "build": "yarn run init && svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
