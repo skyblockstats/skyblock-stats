@@ -6,9 +6,22 @@
 	export const load: Load = async ({ params, fetch }) => {
 		const player: string = params.player
 		const profile: string = params.profile
-		const data = await fetch(`${API_URL}player/${player}/${profile}?customization=true`).then(r =>
-			r.json()
-		)
+		const data: CleanMemberProfile = await fetch(
+			`${API_URL}player/${player}/${profile}?customization=true`
+		).then(r => r.json())
+
+		if (data.member.username !== player) {
+			return {
+				redirect: `/player/${data.member.username}/${data.profile.name}`,
+				status: 302,
+			} as any
+		}
+		if (data.profile.name !== profile) {
+			return {
+				redirect: `/player/${data.member.username}/${data.profile.name}`,
+				status: 302,
+			} as any
+		}
 
 		const packName = params.pack ?? data?.customization?.pack
 
