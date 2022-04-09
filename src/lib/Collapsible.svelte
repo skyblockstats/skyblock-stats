@@ -5,23 +5,39 @@
  -->
 <script lang="ts">
 	import { browser } from '$app/env'
+	import { onMount } from 'svelte'
 	import { cleanId } from './utils'
 
 	let open: boolean
 	export let id: string | undefined = undefined
+	$: elementId = id?.replace(/_/, '-')
 	export let lazy = true
 
+	let detailsEl
+
 	function checkHash() {
-		if (id && id === location.hash.slice(1)) {
+		if (elementId && elementId === location.hash.slice(1)) {
+			console.log('open')
 			open = true
+			requestAnimationFrame(() => {
+				// scroll to the element
+				window.scrollTo({
+					top: detailsEl.offsetTop,
+					behavior: 'smooth',
+				})
+			})
 		}
 	}
+
+	onMount(() => {
+		if (browser) checkHash()
+	})
 	if (browser) checkHash()
 </script>
 
 <svelte:window on:hashchange={checkHash} />
 
-<details bind:open {id}>
+<details bind:open id={elementId} bind:this={detailsEl}>
 	<summary>
 		<slot name="title">
 			<h2>{id ? cleanId(id) : 'Details'}</h2>

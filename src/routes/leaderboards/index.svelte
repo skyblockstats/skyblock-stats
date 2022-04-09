@@ -18,7 +18,7 @@
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
 	import Collapsible from '$lib/Collapsible.svelte'
-	import { skyblockItemNameToItem, skyblockItemToUrl } from '$lib/minecraft/inventory'
+	import { skyblockItemToUrl } from '$lib/minecraft/inventory'
 	import { cleanId } from '$lib/utils'
 	import ListItemWithIcon from '$lib/ListItemWithIcon.svelte'
 
