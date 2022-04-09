@@ -50,11 +50,7 @@
 		<h3 class="previous-members-title">Previous members</h3>
 		{#each data.profile.members.filter(m => m.left) as player}
 			<span class="member">
-				<Username
-					{player}
-					headType="2d"
-					hyperlinkToProfile="{player.username}/{data.profile.uuid}"
-				/>
+				<Username {player} headType="2d" hyperlinkToProfile={data.profile.uuid} />
 			</span>
 		{/each}
 	{/if}

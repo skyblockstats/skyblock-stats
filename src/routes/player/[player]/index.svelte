@@ -106,12 +106,7 @@
 						{/each}
 						{#each profile.members?.filter(m => m.left) ?? [] as player}
 							<span class="member">
-								<Username
-									{player}
-									headType="2d"
-									hyperlinkToProfile="{player.username}/{profile.uuid}"
-									disabled
-								/>
+								<Username {player} headType="2d" hyperlinkToProfile={profile.uuid} disabled />
 							</span>
 						{/each}
 					{:else}

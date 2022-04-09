@@ -2,7 +2,7 @@
 	import { API_URL } from '$lib/api'
 
 	import type { CleanMemberProfile } from '$lib/APITypes'
-	import { cleanId } from '$lib/utils'
+	import { cleanId, formatNumberFromUnit } from '$lib/utils'
 
 	export let data: CleanMemberProfile
 </script>
@@ -14,7 +14,10 @@
 		{#each leaderboards as leaderboard}
 			<li class="leaderboard-item">
 				<a href="/leaderboard/{leaderboard.name}" class="leaderboard-item-anchor">
-					{leaderboard.positionIndex + 1}) <b>{cleanId(leaderboard.name)}</b>: {leaderboard.value.toLocaleString()}
+					{leaderboard.positionIndex + 1}) <b>{cleanId(leaderboard.name)}</b>: {formatNumberFromUnit(
+						leaderboard.value,
+						leaderboard.unit ?? cleanId(leaderboard.name).toLowerCase()
+					)}
 				</a>
 			</li>
 		{/each}
