@@ -23,7 +23,7 @@
 				status: 302,
 			} as any
 		}
-		if (data.profile.name !== profile) {
+		if (!data.member.left && data.profile.name !== profile) {
 			return {
 				redirect: `/player/${data.member.username}/${data.profile.name}`,
 				status: 302,
