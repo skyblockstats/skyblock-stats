@@ -40,6 +40,7 @@
 	import { MODE_EMOJIS, DEFAULT_MODE_EMOJI } from '$lib/profile'
 	import Tooltip from '$lib/Tooltip.svelte'
 	import { cleanId } from '$lib/utils'
+	import { navigating } from '$app/stores'
 
 	export let data: CleanUser & { player: CleanPlayer }
 
@@ -65,6 +66,7 @@
 	let backgroundUrl: string | null
 
 	$: {
+		$navigating
 		backgroundUrl = data.customization?.backgroundUrl ?? chooseDefaultBackground(data.player.uuid)
 		updateActiveProfile()
 	}
