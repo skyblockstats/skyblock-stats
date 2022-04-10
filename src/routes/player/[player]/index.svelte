@@ -84,52 +84,56 @@
 		<Username player={data.player} headType="3d" />'s profiles
 	</h1>
 
-	<ul class="profile-list">
-		{#each data.profiles ?? [] as profile}
-			<li
-				class="profile-list-item"
-				class:profile-list-item-active={profile.uuid === activeProfile?.uuid}
-				class:profile-list-item-online={profile.uuid === activeProfile?.uuid &&
-					isActiveProfileOnline}
-			>
-				<a
-					class="profile-name"
-					href="/player/{data.player?.username}/{profile.name}"
-					sveltekit:prefetch
+	{#if data.profiles && data.profiles.length > 0}
+		<ul class="profile-list">
+			{#each data.profiles ?? [] as profile}
+				<li
+					class="profile-list-item"
+					class:profile-list-item-active={profile.uuid === activeProfile?.uuid}
+					class:profile-list-item-online={profile.uuid === activeProfile?.uuid &&
+						isActiveProfileOnline}
 				>
-					{profile.name}
-				</a>
-				{#if profile.mode !== 'normal'}
-					<Tooltip>
-						<span slot="tooltip">
-							{cleanId(profile.mode)} mode
-						</span>
-						<Emoji value={MODE_EMOJIS[profile.mode] ?? DEFAULT_MODE_EMOJI} />
-					</Tooltip>
-				{/if}
-				<span class="profile-members">
-					{#if (profile.members?.length ?? 0) > 1}
-						{#each profile.members?.filter(m => !m.left) ?? [] as player}
-							<span class="member">
-								<Username
-									{player}
-									headType="2d"
-									hyperlinkToProfile={player.uuid != data.player?.uuid}
-								/>
+					<a
+						class="profile-name"
+						href="/player/{data.player?.username}/{profile.name}"
+						sveltekit:prefetch
+					>
+						{profile.name}
+					</a>
+					{#if profile.mode !== 'normal'}
+						<Tooltip>
+							<span slot="tooltip">
+								{cleanId(profile.mode)} mode
 							</span>
-						{/each}
-						{#each profile.members?.filter(m => m.left) ?? [] as player}
-							<span class="member">
-								<Username {player} headType="2d" hyperlinkToProfile={profile.uuid} disabled />
-							</span>
-						{/each}
-					{:else}
-						Solo
+							<Emoji value={MODE_EMOJIS[profile.mode] ?? DEFAULT_MODE_EMOJI} />
+						</Tooltip>
 					{/if}
-				</span>
-			</li>
-		{/each}
-	</ul>
+					<span class="profile-members">
+						{#if (profile.members?.length ?? 0) > 1}
+							{#each profile.members?.filter(m => !m.left) ?? [] as player}
+								<span class="member">
+									<Username
+										{player}
+										headType="2d"
+										hyperlinkToProfile={player.uuid != data.player?.uuid}
+									/>
+								</span>
+							{/each}
+							{#each profile.members?.filter(m => m.left) ?? [] as player}
+								<span class="member">
+									<Username {player} headType="2d" hyperlinkToProfile={profile.uuid} disabled />
+								</span>
+							{/each}
+						{:else}
+							Solo
+						{/if}
+					</span>
+				</li>
+			{/each}
+		</ul>
+	{:else}
+		<p>This player has no profiles. <Emoji value="😦" /></p>
+	{/if}
 </main>
 
 <style>
