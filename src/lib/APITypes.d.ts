@@ -111,7 +111,8 @@ export interface CleanUser {
 }
 
 export interface CleanProfile extends CleanBasicProfile {
-	members?: CleanBasicMember[]
+	members: CleanBasicMember[]
+	mode: GameMode
 }
 
 /** A basic profile that only includes the profile uuid and name */
@@ -346,3 +347,5 @@ export interface CoopInvitation {
 	accepted: boolean
 	acceptedTimestamp: number | null
 }
+
+export type GameMode = 'normal' | 'stranded' | 'bingo' | 'ironman'

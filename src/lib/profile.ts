@@ -11,11 +11,22 @@ export function prettyTimestamp(ms: number) {
     return timeAsString
 }
 
+export const MODE_EMOJIS = {
+    ironman: '♻️',
+    stranded: '🏝️'
+}
+export const DEFAULT_MODE_EMOJI = '❓'
+
 export function generateInfobox(data: CleanMemberProfile): string[] {
     const result: string[] = []
 
     if (data.member.left)
         result.push(`🚪 Removed from profile`)
+
+    if (data.profile.mode !== 'normal') {
+        const modeEmoji = MODE_EMOJIS[data.profile.mode] ?? DEFAULT_MODE_EMOJI
+        result.push(`${modeEmoji} Mode: ${cleanId(data.profile.mode)}`)
+    }
 
     if (data.member.lastSave)
         result.push(`💾 Last save: ${prettyTimestamp(data.member.lastSave)}`)

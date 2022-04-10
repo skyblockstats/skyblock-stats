@@ -36,6 +36,10 @@
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
 	import { chooseDefaultBackground } from '$lib/backgrounds'
+	import Emoji from '$lib/Emoji.svelte'
+	import { MODE_EMOJIS, DEFAULT_MODE_EMOJI } from '$lib/profile'
+	import Tooltip from '$lib/Tooltip.svelte'
+	import { cleanId } from '$lib/utils'
 
 	export let data: CleanUser & { player: CleanPlayer }
 
@@ -93,6 +97,14 @@
 				>
 					{profile.name}
 				</a>
+				{#if profile.mode !== 'normal'}
+					<Tooltip>
+						<span slot="tooltip">
+							{cleanId(profile.mode)} mode
+						</span>
+						<Emoji value={MODE_EMOJIS[profile.mode] ?? DEFAULT_MODE_EMOJI} />
+					</Tooltip>
+				{/if}
 				<span class="profile-members">
 					{#if (profile.members?.length ?? 0) > 1}
 						{#each profile.members?.filter(m => !m.left) ?? [] as player}
@@ -119,10 +131,8 @@
 </main>
 
 <style>
-	.profile-name {
-		margin-right: 0.5em;
-	}
 	.profile-members {
+		margin-left: 0.5em;
 		color: var(--theme-main-text);
 	}
 	.profile-members > .member {
