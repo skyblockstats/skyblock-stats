@@ -47,8 +47,12 @@
 	{/if}
 
 	<ol class="leaderboard-profile-list">
-		{#each data.list as leaderboardItem}
-			<li>
+		{#each data.list as leaderboardItem, i}
+			<li
+				value={i > 0 && leaderboardItem.value === data.list[i - 1].value
+					? data.list.map(i => i.value).indexOf(leaderboardItem.value) + 1
+					: i + 1}
+			>
 				<span>
 					{formatNumberFromUnit(
 						leaderboardItem.value,
