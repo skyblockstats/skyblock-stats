@@ -10,6 +10,13 @@
 			`${API_URL}player/${player}/${profile}?customization=true`
 		).then(r => r.json())
 
+		if (!data.member) {
+			return {
+				status: 404,
+				error: 'Unknown profile',
+			}
+		}
+
 		if (data.member.username !== player) {
 			return {
 				redirect: `/player/${data.member.username}/${data.profile.name}`,
