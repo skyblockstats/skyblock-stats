@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { CleanPlayer, CleanBasicMember } from '$lib/APITypes'
+	import type { CleanPlayer, CleanBasicMember, LeaderboardBasicPlayer } from '$lib/APITypes'
 
 	import ConditionalLink from '$lib/ConditionalLink.svelte'
 	import Head2d from '$lib/minecraft/heads/Head2d.svelte'
 	import Head3d from '$lib/minecraft/heads/Head3d.svelte'
 	import { formattingCodeToHtml } from '../utils'
 
-	export let player: CleanPlayer | CleanBasicMember
+	export let player: CleanPlayer | CleanBasicMember | LeaderboardBasicPlayer
 	export let headType: null | '3d' | '2d' = null
 	export let hyperlinkToProfile: boolean | string = false
 	export let prefix = false

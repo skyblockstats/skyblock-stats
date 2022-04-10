@@ -23,8 +23,9 @@
 	import { skyblockItemToUrl } from '$lib/minecraft/inventory'
 	import { cleanId, formatNumberFromUnit, toTitleCase } from '$lib/utils'
 	import Username from '$lib/minecraft/Username.svelte'
+	import type { MemberLeaderboard, ProfileLeaderboard } from '$lib/APITypes'
 
-	export let data
+	export let data: MemberLeaderboard | ProfileLeaderboard
 
 	$: imageUrl = data.name.startsWith('collection_') ? skyblockItemToUrl(data.name.slice(11)) : null
 </script>
@@ -59,7 +60,7 @@
 						data.unit ?? cleanId(data.name).toLowerCase()
 					)}
 				</span>
-				{#if leaderboardItem.player}
+				{#if 'player' in leaderboardItem}
 					<Username
 						player={leaderboardItem.player}
 						headType="2d"

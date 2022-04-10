@@ -349,3 +349,36 @@ export interface CoopInvitation {
 }
 
 export type GameMode = 'normal' | 'stranded' | 'bingo' | 'ironman'
+
+export interface MemberLeaderboard {
+	name: string
+	unit: string | null
+	list: MemberLeaderboardItem[]
+	info?: string
+}
+
+export interface ProfileLeaderboard {
+	name: string
+	unit: string | null
+	list: ProfileLeaderboardItem[]
+	info?: string
+}
+
+export interface MemberLeaderboardItem {
+	player: LeaderboardBasicPlayer
+	profileUuid: string
+	value: number
+}
+export interface ProfileLeaderboardItem {
+	players: LeaderboardBasicPlayer[]
+	profileUuid: string
+	value: number
+}
+
+export interface LeaderboardBasicPlayer {
+	uuid: string
+	username: string
+	rank: {
+		color: string
+	}
+}
