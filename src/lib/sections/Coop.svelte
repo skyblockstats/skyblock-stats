@@ -47,7 +47,7 @@
 		</span>
 	{/each}
 	{#if data.profile.members.filter(m => m.left).length > 0}
-		<h3 class="previous-members-title">Previous members</h3>
+		<h3 class="former-members-title">Former members</h3>
 		{#each data.profile.members.filter(m => m.left) as player}
 			<span class="member">
 				<Username {player} headType="2d" hyperlinkToProfile={data.profile.uuid} />
@@ -73,7 +73,7 @@
 	.member {
 		display: block;
 	}
-	.previous-members-title {
+	.former-members-title {
 		margin-top: 0.5rem;
 	}
 </style>
