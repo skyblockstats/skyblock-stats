@@ -39,6 +39,47 @@ export function generateInfobox(data: CleanMemberProfile): string[] {
     if (data.profile.minionCount >= data.profile.maxUniqueMinions)
         result.push(`🤖 Minion count: ${data.profile.minionCount}`)
 
+    const farmingContestsWonByCrop: Record<string, number> = {}
+    const farmingContestsWon = data.member.farmingContests.list.reduce(
+        (previous, current) => {
+            return previous + current.crops.reduce((previousCropSum, currentCrop) => {
+                const wonContest = currentCrop.position === 1
+                if (wonContest) {
+                    farmingContestsWonByCrop[currentCrop.item] = (farmingContestsWonByCrop[currentCrop.item] ?? 0) + 1
+                    return previousCropSum + 1
+                }
+                return previousCropSum
+            }, 0)
+        }, 0
+    )
+
+    if (farmingContestsWon >= 50) {
+        let mostContestsWonCrop = ''
+        let mostContestsWonCropCount = 0
+        for (const [crop, count] of Object.entries(farmingContestsWonByCrop)) {
+            if (count > mostContestsWonCropCount) {
+                mostContestsWonCrop = crop
+                mostContestsWonCropCount = count
+            }
+        }
+
+        const cropEmoji = {
+            cactus: '🌵',
+            carrot: '🥕',
+            cocoa_beans: '🍫',
+            melon_slice: '🍉',
+            // i couldn't find a better emoji lmao
+            nether_wart: '🌶',
+            potato: '🥔',
+            pumpkin: '🎃',
+            red_mushroom: '🍄',
+            sugar_cane: '🎋',
+            wheat: '🌾',
+        }[mostContestsWonCrop] ?? '🌾'
+
+        result.push(`${cropEmoji} Farming contests won: ${farmingContestsWon}`)
+    }
+
     if (data.member.stats) {
         let mostSignificantKillsStat: StatItem | null = null
         let mostSignificantDeathsStat: StatItem | null = null
