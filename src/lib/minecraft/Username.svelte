@@ -16,9 +16,13 @@
 </script>
 
 <ConditionalLink
-	href="/player/{typeof hyperlinkToProfile === 'string'
-		? `${player.username}/${hyperlinkToProfile}`
-		: player.username}"
+	href="/player/{player.username
+		? typeof hyperlinkToProfile === 'string'
+			? `${player.username}/${hyperlinkToProfile}`
+			: player.username
+		: typeof hyperlinkToProfile === 'string'
+		? `${player.uuid}/${hyperlinkToProfile}`
+		: player.uuid}"
 	isWrapped={!!hyperlinkToProfile}
 >
 	{#if headType == '3d'}
