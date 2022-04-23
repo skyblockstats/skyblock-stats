@@ -280,6 +280,7 @@ export interface HarpData {
 
 export interface ClaimedSkyBlockItem {
 	name: string
+	id: string
 	timestamp: number
 }
 

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { CleanMemberProfile } from '$lib/APITypes'
-	import Emoji from '$lib/Emoji.svelte'
 	import { cleanId, millisecondsToTime, toTitleCase } from '$lib/utils'
 
 	export let data: CleanMemberProfile
@@ -10,7 +9,7 @@
 	<ul>
 		{#each data.member.claimed as claimed}
 			<li>
-				<b class="claimed-item-name">{toTitleCase(cleanId(claimed.name))}</b>
+				<b class="claimed-item-name">{toTitleCase(cleanId(claimed.id))}</b>
 				<span class="claimed-item-timestamp">
 					{millisecondsToTime(Date.now() - claimed.timestamp)} ago
 				</span>
