@@ -55,6 +55,7 @@
 			<li><a href="/chat">Fake chat generator</a></li>
 			<li><a href="https://skyblock-npcs.matdoes.dev">NPC Skin Stealer</a></li>
 			<li><a href="/election">Mayor Election Status</a></li>
+			<li><a href="/items">Item List</a></li>
 		</ul>
 	</section>
 

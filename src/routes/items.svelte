@@ -77,7 +77,7 @@
 		</time>
 	</div>
 	<h1>SkyBlock Item List</h1>
-	<p class="results-count">{filteredItems.length.toLocaleString()} items.</p>
+	<p class="results-count">{filteredItems.length.toLocaleString()} items</p>
 	<div class="filter-items-settings">
 		<input type="text" id="filter-items-tier" placeholder="Search..." bind:value={query} />
 
