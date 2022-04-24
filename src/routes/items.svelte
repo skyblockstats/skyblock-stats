@@ -20,7 +20,6 @@
 	import type { ItemListData, ItemListItem } from '$lib/APITypes'
 	import Item from '$lib/minecraft/Item.svelte'
 	import furfskyReborn from 'skyblock-assets/matchers/furfsky_reborn.json'
-	import { onMount } from 'svelte'
 
 	export let data: ItemListData
 
@@ -101,12 +100,14 @@
 		{#each filteredItemsSliced as item (item.id)}
 			<div class="item-container">
 				<span class="item-slot-container"><Item {item} pack={furfskyReborn} /></span>
-				<h3
-					class="item-name"
-					style={item.tier ? `color: ${colorCodes[TIER_COLORS[item.tier]]}` : undefined}
+				<a href="https://wiki.hypixel.net/{item.display.name.replace(/ /, '_')}"
+					><h3
+						class="item-name"
+						style={item.tier ? `color: ${colorCodes[TIER_COLORS[item.tier]]}` : undefined}
+					>
+						{item.display.name}
+					</h3></a
 				>
-					{item.display.name}
-				</h3>
 				<div>
 					{#if item.museum}
 						<p>
