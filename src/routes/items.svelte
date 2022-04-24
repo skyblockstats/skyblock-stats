@@ -100,7 +100,7 @@
 		{#each filteredItemsSliced as item (item.id)}
 			<div class="item-container">
 				<span class="item-slot-container"><Item {item} pack={furfskyReborn} /></span>
-				<a href="https://wiki.hypixel.net/{item.display.name.replace(/ /, '_')}"
+				<a href="https://wiki.hypixel.net/{item.display.name.replace(/ /g, '_')}"
 					><h3
 						class="item-name"
 						style={item.tier ? `color: ${colorCodes[TIER_COLORS[item.tier]]}` : undefined}
