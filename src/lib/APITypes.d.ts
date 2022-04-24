@@ -299,13 +299,23 @@ export interface PetsData {
 }
 
 export interface ItemRequirement {
-	dungeon: {
+	dungeon?: {
 		type: string
 		level: number
 	}
+	skill?: {
+		type: string
+		level: number
+	}
+	slayer?: {
+		boss: string
+		level: number
+	}
 }
+
 export interface ItemListItem {
 	id: string
+	headTexture?: string
 	vanillaId: string
 	tier: string | null
 	display: {
@@ -313,8 +323,12 @@ export interface ItemListItem {
 		glint: boolean
 	}
 	npcSellPrice: number | null
-	requirements: ItemRequirement | null
+	requirements: ItemRequirement
+	category: string | null
+	soulbound: boolean
+	museum: boolean
 }
+
 export interface ItemListData {
 	lastUpdated: number
 	list: ItemListItem[]

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formattingCodeToHtml, removeFormattingCode } from '$lib/utils'
+	import { cleanId, formattingCodeToHtml, removeFormattingCode, TIER_COLORS } from '$lib/utils'
 	import MinecraftTooltip from './MinecraftTooltip.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
 	import { itemToUrl } from './inventory'
@@ -13,8 +13,35 @@
 	let itemNameHtml: string | null
 	let imageUrl: string | null
 
-	$: itemLoreHtml = item ? item.display.lore.map(l => formattingCodeToHtml(l)).join('<br>') : null
-	$: itemNameHtml = item ? formattingCodeToHtml(item.display.name) : null
+	let extraLore: string[] = []
+	if (!item?.display?.lore && item?.tier) {
+		// ☠ &cRequires &5Enderman Slayer 7
+		if (item.requirements.slayer)
+			extraLore.push(
+				`§4☠ §cRequires §5${cleanId(item.requirements.slayer.boss)} Slayer ${
+					item.requirements.slayer.level
+				}`
+			)
+		extraLore.push(`§l§${TIER_COLORS[item.tier] ?? 'c'}${item.tier}`)
+	}
+	if (item?.id) {
+		extraLore.push(`\n§8ID: ${item.id}`)
+	}
+
+	$: itemLoreHtml = item
+		? (item.display?.lore ?? [])
+				.concat(extraLore)
+				.map(l => formattingCodeToHtml(l))
+				.join('<br>')
+		: null
+	$: {
+		let itemDisplayName = item?.display?.name
+		if (itemDisplayName) {
+			if (!itemDisplayName.includes('§') && item.tier)
+				itemDisplayName = `§${TIER_COLORS[item.tier] ?? 'c'}${itemDisplayName}`
+		}
+		itemNameHtml = itemDisplayName ? formattingCodeToHtml(itemDisplayName) : null
+	}
 
 	$: imageUrl = item ? itemToUrl(item, pack, headSize) : null
 </script>
@@ -33,7 +60,7 @@
 					class:item-custom-head={imageUrl.startsWith('https://mc-heads.net/head/')}
 				/>
 			{/if}
-			{#if item.count !== 1}
+			{#if item.count !== undefined && item.count !== 1}
 				<span class="item-count">{item.count}</span>
 			{/if}
 		</span>

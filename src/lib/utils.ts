@@ -17,6 +17,18 @@ export const colorCodes: { [key: string]: string } = {
     'f': '#ffffff', // white
 }
 
+export const TIER_COLORS = {
+    COMMON: 'f',
+    UNCOMMON: 'a',
+    RARE: '9',
+    EPIC: '5',
+    LEGENDARY: '6',
+    MYTHIC: 'e',
+    DIVINE: 'b',
+    SPECIAL: 'c',
+    VERY_SPECIAL: 'c',
+}
+
 const specialCodes: { [key: string]: string } = {
     'l': 'font-weight: bold'
 }
@@ -60,6 +72,8 @@ export function formattingCodeToHtml(formatted: string): string {
             } else if (colorCharacter === 'r') {
                 reset()
             }
+        } else if (character === '\n') {
+            htmlOutput += '<br>'
         } else {
             // no xss!
             htmlOutput += character.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

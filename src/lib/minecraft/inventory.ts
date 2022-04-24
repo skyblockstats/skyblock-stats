@@ -1,6 +1,6 @@
 import * as skyblockAssets from 'skyblock-assets'
 import { vanilla } from '$lib/packs'
-
+import { browser } from '$app/env'
 
 export interface Item {
     id?: string
@@ -97,6 +97,13 @@ export const inventoryIconMap: Record<string, string | Item> = {
 
 export type Inventories = { [name in keyof typeof INVENTORIES]: Item[] }
 
+// we cache the item urls because it takes a bit of time to get them usually
+// { "<pack> <item id>": "https://..." }
+let itemUrlCache: Record<string, string> = {}
+// clear the cache every 120 seconds, this number is arbitrary
+setInterval(() => {
+    itemUrlCache = {}
+}, 120 * 1000)
 export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile, headSize?: number): string {
     const itemNbt: skyblockAssets.NBT = {
         display: {
@@ -107,6 +114,11 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile, headSiz
         },
     }
     let textureUrl: string
+
+    const itemCacheIdentifier = `${pack?.dir ?? 'v'} ${JSON.stringify(itemNbt)}`
+    if (itemCacheIdentifier in itemUrlCache)
+        return itemUrlCache[itemCacheIdentifier]
+
     if (item.headTexture) {
         // if it's a head, try without vanilla and if it fails just use the mc-heads url
         textureUrl = skyblockAssets.getTextureUrl({
@@ -120,20 +132,23 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile, headSiz
             if (headSize)
                 textureUrl += `/${headSize}`
         }
-    } else
+    } else {
         textureUrl = skyblockAssets.getTextureUrl({
             id: item.vanillaId,
             nbt: itemNbt,
             packs: pack ? [pack, vanilla as skyblockAssets.MatcherFile] : [vanilla as skyblockAssets.MatcherFile],
         })
+    }
+    itemUrlCache[itemCacheIdentifier] = textureUrl
     return textureUrl
 }
 
 export function skyblockItemToUrl(skyblockItem: string | Item, pack?: skyblockAssets.MatcherFile, headSize?: number) {
-    const item: Item = typeof skyblockItem === 'string' ? skyblockItemNameToItem(skyblockItem) : skyblockItem
+    const item = typeof skyblockItem === 'string' ? skyblockItemNameToItem(skyblockItem) : skyblockItem
     const itemTextureUrl = itemToUrl(item, pack, headSize)
     return itemTextureUrl
 }
+
 
 export function skyblockItemNameToItem(skyblockItemName: string): Item {
     let item: Item

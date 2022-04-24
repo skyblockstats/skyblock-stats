@@ -26,6 +26,8 @@
 	.minecraft-tooltip {
 		/* this makes it be less dumb about the height so it doesn't add extra or anything */
 		display: grid;
+		/* this is so it doesn't change width to fill the container in the item list page */
+		max-width: fit-content;
 	}
 	/* these elements exist so we can copy them later from GlobalTooltip */
 	.tooltip-name,
