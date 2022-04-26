@@ -115,7 +115,7 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile, headSiz
     }
     let textureUrl: string
 
-    const itemCacheIdentifier = `${pack?.dir ?? 'v'} ${JSON.stringify(itemNbt)}`
+    const itemCacheIdentifier = `${pack?.dir ?? 'v'} ${JSON.stringify(item)} ${JSON.stringify(itemNbt)}`
     if (itemCacheIdentifier in itemUrlCache)
         return itemUrlCache[itemCacheIdentifier]
 
