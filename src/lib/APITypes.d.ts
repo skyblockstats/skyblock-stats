@@ -18,7 +18,7 @@ export interface CleanMemberProfilePlayer extends CleanPlayer {
 	fairySouls: FairySouls
 	inventories?: Inventories
 	objectives: Objective[]
-	skills: Skill[]
+	skills: Skills
 	zones: Zone[]
 	collections: Collection[]
 	slayers: SlayerData
@@ -39,7 +39,7 @@ export interface CleanMember extends CleanBasicMember {
 	fairySouls: FairySouls
 	inventories?: Inventories
 	objectives: Objective[]
-	skills: Skill[]
+	skills: Skills
 	zones: Zone[]
 	collections: Collection[]
 	slayers: SlayerData
@@ -396,4 +396,26 @@ export interface LeaderboardBasicPlayer {
 	rank: {
 		color: string
 	}
+}
+
+
+export interface Skill {
+	id: string
+	xp: number
+	level: number
+
+	maxLevel: number
+
+	levelXp: number
+	levelXpRequired: number
+}
+
+export interface Skills {
+	list: Skill[]
+	/**
+	 * Whether the player has their skills API enabled. If this is off, that
+	 * means the data doesn't include xp and is per-player. You should show a
+	 * warning to the user.
+	 */
+	apiEnabled: boolean
 }

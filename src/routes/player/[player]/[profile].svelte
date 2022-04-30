@@ -145,7 +145,7 @@
 
 	<Toc {categories} />
 
-	{#if data.member.skills && data.member.skills.length > 0}
+	{#if data.member.skills && data.member.skills.list.length > 0}
 		<section id="skills" class="profile-skills">
 			<h2>Skills</h2>
 			<Skills {data} />

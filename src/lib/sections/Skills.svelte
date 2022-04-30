@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Emoji from '$lib/Emoji.svelte'
+
 	import Tooltip from '$lib/Tooltip.svelte'
 	import { cleanId, formatNumber } from '$lib/utils'
 
@@ -19,11 +21,16 @@
 	export let data
 </script>
 
+{#if !data.member.skills.apiEnabled}
+	<p class="skills-api-warning">
+		<Emoji value="⚠" /> Skills API is disabled for this profile, so the values shown may be inaccurate.
+	</p>
+{/if}
 <ul>
-	{#each data.member.skills as skill}
+	{#each data.member.skills.list as skill}
 		<li
 			class="list-item-with-icon"
-			style="background: url({skillImages[skill.name]}) 0 0/1em no-repeat"
+			style="background: url({skillImages[skill.id]}) 0 0/1em no-repeat"
 		>
 			<Tooltip>
 				<span slot="tooltip">
@@ -36,7 +43,7 @@
 					{/if}
 				</span>
 				<span>
-					{cleanId(skill.name)}
+					{cleanId(skill.id)}
 					<span class="skill-level" class:skill-maxed={skill.level === skill.maxLevel}>
 						{skill.level}
 					</span>
@@ -61,6 +68,10 @@
 		right: 1.2em;
 		image-rendering: crisp-edges;
 		image-rendering: pixelated;
+	}
+
+	.skills-api-warning {
+		margin-top: 0;
 	}
 
 	ul {
