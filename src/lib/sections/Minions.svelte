@@ -17,7 +17,7 @@
 			<th>{cleanId(minion.name)}</th>
 			{#each minion.levels as unlocked, i}
 				<td class="minion-table-item" class:unlocked>
-					{toRomanNumerals(i)}
+					{toRomanNumerals(i + 1)}
 				</td>
 			{/each}
 		</tr>
