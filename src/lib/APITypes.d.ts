@@ -26,6 +26,7 @@ export interface CleanMemberProfilePlayer extends CleanPlayer {
 	harp: HarpData
 	coopInvitation: CoopInvitation | null
 	farmingContests: FarmingContests
+	accessoryBagUpgrades: AccessoryBagUpgrades
 	left: boolean
 }
 
@@ -90,7 +91,7 @@ export declare const INVENTORIES: {
 	armor: string
 	inventory: string
 	ender_chest: string
-	talisman_bag: string
+	accessory_bag: string
 	potion_bag: string
 	fishing_bag: string
 	quiver: string
@@ -418,4 +419,18 @@ export interface Skills {
 	 * warning to the user.
 	 */
 	apiEnabled: boolean
+}
+
+
+export interface AccessoryBagUpgrades {
+	tuningTemplates: Record<string, number>[]
+	upgrades: {
+		purchased: number
+		coinsSpent: number
+		extraSlots: number
+	}
+	powers: {
+		selected: string | null
+		list: string[]
+	}
 }

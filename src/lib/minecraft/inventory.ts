@@ -25,7 +25,7 @@ const INVENTORIES = {
     armor: 'inv_armor',
     inventory: 'inv_contents',
     ender_chest: 'ender_chest_contents',
-    talisman_bag: 'talisman_bag',
+    accessory_bag: 'talisman_bag',
     potion_bag: 'potion_bag',
     fishing_bag: 'fishing_bag',
     quiver: 'quiver',
@@ -44,7 +44,7 @@ export const inventoryIconMap: Record<string, string | Item> = {
         vanillaId: 'ender_chest',
         display: { name: '\\u00a7aEnder Chest' },
     },
-    talisman_bag: {
+    accessory_bag: {
         vanillaId: 'skull:3',
         display: { name: 'Accessory Bag' },
         headTexture: '961a918c0c49ba8d053e522cb91abc74689367b4d8aa06bfc1ba9154730985ff',

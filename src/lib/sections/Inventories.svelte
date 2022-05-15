@@ -3,8 +3,10 @@
 	import Inventory from '$lib/minecraft/Inventory.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
 	import { cleanId } from '$lib/utils'
+	import AccessoryBagUpgrades from './AccessoryBagUpgrades.svelte'
+	import type { CleanMemberProfile } from '$lib/APITypes'
 
-	export let data
+	export let data: CleanMemberProfile
 	export let pack: MatcherFile
 
 	let displayingInventories: string[] = []
@@ -35,13 +37,18 @@
 		{/each}
 	</div>
 {/if}
-{#each displayingInventories as inventoryName}
-	{#if inventoryName === selectedInventoryName}
-		<div id={inventoryName} class="inventory-content">
-			<Inventory items={data.member.inventories[inventoryName]} {pack} name={inventoryName} />
-		</div>
-	{/if}
-{/each}
+{#if data.member.inventories}
+	{#each displayingInventories as inventoryName}
+		{#if inventoryName === selectedInventoryName}
+			<span id={inventoryName} class="inventory-content">
+				<Inventory items={data.member.inventories[inventoryName]} {pack} name={inventoryName} />
+			</span>
+			{#if inventoryName == 'accessory_bag'}
+				<AccessoryBagUpgrades {data} />
+			{/if}
+		{/if}
+	{/each}
+{/if}
 
 <style>
 	#inventory-tabs {
@@ -78,6 +85,10 @@
 	.inventory-tab:hover,
 	.inventory-tab-active {
 		background-color: rgba(40, 40, 40, 0.9);
+	}
+
+	.inventory-content {
+		display: inline-grid;
 	}
 
 	@media only screen and (max-width: 480px) {
