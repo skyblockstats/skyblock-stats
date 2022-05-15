@@ -25,6 +25,6 @@
 		if we don't do this it looks bad on discord and probably other places
 	-->
 	<meta property="og:title" content={metaTitle} />
-	{@html `<meta property="description" content="${serializeHtml(description)}" />`}
+	{@html `<meta name="description" content="${serializeHtml(description)}" />`}
 	{@html `<meta property="og:description" content="${serializeHtml(metaDescription)}" />`}
 </svelte:head>
