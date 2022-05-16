@@ -16,12 +16,22 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import { millisecondsToTime, TIER_COLORS, colorCodes, cleanId, toTitleCase } from '$lib/utils'
+	import {
+		millisecondsToTime,
+		TIER_COLORS,
+		colorCodes,
+		cleanId,
+		toTitleCase,
+		type PreviewedAuctionData,
+	} from '$lib/utils'
 	import type { ItemAuctionsSchema, ItemListData, ItemListItem } from '$lib/APITypes'
 	import Item from '$lib/minecraft/Item.svelte'
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
+	import AuctionPreviewTooltip from '$lib/AuctionPreviewTooltip.svelte'
 
 	export let data: ItemAuctionsSchema[]
+
+	let currentlyPreviewedAuction: PreviewedAuctionData | null
 
 	let query: string = ''
 
@@ -43,6 +53,8 @@
 <Header />
 
 <svelte:window on:scroll={checkScroll} />
+
+<AuctionPreviewTooltip preview={currentlyPreviewedAuction} />
 
 <main>
 	<h1>SkyBlock Auction Prices</h1>
@@ -74,7 +86,7 @@
 					{/if}
 				</div>
 				<div class="item-scatterplot">
-					<AuctionPriceScatterplot {item} />
+					<AuctionPriceScatterplot {item} bind:currentlyPreviewedAuction />
 				</div>
 			</div>
 		{/each}

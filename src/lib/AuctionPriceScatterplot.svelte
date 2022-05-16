@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { ItemAuctionsSchema } from './APITypes'
+	import type { PreviewedAuctionData } from './utils'
 
 	export let item: ItemAuctionsSchema
+	export let currentlyPreviewedAuction: PreviewedAuctionData | null
 
 	let maxCoins: number = item.auctions.reduce((max, auction) => Math.max(max, auction.coins), 0)
 
@@ -17,6 +19,17 @@
 	let minutesBetween = (currentTimestamp - earliestTimestamp) / 360
 
 	let gridWidth = 100 / minutesBetween
+
+	function showAuctionPreview(e, uuid: string) {
+		currentlyPreviewedAuction = {
+			pageX: e.pageX,
+			pageY: e.pageY,
+			uuid,
+		}
+	}
+	function hideAuctionPreview() {
+		currentlyPreviewedAuction = null
+	}
 </script>
 
 <svg viewBox="0 0 100 100" class="item-auction-history">
@@ -36,6 +49,9 @@
 			r="1"
 			stroke-width="4"
 			fill={auction.bin ? '#11b' : '#1b1'}
+			on:mouseenter={e => showAuctionPreview(e, auction.id)}
+			on:click={e => showAuctionPreview(e, auction.id)}
+			on:mouseleave={hideAuctionPreview}
 		/>
 	{/each}
 	<!-- {item.auctions} -->
