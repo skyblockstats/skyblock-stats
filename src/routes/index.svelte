@@ -49,7 +49,7 @@
 	<section>
 		<h2>Other SkyBlock tools</h2>
 		<ul id="other-tools-list">
-			<li><a>Auction prices (coming soon)</a></li>
+			<li><a href="/auctionprices">Auction prices</a></li>
 			<li><a href="/leaderboards">Leaderboards</a></li>
 			<li><a>Bazaar (coming soon)</a></li>
 			<li><a href="/chat">Fake chat generator</a></li>
