@@ -3,11 +3,14 @@
 	import { API_URL } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
+		const auctionItemsPromise = fetch(`${API_URL}auctionitems`).then(r => r.json())
 		const data = await fetch(`${API_URL}auctionprices`).then(r => r.json())
+		const auctionItems = await auctionItemsPromise
 
 		return {
 			props: {
 				data,
+				auctionItems,
 			},
 		}
 	}
@@ -16,24 +19,29 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import {
-		millisecondsToTime,
-		TIER_COLORS,
-		colorCodes,
-		cleanId,
-		toTitleCase,
-		type PreviewedAuctionData,
-	} from '$lib/utils'
+	import type { PreviewedAuctionData } from '$lib/utils'
 	import type { ItemAuctionsSchema, ItemListData, ItemListItem } from '$lib/APITypes'
 	import Item from '$lib/minecraft/Item.svelte'
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
 	import AuctionPreviewTooltip from '$lib/AuctionPreviewTooltip.svelte'
+	import { browser } from '$app/env'
 
 	export let data: ItemAuctionsSchema[]
+	export let auctionItems: Record<string, string>
 
 	let currentlyPreviewedAuction: PreviewedAuctionData | null
 
 	let query: string = ''
+	$: allMatchingItemIds = Object.entries(auctionItems)
+		.filter(a => a[1].includes(query))
+		.map(a => a[0])
+	$: {
+		if (browser) fetchItems(allMatchingItemIds.slice(0, 100))
+	}
+
+	async function fetchItems(itemIds: string[]) {
+		data = await fetch(`${API_URL}auctionprices?items=${itemIds.join(',')}`).then(r => r.json())
+	}
 
 	let pageHeight = 0
 	$: {
@@ -66,7 +74,7 @@
 			{@const binAuctions = item.auctions.filter(i => i.bin)}
 			{@const normalAuctions = item.auctions.filter(i => !i.bin)}
 			<div class="item-container">
-				<h2>{cleanId(item._id.toLowerCase())}</h2>
+				<h2>{auctionItems[item._id]}</h2>
 				<div class="auctions-info-text">
 					{#if binAuctions.length > 0}
 						<p>

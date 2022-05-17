@@ -25,7 +25,11 @@
 		let nearestDistance = Number.MAX_SAFE_INTEGER
 		let nearestAuction: SimpleAuctionSchema | null = null
 		for (const auction of item.auctions) {
-			const auctionCoords = getAuctionCoordinates(auction)
+			const auctionCoordsSvg = getAuctionCoordinates(auction)
+			const auctionCoords = [
+				(auctionCoordsSvg[0] * rect.width) / 100,
+				(auctionCoordsSvg[1] * rect.height) / 100,
+			]
 			const distance =
 				Math.pow(mouseCoords[0] - auctionCoords[0], 2) +
 				Math.pow(mouseCoords[1] - auctionCoords[1], 2)
@@ -35,7 +39,8 @@
 			}
 		}
 		if (nearestAuction) {
-			const [x, y] = getAuctionCoordinates(nearestAuction)
+			const [svgX, svgY] = getAuctionCoordinates(nearestAuction)
+			const [x, y] = [(svgX * rect.width) / 100, (svgY * rect.height) / 100]
 			currentlyPreviewedAuction = {
 				pageX: window.scrollX + rect.left + x,
 				pageY: window.scrollY + rect.top + y,
@@ -67,7 +72,7 @@
 			r="1"
 			stroke-width="4"
 			fill={auction.bin ? '#11b' : '#1b1'}
-			tabindex="-1"
+			class:selected-auction={currentlyPreviewedAuction?.auction?.id === auction?.id}
 		/>
 	{/each}
 	<!-- {item.auctions} -->
@@ -77,5 +82,9 @@
 	.item-auction-history {
 		height: 10em;
 		width: 100%;
+	}
+
+	.selected-auction {
+		stroke: #06e7;
 	}
 </style>

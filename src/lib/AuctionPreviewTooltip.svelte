@@ -5,7 +5,7 @@
 	import type { PreviewedAuctionData } from './utils'
 
 	export let preview: PreviewedAuctionData | null
-	export let lastPreview: PreviewedAuctionData | null
+	let lastPreview: PreviewedAuctionData | null
 
 	$: lastPreview = preview ?? lastPreview
 
@@ -36,7 +36,7 @@
 	#auction-preview-tooltip {
 		position: absolute;
 		border: 1px solid rgba(255, 255, 255, 0.1);
-		background: var(--theme-lighter-background);
+		background: rgba(0, 0, 0, 0.1);
 		padding: 0.5em;
 		transition: left 200ms, top 200ms;
 		pointer-events: none;
