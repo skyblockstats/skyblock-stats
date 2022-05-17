@@ -1,34 +1,47 @@
 <script lang="ts">
-	import type { ItemAuctionsSchema } from './APITypes'
+	import type { ItemAuctionsSchema, SimpleAuctionSchema } from './APITypes'
 	import type { PreviewedAuctionData } from './utils'
 
 	export let item: ItemAuctionsSchema
 	export let currentlyPreviewedAuction: PreviewedAuctionData | null
 
+	let svgEl: SVGElement
 	let maxCoins: number = item.auctions.reduce((max, auction) => Math.max(max, auction.coins), 0)
-
 	let currentTimestamp = Math.floor(Date.now() / 1000)
-
-	let lowestCoinsAuction = item.auctions.reduce(
-		(min, auction) => (auction.coins < min.coins ? auction : min),
-		{ coins: Infinity, ts: currentTimestamp }
-	)
-
 	let earliestTimestamp = item.auctions.length > 0 ? item.auctions[0].ts : 0
-
 	let minutesBetween = (currentTimestamp - earliestTimestamp) / 360
-
 	let gridWidth = 100 / minutesBetween
 
-	function showAuctionPreview(e, uuid: string) {
-		currentlyPreviewedAuction = {
-			pageX: e.pageX,
-			pageY: e.pageY,
-			uuid,
-		}
+	function getAuctionCoordinates(auction: SimpleAuctionSchema) {
+		const timestampPercentage =
+			(auction.ts - earliestTimestamp) / (currentTimestamp - earliestTimestamp)
+		return [timestampPercentage * 100, 100 - (auction.coins / maxCoins) * 100]
 	}
-	function hideAuctionPreview() {
-		currentlyPreviewedAuction = null
+
+	function updateNearest(e: MouseEvent) {
+		const rect = svgEl.getBoundingClientRect()
+
+		const mouseCoords = [e.clientX - rect.left, e.clientY - rect.top]
+		let nearestDistance = Number.MAX_SAFE_INTEGER
+		let nearestAuction: SimpleAuctionSchema | null = null
+		for (const auction of item.auctions) {
+			const auctionCoords = getAuctionCoordinates(auction)
+			const distance =
+				Math.pow(mouseCoords[0] - auctionCoords[0], 2) +
+				Math.pow(mouseCoords[1] - auctionCoords[1], 2)
+			if (distance < nearestDistance) {
+				nearestDistance = distance
+				nearestAuction = auction
+			}
+		}
+		if (nearestAuction) {
+			const [x, y] = getAuctionCoordinates(nearestAuction)
+			currentlyPreviewedAuction = {
+				pageX: window.scrollX + rect.left + x,
+				pageY: window.scrollY + rect.top + y,
+				auction: nearestAuction,
+			}
+		} else currentlyPreviewedAuction = null
 	}
 </script>
 
@@ -38,20 +51,23 @@
 			<path d="M {gridWidth} 0 L 0 0 0 10" fill="none" stroke="#fff2" stroke-width="1" />
 		</pattern>
 	</defs>
-	<rect width="100%" height="100%" fill="url(#grid-{item._id})" />
+	<rect
+		width="100%"
+		height="100%"
+		fill="url(#grid-{item._id})"
+		on:mousemove={updateNearest}
+		bind:this={svgEl}
+	/>
 
 	{#each item.auctions as auction}
-		{@const timestampPercentage =
-			(auction.ts - earliestTimestamp) / (currentTimestamp - earliestTimestamp)}
+		{@const [x, y] = getAuctionCoordinates(auction)}
 		<circle
-			cx={timestampPercentage * 100}
-			cy={100 - (auction.coins / maxCoins) * 100}
+			cx={x}
+			cy={y}
 			r="1"
 			stroke-width="4"
 			fill={auction.bin ? '#11b' : '#1b1'}
-			on:mouseenter={e => showAuctionPreview(e, auction.id)}
-			on:click={e => showAuctionPreview(e, auction.id)}
-			on:mouseleave={hideAuctionPreview}
+			tabindex="-1"
 		/>
 	{/each}
 	<!-- {item.auctions} -->
