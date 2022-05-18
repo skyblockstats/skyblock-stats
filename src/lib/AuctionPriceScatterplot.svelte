@@ -12,7 +12,7 @@
 	let hoursBetween = (currentTimestamp - earliestTimestamp) / (60 * 60)
 	const gridWidth = 100 / hoursBetween
 
-	let heightCoinInterval = Math.pow(10, Math.floor(Math.log10(maxCoins / 2)))
+	let heightCoinInterval = Math.ceil(Math.pow(10, Math.floor(Math.log10(maxCoins / 2))))
 
 	const gridHeight = 100 / (maxCoins / heightCoinInterval)
 
@@ -52,6 +52,14 @@
 			}
 		} else currentlyPreviewedAuction = null
 	}
+
+	function shortenBigNumber(n: number) {
+		if (n < 1000) return n
+		if (n < 1_000_000) return parseFloat((n / 1000).toPrecision(2)).toLocaleString() + 'k'
+		if (n < 1_000_000_000) return parseFloat((n / 1_000_000).toPrecision(2)).toLocaleString() + 'M'
+		if (n < 1_000_000_000_000)
+			return parseFloat((n / 1_000_000_000).toPrecision(2)).toLocaleString() + 'B'
+	}
 </script>
 
 {#if item.auctions.length > 0}
@@ -73,6 +81,15 @@
 				/>
 			</pattern>
 		</defs>
+		{#each new Array(Math.floor(maxCoins / heightCoinInterval) + 1) as _, intervalIndex}
+			<text
+				x="-1"
+				y={Math.max(5, 100 - intervalIndex * gridHeight + 2)}
+				fill="var(--theme-darker-text)"
+				font-size="6px"
+				text-anchor="end">{shortenBigNumber(heightCoinInterval * intervalIndex)}</text
+			>
+		{/each}
 		<rect
 			width="100%"
 			height="100%"
