@@ -43,9 +43,13 @@
 	}
 
 	async function fetchItems(itemIds: string[]) {
-		let url = `${API_URL}auctionprices`
+		const url = `${API_URL}auctionprices`
+		const localQuery = query
 		if (query.length > 0) url += `?items=${itemIds.join(',')}`
-		data = await fetch(url).then(r => r.json())
+		const localData = await fetch(url).then(r => r.json())
+
+		// if the query hasn't changed, update the data
+		if (query === localQuery) data = localData
 	}
 
 	let pageHeight = 0
