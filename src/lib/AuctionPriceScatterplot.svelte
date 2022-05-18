@@ -79,7 +79,7 @@
 				y="100%"
 			>
 				<path
-					d="M {gridWidth} 0 L 0 0 0 {gridHeight}"
+					d="M {gridWidth} {gridHeight} L 0 {gridHeight} 0 0"
 					fill="none"
 					stroke="#fff2"
 					stroke-width="1"
