@@ -12,8 +12,13 @@
 	let hoursBetween = (currentTimestamp - earliestTimestamp) / (60 * 60)
 	const gridWidth = 100 / hoursBetween
 
-	let heightCoinInterval = Math.ceil(Math.pow(10, Math.floor(Math.log10(maxCoins / 2))))
-
+	// this code is bad but it works
+	let heightCoinInterval = Math.ceil(Math.pow(10, Math.floor(Math.log10(maxCoins / 5))))
+	if (heightCoinInterval < maxCoins / 20) {
+		heightCoinInterval *= 5
+	} else if (heightCoinInterval < maxCoins / 10) {
+		heightCoinInterval *= 2
+	}
 	const gridHeight = 100 / (maxCoins / heightCoinInterval)
 
 	function getAuctionCoordinates(auction: SimpleAuctionSchema) {
@@ -84,7 +89,7 @@
 		{#each new Array(Math.floor(maxCoins / heightCoinInterval) + 1) as _, intervalIndex}
 			<text
 				x="-1"
-				y={Math.max(5, 100 - intervalIndex * gridHeight + 2)}
+				y={Math.min(Math.max(5, 100 - intervalIndex * gridHeight + 2), 100)}
 				fill="var(--theme-darker-text)"
 				font-size="6px"
 				text-anchor="end">{shortenBigNumber(heightCoinInterval * intervalIndex)}</text
