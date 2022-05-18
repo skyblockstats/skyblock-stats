@@ -55,7 +55,10 @@
 	}
 	async function fetchItems(itemIds: null | string[]): Promise<ItemAuctionsSchema[]> {
 		let url = `${API_URL}auctionprices`
-		if (itemIds !== null) url += `?items=${itemIds.join(',')}`
+		if (itemIds !== null) {
+			if (itemIds.length === 0) return []
+			url += `?items=${itemIds.join(',')}`
+		}
 		return await fetch(url).then(r => r.json())
 	}
 
@@ -81,7 +84,7 @@
 			if (itemIds.length > 0) {
 				const shownIds = data.map(d => d.id)
 				const items = (await fetchItems(itemIds)).filter(i => !shownIds.includes(i.id))
-				data = [...data, ...items]
+				if (items.length > 0) data = [...data, ...items]
 			}
 			loadingPage = false
 		}
