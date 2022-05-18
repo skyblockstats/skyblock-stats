@@ -114,7 +114,6 @@
 				class:selected-auction={currentlyPreviewedAuction?.auction?.id === auction?.id}
 			/>
 		{/each}
-		<!-- {item.auctions} -->
 	</svg>
 {/if}
 

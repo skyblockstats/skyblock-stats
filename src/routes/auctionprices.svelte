@@ -19,7 +19,7 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import { cleanId, type PreviewedAuctionData } from '$lib/utils'
+	import { cleanId, removeFormattingCode, type PreviewedAuctionData } from '$lib/utils'
 	import type { ItemAuctionsSchema } from '$lib/APITypes'
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
 	import AuctionPreviewTooltip from '$lib/AuctionPreviewTooltip.svelte'
@@ -38,7 +38,7 @@
 	$: {
 		pageNumber = 0
 		allMatchingItemIds = Object.entries(auctionItems)
-			.filter(a => a[1].toLowerCase().includes(queryNormalized))
+			.filter(a => removeFormattingCode(a[1].toLowerCase()).includes(queryNormalized))
 			.map(a => a[0])
 	}
 	$: {
@@ -103,18 +103,18 @@
 			{@const binAuctions = item.auctions.filter(i => i.bin)}
 			{@const normalAuctions = item.auctions.filter(i => !i.bin)}
 			<div class="item-container">
-				<h2>{auctionItems[item.id] ?? cleanId(item.id.toLowerCase())}</h2>
+				<h2>{removeFormattingCode(auctionItems[item.id] ?? cleanId(item.id.toLowerCase()))}</h2>
 				<div class="auctions-info-text">
 					{#if binAuctions.length > 0}
 						<p>
-							Lowest recent BIN: <b>
+							Cheapest recent BIN: <b>
 								{binAuctions.reduce((a, b) => (a.coins < b.coins ? a : b)).coins.toLocaleString()} coins
 							</b>
 						</p>
 					{/if}
 					{#if normalAuctions.length > 0}
 						<p>
-							Lowest recent auction: <b>
+							Cheapest recent auction: <b>
 								{normalAuctions
 									.reduce((a, b) => (a.coins < b.coins ? a : b))
 									.coins.toLocaleString()} coins
@@ -152,7 +152,7 @@
 	}
 	.item-list {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(16em, 1fr));
 		grid-gap: 1em;
 		margin-top: 1em;
 	}
