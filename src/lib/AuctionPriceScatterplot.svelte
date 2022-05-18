@@ -75,7 +75,7 @@
 		bind:this={svgEl}
 	/>
 
-	{#each item.auctions as auction}
+	{#each item.auctions as auction (auction.id)}
 		{@const [x, y] = getAuctionCoordinates(auction)}
 		<circle
 			cx={x}

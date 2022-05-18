@@ -97,6 +97,19 @@
 							</b>
 						</p>
 					{/if}
+					{#if item.auctions.length >= 2}
+						<p>
+							Frequency:
+							<b>
+								{parseFloat(
+									(
+										(24 * 60 * 60) /
+										((Date.now() / 1000 - item.auctions[0].ts) / item.auctions.length)
+									).toPrecision(2)
+								).toLocaleString()}/day
+							</b>
+						</p>
+					{/if}
 				</div>
 				<div class="item-scatterplot">
 					<AuctionPriceScatterplot {item} bind:currentlyPreviewedAuction />
