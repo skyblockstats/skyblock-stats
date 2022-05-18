@@ -1,34 +1,32 @@
 <script lang="ts">
-	import { API_URL } from './api'
-
-	import Loader from './layout/Loader.svelte'
 	import type { PreviewedAuctionData } from './utils'
+	import { fade } from 'svelte/transition'
 
 	export let preview: PreviewedAuctionData | null
 	let lastPreview: PreviewedAuctionData | null
 
 	$: lastPreview = preview ?? lastPreview
 
-	function onClick(e) {
+	function onClick(e: MouseEvent) {
 		// commented out because it doesn't work: sometimes e.target is null when we click a point
-		// if (!e.target.closest('.item-auction-history')) {
-		// 	preview = null
-		// 	lastPreview = null
-		// }
+		if (e.target && !(e.target as HTMLElement).closest('.item-auction-history')) {
+			preview = null
+			lastPreview = null
+		}
 	}
 </script>
 
-<svelte:body on:click={onClick} />
+<svelte:body on:mousemove={onClick} />
 
 {#if lastPreview}
-	{@const date = new Date(lastPreview.auction.ts * 1000)}
 	<div
 		id="auction-preview-tooltip"
 		class:hidden={preview === null}
 		style="left: {lastPreview.pageX}px; top: {lastPreview.pageY}px"
+		out:fade={{ duration: 100 }}
 	>
 		<p><b>{lastPreview.auction.coins.toLocaleString()}</b> coins</p>
-		<time>{date.toLocaleString()}</time>
+		<time>{new Date(lastPreview.auction.ts * 1000).toLocaleString()}</time>
 	</div>
 {/if}
 

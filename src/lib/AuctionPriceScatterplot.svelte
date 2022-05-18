@@ -57,7 +57,7 @@
 <svg viewBox="0 0 100 100" class="item-auction-history">
 	<defs>
 		<pattern
-			id="grid-{item._id}"
+			id="grid-{item.id}"
 			width={gridWidth}
 			height={gridHeight}
 			patternUnits="userSpaceOnUse"
@@ -70,7 +70,7 @@
 	<rect
 		width="100%"
 		height="100%"
-		fill="url(#grid-{item._id})"
+		fill="url(#grid-{item.id})"
 		on:mousemove={updateNearest}
 		bind:this={svgEl}
 	/>

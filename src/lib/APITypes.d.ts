@@ -450,6 +450,6 @@ export interface SimpleAuctionSchema {
 }
 export interface ItemAuctionsSchema {
 	/** The id of the item */
-	_id: string
+	id: string
 	auctions: SimpleAuctionSchema[]
 }

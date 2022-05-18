@@ -72,11 +72,11 @@
 		<input type="text" id="filter-items-tier" placeholder="Search..." bind:value={query} />
 	</div>
 	<div class="item-list">
-		{#each data as item (item._id)}
+		{#each data as item (item.id)}
 			{@const binAuctions = item.auctions.filter(i => i.bin)}
 			{@const normalAuctions = item.auctions.filter(i => !i.bin)}
 			<div class="item-container">
-				<h2>{auctionItems[item._id]}</h2>
+				<h2>{auctionItems[item.id]}</h2>
 				<div class="auctions-info-text">
 					{#if binAuctions.length > 0}
 						<p>
