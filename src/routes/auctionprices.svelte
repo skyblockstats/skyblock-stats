@@ -19,7 +19,7 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import { cleanId, removeFormattingCode, type PreviewedAuctionData } from '$lib/utils'
+	import { cleanId, removeFormattingCode, toTitleCase, type PreviewedAuctionData } from '$lib/utils'
 	import type { ItemAuctionsSchema } from '$lib/APITypes'
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
 	import AuctionPreviewTooltip from '$lib/AuctionPreviewTooltip.svelte'
@@ -113,7 +113,7 @@
 				{/if}
 				<h2>
 					{removeFormattingCode(
-						auctionItems[item.id]?.display.name ?? cleanId(item.id.toLowerCase())
+						auctionItems[item.id]?.display.name ?? toTitleCase(cleanId(item.id.toLowerCase()))
 					)}
 				</h2>
 				<div class="auctions-info-text">
