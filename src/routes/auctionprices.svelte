@@ -93,7 +93,7 @@
 
 <svelte:window on:scroll={checkScroll} />
 
-<AuctionPreviewTooltip preview={currentlyPreviewedAuction} />
+<AuctionPreviewTooltip bind:preview={currentlyPreviewedAuction} />
 
 <main>
 	<h1>SkyBlock Auction Prices</h1>
