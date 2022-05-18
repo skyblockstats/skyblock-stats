@@ -40,7 +40,9 @@
 	}
 
 	async function fetchItems(itemIds: string[]) {
-		data = await fetch(`${API_URL}auctionprices?items=${itemIds.join(',')}`).then(r => r.json())
+		let url = `${API_URL}auctionprices`
+		if (query.length > 0) url += `?items=${itemIds.join(',')}`
+		data = await fetch(url).then(r => r.json())
 	}
 
 	let pageHeight = 0

@@ -9,8 +9,12 @@
 	let maxCoins: number = item.auctions.reduce((max, auction) => Math.max(max, auction.coins), 0)
 	let currentTimestamp = Math.floor(Date.now() / 1000)
 	let earliestTimestamp = item.auctions.length > 0 ? item.auctions[0].ts : 0
-	let minutesBetween = (currentTimestamp - earliestTimestamp) / 360
-	let gridWidth = 100 / minutesBetween
+	let hoursBetween = (currentTimestamp - earliestTimestamp) / (60 * 60)
+	const gridWidth = 100 / hoursBetween
+
+	let heightCoinInterval = Math.pow(10, Math.floor(Math.log10(maxCoins / 2)))
+
+	const gridHeight = 100 / (maxCoins / heightCoinInterval)
 
 	function getAuctionCoordinates(auction: SimpleAuctionSchema) {
 		const timestampPercentage =
@@ -52,8 +56,15 @@
 
 <svg viewBox="0 0 100 100" class="item-auction-history">
 	<defs>
-		<pattern id="grid-{item._id}" width={gridWidth} height="10" patternUnits="userSpaceOnUse">
-			<path d="M {gridWidth} 0 L 0 0 0 10" fill="none" stroke="#fff2" stroke-width="1" />
+		<pattern
+			id="grid-{item._id}"
+			width={gridWidth}
+			height={gridHeight}
+			patternUnits="userSpaceOnUse"
+			x="0%"
+			y="100%"
+		>
+			<path d="M {gridWidth} 0 L 0 0 0 {gridHeight}" fill="none" stroke="#fff2" stroke-width="1" />
 		</pattern>
 	</defs>
 	<rect
