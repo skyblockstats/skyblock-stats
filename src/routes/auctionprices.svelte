@@ -32,8 +32,11 @@
 	let currentlyPreviewedAuction: PreviewedAuctionData | null
 
 	let query: string = ''
+
+	$: queryNormalized = query.toLowerCase()
+
 	$: allMatchingItemIds = Object.entries(auctionItems)
-		.filter(a => a[1].includes(query))
+		.filter(a => a[1].toLowerCase().includes(queryNormalized))
 		.map(a => a[0])
 	$: {
 		if (browser) fetchItems(allMatchingItemIds.slice(0, 100))
