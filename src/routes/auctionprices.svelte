@@ -123,7 +123,7 @@
 					{/if}
 					{#if item.auctions.length >= 2}
 						<p>
-							Frequency:
+							Volume:
 							<b>
 								{parseFloat(
 									(
