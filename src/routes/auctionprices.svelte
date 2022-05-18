@@ -62,7 +62,7 @@
 	}
 </script>
 
-<Head title="SkyBlock Item List" />
+<Head title="SkyBlock Auction Prices" />
 <Header />
 
 <svelte:window on:scroll={checkScroll} />

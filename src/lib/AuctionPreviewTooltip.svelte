@@ -24,6 +24,7 @@
 		class:hidden={preview === null}
 		style="left: {lastPreview.pageX}px; top: {lastPreview.pageY}px"
 		out:fade={{ duration: 100 }}
+		in:fade={{ duration: 100 }}
 	>
 		<p><b>{lastPreview.auction.coins.toLocaleString()}</b> coins</p>
 		<time>{new Date(lastPreview.auction.ts * 1000).toLocaleString()}</time>
