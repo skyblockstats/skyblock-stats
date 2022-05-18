@@ -19,7 +19,7 @@
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
-	import type { PreviewedAuctionData } from '$lib/utils'
+	import { cleanId, type PreviewedAuctionData } from '$lib/utils'
 	import type { ItemAuctionsSchema, ItemListData, ItemListItem } from '$lib/APITypes'
 	import Item from '$lib/minecraft/Item.svelte'
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
@@ -79,7 +79,7 @@
 			{@const binAuctions = item.auctions.filter(i => i.bin)}
 			{@const normalAuctions = item.auctions.filter(i => !i.bin)}
 			<div class="item-container">
-				<h2>{auctionItems[item.id]}</h2>
+				<h2>{auctionItems[item.id] ?? cleanId(item.id.toLowerCase())}</h2>
 				<div class="auctions-info-text">
 					{#if binAuctions.length > 0}
 						<p>
