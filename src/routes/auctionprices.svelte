@@ -24,9 +24,11 @@
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
 	import AuctionPreviewTooltip from '$lib/AuctionPreviewTooltip.svelte'
 	import { browser } from '$app/env'
+	import Item from '$lib/minecraft/Item.svelte'
+	import furfskyReborn from 'skyblock-assets/matchers/furfsky_reborn.json'
 
 	export let data: ItemAuctionsSchema[]
-	export let auctionItems: Record<string, string>
+	export let auctionItems: Record<string, { display: { name: string }; vanillaId?: string }>
 
 	let currentlyPreviewedAuction: PreviewedAuctionData | null
 
@@ -38,7 +40,7 @@
 	$: {
 		pageNumber = 0
 		allMatchingItemIds = Object.entries(auctionItems)
-			.filter(a => removeFormattingCode(a[1].toLowerCase()).includes(queryNormalized))
+			.filter(a => removeFormattingCode(a[1]?.display.name.toLowerCase()).includes(queryNormalized))
 			.map(a => a[0])
 	}
 	$: {
@@ -102,8 +104,18 @@
 		{#each data as item (item.id)}
 			{@const binAuctions = item.auctions.filter(i => i.bin)}
 			{@const normalAuctions = item.auctions.filter(i => !i.bin)}
+			{@const itemData = auctionItems[item.sbId]}
 			<div class="item-container">
-				<h2>{removeFormattingCode(auctionItems[item.id] ?? cleanId(item.id.toLowerCase()))}</h2>
+				{#if itemData && itemData.vanillaId}
+					<div class="item-slot-container">
+						<Item item={{ ...itemData, id: item.id }} pack={furfskyReborn} headSize={50} isslot />
+					</div>
+				{/if}
+				<h2>
+					{removeFormattingCode(
+						auctionItems[item.id]?.display.name ?? cleanId(item.id.toLowerCase())
+					)}
+				</h2>
 				<div class="auctions-info-text">
 					{#if binAuctions.length > 0}
 						<p>
@@ -172,5 +184,9 @@
 	}
 	.auctions-info-text b {
 		color: var(--theme-main-text);
+	}
+
+	.item-slot-container {
+		float: right;
 	}
 </style>
