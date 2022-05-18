@@ -135,6 +135,14 @@
 					{/if}
 					{#if item.auctions.length >= 2}
 						<p>
+							Median:
+							<b>
+								{[...item.auctions]
+									.sort((a, b) => a.coins - b.coins)
+									[Math.floor(item.auctions.length / 2)].coins.toLocaleString()} coins
+							</b>
+						</p>
+						<p>
 							Volume:
 							<b>
 								{parseFloat(
