@@ -54,40 +54,47 @@
 	}
 </script>
 
-<svg viewBox="0 0 100 100" class="item-auction-history">
-	<defs>
-		<pattern
-			id="grid-{item.id}"
-			width={gridWidth}
-			height={gridHeight}
-			patternUnits="userSpaceOnUse"
-			x="0%"
-			y="100%"
-		>
-			<path d="M {gridWidth} 0 L 0 0 0 {gridHeight}" fill="none" stroke="#fff2" stroke-width="1" />
-		</pattern>
-	</defs>
-	<rect
-		width="100%"
-		height="100%"
-		fill="url(#grid-{item.id})"
-		on:mousemove={updateNearest}
-		bind:this={svgEl}
-	/>
-
-	{#each item.auctions as auction}
-		{@const [x, y] = getAuctionCoordinates(auction)}
-		<circle
-			cx={x}
-			cy={y}
-			r="1"
-			stroke-width="4"
-			fill={auction.bin ? '#11b' : '#1b1'}
-			class:selected-auction={currentlyPreviewedAuction?.auction?.id === auction?.id}
+{#if item.auctions.length > 0}
+	<svg viewBox="0 0 100 100" class="item-auction-history">
+		<defs>
+			<pattern
+				id="grid-{item.id}"
+				width={gridWidth}
+				height={gridHeight}
+				patternUnits="userSpaceOnUse"
+				x="0%"
+				y="100%"
+			>
+				<path
+					d="M {gridWidth} 0 L 0 0 0 {gridHeight}"
+					fill="none"
+					stroke="#fff2"
+					stroke-width="1"
+				/>
+			</pattern>
+		</defs>
+		<rect
+			width="100%"
+			height="100%"
+			fill="url(#grid-{item.id})"
+			on:mousemove={updateNearest}
+			bind:this={svgEl}
 		/>
-	{/each}
-	<!-- {item.auctions} -->
-</svg>
+
+		{#each item.auctions as auction}
+			{@const [x, y] = getAuctionCoordinates(auction)}
+			<circle
+				cx={x}
+				cy={y}
+				r="1"
+				stroke-width="4"
+				fill={auction.bin ? '#11b' : '#1b1'}
+				class:selected-auction={currentlyPreviewedAuction?.auction?.id === auction?.id}
+			/>
+		{/each}
+		<!-- {item.auctions} -->
+	</svg>
+{/if}
 
 <style>
 	.item-auction-history {
