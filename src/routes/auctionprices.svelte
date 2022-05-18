@@ -20,8 +20,7 @@
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
 	import { cleanId, type PreviewedAuctionData } from '$lib/utils'
-	import type { ItemAuctionsSchema, ItemListData, ItemListItem } from '$lib/APITypes'
-	import Item from '$lib/minecraft/Item.svelte'
+	import type { ItemAuctionsSchema } from '$lib/APITypes'
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
 	import AuctionPreviewTooltip from '$lib/AuctionPreviewTooltip.svelte'
 	import { browser } from '$app/env'
@@ -35,21 +34,27 @@
 
 	$: queryNormalized = query.toLowerCase()
 
-	$: allMatchingItemIds = Object.entries(auctionItems)
-		.filter(a => a[1].toLowerCase().includes(queryNormalized))
-		.map(a => a[0])
+	let allMatchingItemIds: string[]
 	$: {
-		if (browser) fetchItems(allMatchingItemIds.slice(0, 100))
+		pageNumber = 0
+		allMatchingItemIds = Object.entries(auctionItems)
+			.filter(a => a[1].toLowerCase().includes(queryNormalized))
+			.map(a => a[0])
+	}
+	$: {
+		if (browser) fetchAndSetItems(allMatchingItemIds.slice(0, 100))
 	}
 
-	async function fetchItems(itemIds: string[]) {
-		let url = `${API_URL}auctionprices`
+	async function fetchAndSetItems(itemIds: string[]) {
 		const localQuery = query
-		if (query.length > 0) url += `?items=${itemIds.join(',')}`
-		const localData = await fetch(url).then(r => r.json())
-
+		const localData = await fetchItems(query.length > 0 ? itemIds : null)
 		// if the query hasn't changed, update the data
 		if (query === localQuery) data = localData
+	}
+	async function fetchItems(itemIds: null | string[]): Promise<ItemAuctionsSchema[]> {
+		let url = `${API_URL}auctionprices`
+		if (itemIds !== null) url += `?items=${itemIds.join(',')}`
+		return await fetch(url).then(r => r.json())
 	}
 
 	let pageHeight = 0
@@ -57,11 +62,26 @@
 		pageHeight = 0
 	}
 
-	function checkScroll() {
+	// 0 indexed
+	let pageNumber = 0
+	let loadingPage = false
+
+	async function checkScroll() {
+		if (loadingPage) return
+
 		let pageHeightTemp = window.scrollY + window.innerHeight
 		if (pageHeightTemp <= pageHeight) return
 		pageHeight = pageHeightTemp
 		if (pageHeight >= document.body.scrollHeight - 1000) {
+			loadingPage = true
+			pageNumber++
+			const itemIds = allMatchingItemIds.slice(pageNumber * 100, (pageNumber + 1) * 100)
+			if (itemIds.length > 0) {
+				const shownIds = data.map(d => d.id)
+				const items = (await fetchItems(itemIds)).filter(i => !shownIds.includes(i.id))
+				data = [...data, ...items]
+			}
+			loadingPage = false
 		}
 	}
 </script>
