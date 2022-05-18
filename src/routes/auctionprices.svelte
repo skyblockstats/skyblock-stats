@@ -43,7 +43,7 @@
 	}
 
 	async function fetchItems(itemIds: string[]) {
-		const url = `${API_URL}auctionprices`
+		let url = `${API_URL}auctionprices`
 		const localQuery = query
 		if (query.length > 0) url += `?items=${itemIds.join(',')}`
 		const localData = await fetch(url).then(r => r.json())
