@@ -15,7 +15,10 @@
 	const gridWidth = 100 / hoursBetween
 
 	// this code is bad but it works
-	let heightCoinInterval = Math.ceil(Math.pow(10, Math.floor(Math.log10(maxCoins / 5))))
+	let heightCoinInterval = Math.max(
+		1,
+		Math.ceil(Math.pow(10, Math.floor(Math.log10(maxCoins / 5))))
+	)
 	if (heightCoinInterval < maxCoins / 20) {
 		heightCoinInterval *= 5
 	} else if (heightCoinInterval < maxCoins / 10) {
