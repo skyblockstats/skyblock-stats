@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { browser } from '$app/env'
+
 	import type { ItemAuctionsSchema, SimpleAuctionSchema } from './APITypes'
 	import type { PreviewedAuctionData } from './utils'
 
@@ -50,12 +52,20 @@
 		if (nearestAuction) {
 			const [svgX, svgY] = getAuctionCoordinates(nearestAuction)
 			const [x, y] = [(svgX * rect.width) / 100, (svgY * rect.height) / 100]
+			if (currentlyPreviewedAuction?.auction.id === nearestAuction.id) return
 			currentlyPreviewedAuction = {
 				pageX: window.scrollX + rect.left + x,
 				pageY: window.scrollY + rect.top + y,
 				auction: nearestAuction,
 			}
-		} else currentlyPreviewedAuction = null
+			for (const el of document.getElementsByClassName('selected-auction'))
+				el.classList.remove('selected-auction')
+			document
+				.getElementsByClassName(`auction-point-${nearestAuction.id}`)[0]
+				.classList.add('selected-auction')
+		} else {
+			currentlyPreviewedAuction = null
+		}
 	}
 
 	function shortenBigNumber(n: number) {
@@ -67,55 +77,54 @@
 	}
 </script>
 
-{#if item.auctions.length > 0}
-	<svg viewBox="0 0 100 100" class="item-auction-history">
-		<defs>
-			<pattern
-				id="grid-{item.id}"
-				width={gridWidth}
-				height={gridHeight}
-				patternUnits="userSpaceOnUse"
-				x="0%"
-				y="100%"
-			>
-				<path
-					d="M {gridWidth} {gridHeight} L 0 {gridHeight} 0 0"
-					fill="none"
-					stroke="#fff2"
-					stroke-width="1"
-				/>
-			</pattern>
-		</defs>
-		{#each new Array(Math.floor(maxCoins / heightCoinInterval) + 1) as _, intervalIndex}
-			<text
-				x="-1"
-				y={Math.min(Math.max(5, 100 - intervalIndex * gridHeight + 2), 100)}
-				fill="var(--theme-darker-text)"
-				font-size="6px"
-				text-anchor="end">{shortenBigNumber(heightCoinInterval * intervalIndex)}</text
-			>
-		{/each}
-		<rect
-			width="100%"
-			height="100%"
-			fill="url(#grid-{item.id})"
-			on:mousemove={updateNearest}
-			bind:this={svgEl}
-		/>
-
-		{#each item.auctions as auction}
-			{@const [x, y] = getAuctionCoordinates(auction)}
-			<circle
-				cx={x}
-				cy={y}
-				r="1"
-				stroke-width="4"
-				fill={auction.bin ? '#11b' : '#1b1'}
-				class:selected-auction={currentlyPreviewedAuction?.auction?.id === auction?.id}
+<svg viewBox="0 0 100 100" class="item-auction-history">
+	<defs>
+		<pattern
+			id="grid-{item.id}"
+			width={gridWidth}
+			height={gridHeight}
+			patternUnits="userSpaceOnUse"
+			x="0%"
+			y="100%"
+		>
+			<path
+				d="M {gridWidth} {gridHeight} L 0 {gridHeight} 0 0"
+				fill="none"
+				stroke="#fff2"
+				stroke-width="1"
 			/>
-		{/each}
-	</svg>
-{/if}
+		</pattern>
+	</defs>
+	{#each new Array(Math.floor(maxCoins / heightCoinInterval) + 1) as _, intervalIndex}
+		<text
+			x="-1"
+			y={Math.min(Math.max(5, 100 - intervalIndex * gridHeight + 2), 100)}
+			fill="var(--theme-darker-text)"
+			font-size="6px"
+			text-anchor="end">{shortenBigNumber(heightCoinInterval * intervalIndex)}</text
+		>
+	{/each}
+	<rect
+		width="100%"
+		height="100%"
+		fill="url(#grid-{item.id})"
+		on:mousemove={updateNearest}
+		bind:this={svgEl}
+	/>
+
+	{#each item.auctions as auction (auction.id)}
+		{@const [x, y] = getAuctionCoordinates(auction)}
+		<circle
+			cx={x}
+			cy={y}
+			r="1"
+			stroke-width="4"
+			fill={auction.bin ? '#11b' : '#1b1'}
+			class="auction-point-{auction.id}"
+		/>
+		<!-- class:selected-auction={currentlyPreviewedAuction?.auction?.id === auction?.id} -->
+	{/each}
+</svg>
 
 <style>
 	.item-auction-history {
@@ -123,7 +132,7 @@
 		width: 100%;
 	}
 
-	.selected-auction {
+	svg :global(.selected-auction) {
 		stroke: #06e7;
 	}
 </style>

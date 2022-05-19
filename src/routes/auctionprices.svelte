@@ -30,7 +30,7 @@
 	export let data: ItemAuctionsSchema[]
 	export let auctionItems: Record<string, { display: { name: string }; vanillaId?: string }>
 
-	let currentlyPreviewedAuction: PreviewedAuctionData | null
+	let currentlyPreviewedAuction: PreviewedAuctionData | null = null
 
 	let query: string = ''
 
@@ -87,6 +87,13 @@
 				if (items.length > 0) data = [...data, ...items]
 			}
 			loadingPage = false
+		}
+	}
+
+	$: {
+		if (browser && !currentlyPreviewedAuction) {
+			for (const el of document.getElementsByClassName('selected-auction'))
+				el.classList.remove('selected-auction')
 		}
 	}
 </script>

@@ -150,10 +150,10 @@
   dependencies:
     esbuild "^0.14.21"
 
-"@sveltejs/kit@^1.0.0-next.330":
-  version "1.0.0-next.330"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.330.tgz#1865ca9e38eb34633b0e469e833f4f51ebb5eb69"
-  integrity sha512-Wb95D5tOF8BViZuikqzZLAcupdS7TpXtadNPgpEOxKowmkrW8xjRrrfVdPIkNOLqAP1V+gKInmQ/gFYmnv5EjA==
+"@sveltejs/kit@^1.0.0-next.335":
+  version "1.0.0-next.335"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.335.tgz#14bd4016633605b9edc8b7a77cd393ca778449db"
+  integrity sha512-iZutvIJSSNJJGceZOX2ZWqcyRqp9MIPnNWOgOLXqBG/Z/+KLoN8MRI0U79XIw232SAEXhhkwaJtB3UnXQSu85A==
   dependencies:
     "@sveltejs/vite-plugin-svelte" "^1.0.0-next.32"
     chokidar "^3.5.3"
@@ -1608,7 +1608,7 @@ svelte-hmr@^0.14.11:
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.14.11.tgz#63d532dc9c2c849ab708592f034765fa2502e568"
   integrity sha512-R9CVfX6DXxW1Kn45Jtmx+yUe+sPhrbYSUp7TkzbW0jI5fVPn6lsNG9NEs5dFg5qRhFNAoVdRw5qQDLALNKhwbQ==
 
-svelte-preprocess@^4.0.0, svelte-preprocess@^4.10.4:
+svelte-preprocess@^4.0.0, svelte-preprocess@^4.10.6:
   version "4.10.6"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.10.6.tgz#5f9a53e7ed3b85fc7e0841120c725b76ac5a1ba8"
   integrity sha512-I2SV1w/AveMvgIQlUF/ZOO3PYVnhxfcpNyGt8pxpUVhPfyfL/CZBkkw/KPfuFix5FJ9TnnNYMhACK3DtSaYVVQ==
@@ -1620,7 +1620,7 @@ svelte-preprocess@^4.0.0, svelte-preprocess@^4.10.4:
     sorcery "^0.10.0"
     strip-indent "^3.0.0"
 
-svelte@^3.46.4:
+svelte@^3.48.0:
   version "3.48.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.48.0.tgz#f98c866d45e155bad8e1e88f15f9c03cd28753d3"
   integrity sha512-fN2YRm/bGumvjUpu6yI3BpvZnpIm9I6A7HR4oUNYd7ggYyIwSA/BX7DJ+UXXffLp6XNcUijyLvttbPVCYa/3xQ==
