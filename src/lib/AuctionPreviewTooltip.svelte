@@ -38,7 +38,7 @@
 	#auction-preview-tooltip-container {
 		position: absolute;
 		pointer-events: none;
-		transition: left 200ms linear, top 200ms linear;
+		transition: left 100ms linear, top 100ms linear;
 	}
 	#auction-preview-tooltip {
 		border: 1px solid rgba(255, 255, 255, 0.1);
