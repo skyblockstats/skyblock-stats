@@ -52,7 +52,6 @@ export function registerItem(itemEl: HTMLElement) {
 	})
 	itemEl.addEventListener('click', e => {
 		tooltipLocked = !tooltipLocked
-		moveTooltipToMouse(e)
 		tooltipEl.style.display = 'block'
 		if (tooltipLocked) {
 			tooltipEl.style.userSelect = 'auto'
@@ -64,6 +63,7 @@ export function registerItem(itemEl: HTMLElement) {
 		const loreHtml = itemEl.getElementsByClassName('tooltip-lore')[0].innerHTML
 		const nameHtml = itemEl.getElementsByClassName('tooltip-name')[0].innerHTML
 		tooltipEl.innerHTML = `<p class="item-lore-name">${nameHtml}</p><p class="item-lore-text">${loreHtml}</p>`
+		moveTooltipToMouse(e)
 	})
 	document.addEventListener('mousedown', e => {
 		if (tooltipLocked && !tooltipEl.contains(e.target as Node)) {

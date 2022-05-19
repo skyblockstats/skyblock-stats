@@ -434,3 +434,23 @@ export interface AccessoryBagUpgrades {
 		list: string[]
 	}
 }
+
+export interface SimpleAuctionSchema {
+	/** The UUID of the auction so we can look it up later. */
+	id: string
+	coins: number
+	/**
+	 * The timestamp as **seconds** since epoch. It's in seconds instead of ms
+	 * since we don't need to be super exact and so it's shorter.
+	 */
+	ts: number
+	/** Whether the auction was bought or simply expired. */
+	success: boolean
+	bin: boolean
+}
+export interface ItemAuctionsSchema {
+	/** The id of the item */
+	id: string
+	sbId: string
+	auctions: SimpleAuctionSchema[]
+}

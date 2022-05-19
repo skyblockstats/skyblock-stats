@@ -1,3 +1,5 @@
+import type { SimpleAuctionSchema } from "./APITypes"
+
 export const colorCodes: { [key: string]: string } = {
     '0': '#000000', // black
     '1': '#0000be', // blue
@@ -219,4 +221,10 @@ export function skyblockTime(year: number, month = 1, day = 1) {
     if (month) time += 37200000 * (month - 1)
     if (day) time += 1200000 * (day - 1)
     return time
+}
+
+export interface PreviewedAuctionData {
+    pageX: number
+    pageY: number
+    auction: SimpleAuctionSchema
 }
