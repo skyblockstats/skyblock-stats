@@ -112,14 +112,14 @@
 		bind:this={svgEl}
 	/>
 
-	{#each item.auctions as auction (auction.id)}
+	{#each item.auctions as auction}
 		{@const [x, y] = getAuctionCoordinates(auction)}
 		<circle
 			cx={x}
 			cy={y}
 			r="1"
 			stroke-width="4"
-			fill={auction.bin ? '#11b' : '#1b1'}
+			fill={auction.bin ? '#46e' : '#1b1'}
 			class="auction-point-{auction.id}"
 		/>
 		<!-- class:selected-auction={currentlyPreviewedAuction?.auction?.id === auction?.id} -->
