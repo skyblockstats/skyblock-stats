@@ -98,7 +98,10 @@
 	}
 </script>
 
-<Head title="SkyBlock Auction Prices" />
+<Head
+	title="SkyBlock Auction Prices"
+	description="View how many coins every SkyBlock item costs in the auction house."
+/>
 <Header />
 
 <svelte:window on:scroll={checkScroll} />
