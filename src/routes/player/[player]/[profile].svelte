@@ -95,7 +95,7 @@
 			categories.push('collections')
 		if (data.profile.bank.balance !== undefined) categories.push('bank')
 		if (data.member.harp.selected !== null) categories.push('harp')
-		if (data.member.essence) categories.push('essence')
+		if (data.member.essence.types.length > 0) categories.push('essence')
 		if (data.member.claimed && data.member.claimed.length > 0) categories.push('claimed')
 		if (data.member.pets.list.length > 0) categories.push('pets')
 		if (data.member.farmingContests.list.length > 0) categories.push('farming_contests')
