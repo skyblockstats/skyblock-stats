@@ -45,6 +45,7 @@
 
 <script lang="ts">
 	import { inventoryIconMap, skyblockItemToUrl } from '$lib/minecraft/inventory'
+	import FarmingContests from '$lib/sections/FarmingContests.svelte'
 	import Leaderboards from '$lib/sections/Leaderboards.svelte'
 	import Inventories from '$lib/sections/Inventories.svelte'
 	import Collections from '$lib/sections/Collections.svelte'
@@ -57,22 +58,22 @@
 	import Minions from '$lib/sections/Minions.svelte'
 	import Slayers from '$lib/sections/Slayers.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
+	import Claimed from '$lib/sections/Claimed.svelte'
 	import Collapsible from '$lib/Collapsible.svelte'
 	import Skills from '$lib/sections/Skills.svelte'
 	import { generateInfobox } from '$lib/profile'
 	import Zones from '$lib/sections/Zones.svelte'
 	import Armor from '$lib/sections/Armor.svelte'
+	import Harp from '$lib/sections/Harp.svelte'
+	import Pets from '$lib/sections/Pets.svelte'
+	import Coop from '$lib/sections/Coop.svelte'
 	import Bank from '$lib/sections/Bank.svelte'
 	import Header from '$lib/Header.svelte'
 	import Emoji from '$lib/Emoji.svelte'
 	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
-	import Harp from '$lib/sections/Harp.svelte'
-	import Claimed from '$lib/sections/Claimed.svelte'
-	import Pets from '$lib/sections/Pets.svelte'
-	import FarmingContests from '$lib/sections/FarmingContests.svelte'
-	import Coop from '$lib/sections/Coop.svelte'
+	import Achievements from '$lib/sections/Achievements.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -97,6 +98,7 @@
 		if (data.member.pets.list.length > 0) categories.push('pets')
 		if (data.member.farmingContests.list.length > 0) categories.push('farming_contests')
 		if (data.member.coopInvitation) categories.push('co-op')
+		if (data.member.achievements) categories.push('achievements')
 		categories.push('leaderboards')
 	}
 
@@ -267,6 +269,14 @@
 					<Collapsible id="co-op">
 						<h2 slot="title">Co-op</h2>
 						<Coop {data} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('achievements')}
+				<section>
+					<Collapsible id="achievements">
+						<h2 slot="title">Achievements</h2>
+						<Achievements {data} />
 					</Collapsible>
 				</section>
 			{/if}

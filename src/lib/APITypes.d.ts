@@ -59,6 +59,7 @@ export interface CleanPlayer extends CleanBasicPlayer {
 	socials: CleanSocialMedia
 	profiles?: CleanBasicProfile[]
 	claimed?: ClaimedSkyBlockItem[]
+	achievements?: Achievements
 }
 
 export interface StatItem {
@@ -453,4 +454,23 @@ export interface ItemAuctionsSchema {
 	id: string
 	sbId: string
 	auctions: SimpleAuctionSchema[]
+}
+
+interface TieredAchievement {
+	id: string
+	name: string
+	value: number | null
+	description: string
+}
+
+interface ChallengeAchievement {
+	id: string
+	name: string
+	unlocked: boolean
+	description: string
+}
+
+export interface Achievements {
+	tiered: TieredAchievement[]
+	challenge: ChallengeAchievement[]
 }
