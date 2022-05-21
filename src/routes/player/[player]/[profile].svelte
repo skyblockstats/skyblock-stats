@@ -74,6 +74,7 @@
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
 	import Achievements from '$lib/sections/Achievements.svelte'
+	import Essence from '$lib/sections/Essence.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -94,6 +95,7 @@
 			categories.push('collections')
 		if (data.profile.bank.balance !== undefined) categories.push('bank')
 		if (data.member.harp.selected !== null) categories.push('harp')
+		if (data.member.essence) categories.push('essence')
 		if (data.member.claimed && data.member.claimed.length > 0) categories.push('claimed')
 		if (data.member.pets.list.length > 0) categories.push('pets')
 		if (data.member.farmingContests.list.length > 0) categories.push('farming_contests')
@@ -237,6 +239,14 @@
 					<Collapsible id="harp">
 						<h2 slot="title">Harp</h2>
 						<Harp {data} />
+					</Collapsible>
+				</section>
+			{/if}
+			{#if categories.includes('essence')}
+				<section>
+					<Collapsible id="essence">
+						<h2 slot="title">Essence</h2>
+						<Essence {data} />
 					</Collapsible>
 				</section>
 			{/if}

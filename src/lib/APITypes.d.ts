@@ -27,6 +27,7 @@ export interface CleanMemberProfilePlayer extends CleanPlayer {
 	coopInvitation: CoopInvitation | null
 	farmingContests: FarmingContests
 	accessoryBagUpgrades: AccessoryBagUpgrades
+	essence: Essence
 	left: boolean
 }
 
@@ -479,4 +480,13 @@ interface ChallengeAchievement {
 export interface Achievements {
 	tiered: TieredAchievement[]
 	challenge: ChallengeAchievement[]
+}
+
+interface EssenceType {
+	id: string
+	amount: number
+}
+
+export interface Essence {
+	types: EssenceType[]
 }
