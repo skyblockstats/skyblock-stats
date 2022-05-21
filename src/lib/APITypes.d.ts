@@ -459,7 +459,13 @@ export interface ItemAuctionsSchema {
 interface TieredAchievement {
 	id: string
 	name: string
-	value: number | null
+	tier: number
+	amount: number
+	/**
+	 * The amount that has to be gotten to get to the next tier. If this is
+	 * null, that means the player is at the max tier.
+	 */
+	next: number | null
 	description: string
 }
 

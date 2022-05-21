@@ -8,7 +8,7 @@
 	<h3>
 		Tiered
 		<span class="achievement-count">
-			({data.member.achievements.tiered.filter(a => a.value).length}/{data.member.achievements
+			({data.member.achievements.tiered.filter(a => a.amount).length}/{data.member.achievements
 				.tiered.length})
 		</span>
 	</h3>
@@ -20,15 +20,13 @@
 						{achievement.description}
 					</span>
 
-					{#if achievement.value}
-						<span>
-							{achievement.name}: <b>{achievement.value}</b>
-						</span>
-					{:else}
-						<span class="achievement-locked">
-							{achievement.name}
-						</span>
-					{/if}
+					<span class:achievement-locked={achievement.amount === 0}>
+						{achievement.name}: {#if achievement.next}
+							<b class="achievement-amount">{achievement.amount}</b>/{achievement.next}
+						{:else}
+							<span class="achievement-amount achievement-amount-maxed">{achievement.amount}</span>
+						{/if}
+					</span>
 				</Tooltip>
 			</li>
 		{/each}
@@ -77,5 +75,13 @@
 	.achievement-count {
 		color: var(--theme-darker-text);
 		font-weight: normal;
+	}
+
+	.achievement-amount {
+		opacity: 0.9;
+	}
+	.achievement-amount-maxed {
+		color: #0e0;
+		opacity: 1;
 	}
 </style>
