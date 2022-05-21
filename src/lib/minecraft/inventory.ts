@@ -186,4 +186,14 @@ const skyblockItems: { [itemName: string]: Item } = {
         headTexture: '39b6e047d3b2bca85e8cc49e5480f9774d8a0eafe6dfa9559530590283715142'
     },
     hard_stone: { vanillaId: 'minecraft:stone' },
+    sulphur: {
+        vanillaId: 'minecraft:glowstone_dust',
+        display: { name: 'Sulphur' },
+        id: 'SULPHUR_ORE'
+    },
+    magmafish: {
+        vanillaId: 'minecraft:skull',
+        headTexture: 'f56b5955b295522c9689481960c01a992ca1c7754cf4ee313c8dd0c356d335f',
+        id: 'MAGMA_FISH'
+    }
 }
