@@ -57,7 +57,7 @@
 					loading="lazy"
 					src={imageUrl}
 					alt={removeFormattingCode(item.display.name)}
-					class:item-custom-head={imageUrl.startsWith('https://mc-heads.net/head/')}
+					class:item-custom-head={imageUrl.startsWith('https://h.matdoes.dev/3d/')}
 				/>
 			{/if}
 			{#if item.count !== undefined && item.count !== 1}
