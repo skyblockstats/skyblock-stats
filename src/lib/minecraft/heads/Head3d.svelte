@@ -7,7 +7,7 @@
 	loading="lazy"
 	class="head head3d"
 	class:player-head={isPartOfUsername}
-	src="https://h.matdoes.dev/3d/{player.uuid}.png"
+	src="https://h.matdoes.dev/3d/{player.uuid}"
 	alt="{player.username}'s head"
 />
 
