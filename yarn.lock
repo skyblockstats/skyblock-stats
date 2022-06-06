@@ -1508,10 +1508,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-skyblock-assets@^2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/skyblock-assets/-/skyblock-assets-2.0.10.tgz#14c31164b9999140cdc6a63ecc87c219c95c68f6"
-  integrity sha512-7gWF35Jmuw+1ZuHcRrVsxLbZG0xynCV3f3CxqwBO0ak6lq7g8TnuQB+PpsrSSXPdlHjID2mvedCOOe6ELz0OFQ==
+skyblock-assets@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/skyblock-assets/-/skyblock-assets-2.0.11.tgz#69a30e859b76c653e368276a8d261672ce138ff5"
+  integrity sha512-hECWjZRWcrzymvRvf3lHfPP99EudGhFwQA9Hy7ZokiaDaWRwqvai1+EbUm9GBH6DIeKOMmL5CGFBXo6W8UsuPA==
 
 slash@^3.0.0:
   version "3.0.0"
