@@ -1,9 +1,9 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 
-	export const load: Load = async ({ params, fetch }) => {
-		const data = await fetch(`${API_URL}leaderboards`).then(r => r.json())
+	export const load: Load = async ({ fetch }) => {
+		const data = await fetchApi(`leaderboards`, fetch).then(r => r.json())
 
 		return {
 			props: {

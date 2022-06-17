@@ -1,10 +1,10 @@
-import { API_URL } from '$lib/api'
+import { fetchApi } from '$lib/api'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const get: RequestHandler = async ({ locals, url }) => {
 	// if the sid is wrong, nothing to do
 	if (url.searchParams.has('sid') && url.searchParams.get('sid') === locals.sid) {
-		await fetch(`${API_URL}accounts/session`, {
+		await fetchApi(`accounts/session`, fetch, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',

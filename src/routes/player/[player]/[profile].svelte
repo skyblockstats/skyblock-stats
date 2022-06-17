@@ -1,14 +1,22 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
 	import { loadPack } from '$lib/packs'
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
 		const player: string = params.player
 		const profile: string = params.profile
-		const data: CleanMemberProfile = await fetch(
-			`${API_URL}player/${player}/${profile}?customization=true`
-		).then(r => r.json())
+		const data: CleanMemberProfile = await fetchApi(
+			`player/${player}/${profile}?customization=true`,
+			fetch
+		).then(async r => {
+			const text = await r.text()
+			try {
+				return JSON.parse(text)
+			} catch (e) {
+				throw new Error(`Invalid JSON: ${text}`)
+			}
+		})
 
 		if (!data.member) {
 			return {

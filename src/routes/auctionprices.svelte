@@ -1,10 +1,10 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
-		const auctionItemsPromise = fetch(`${API_URL}auctionitems`).then(r => r.json())
-		const data = await fetch(`${API_URL}auctionprices`).then(r => r.json())
+		const auctionItemsPromise = fetchApi(`auctionitems`, fetch).then(r => r.json())
+		const data = await fetchApi(`auctionprices`, fetch).then(r => r.json())
 		const auctionItems = await auctionItemsPromise
 
 		return {
@@ -54,12 +54,12 @@
 		if (query === localQuery) data = localData
 	}
 	async function fetchItems(itemIds: null | string[]): Promise<ItemAuctionsSchema[]> {
-		let url = `${API_URL}auctionprices`
+		let url = `auctionprices`
 		if (itemIds !== null) {
 			if (itemIds.length === 0) return []
 			url += `?items=${itemIds.join(',')}`
 		}
-		return await fetch(url).then(r => r.json())
+		return await fetchApi(url, fetch).then(r => r.json())
 	}
 
 	let pageHeight = 0

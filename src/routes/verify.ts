@@ -1,4 +1,4 @@
-import { API_URL } from '$lib/api'
+import { fetchApi } from '$lib/api'
 import type { AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
 import type { RequestHandler } from '@sveltejs/kit'
 import env from '$lib/env'
@@ -30,8 +30,8 @@ export const post: RequestHandler = async ({ request, locals, platform }) => {
 		return redirect(303, `/verify?error=NO_IGN`)
 	}
 
-	const playerResponse: CleanUser = await fetch(`${API_URL}player/${playerIdentifier}`).then(res => res.json())
-	const sessionResponse: { session: SessionSchema | null, account: AccountSchema | null } = await fetch(`${API_URL}accounts/session`, {
+	const playerResponse: CleanUser = await fetchApi(`player/${playerIdentifier}`, fetch).then(res => res.json())
+	const sessionResponse: { session: SessionSchema | null, account: AccountSchema | null } = await fetchApi(`accounts/session`, fetch, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export const post: RequestHandler = async ({ request, locals, platform }) => {
 		minecraftUuid: playerResponse.player?.uuid
 	}
 
-	await fetch(`${API_URL}accounts/update`, {
+	await fetchApi(`accounts/update`, fetch, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

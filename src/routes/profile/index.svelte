@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 	import type { AccountCustomization, AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
 	import Head from '$lib/Head.svelte'
 	import Header from '$lib/Header.svelte'
@@ -9,7 +9,7 @@
 
 	export const load: Load = async ({ fetch, session }) => {
 		const sessionResponse: { session: SessionSchema | null; account: AccountSchema | null } | null =
-			await fetch(`${API_URL}accounts/session`, {
+			await fetchApi(`accounts/session`, fetch, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -20,7 +20,7 @@
 			}).then(r => r.json())
 
 		const playerResponse = sessionResponse?.account
-			? await fetch(`${API_URL}player/${sessionResponse.account.minecraftUuid}`).then(r => r.json())
+			? await fetchApi(`player/${sessionResponse.account.minecraftUuid}`, fetch).then(r => r.json())
 			: null
 
 		// redirect to /login if the user is not logged in

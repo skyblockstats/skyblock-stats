@@ -79,9 +79,9 @@
 			<a href="//discord.gg/KtscNUnh4f">discord.gg/KtscNUnh4f</a>.
 		</p>
 		<p>
-			Resource packs: <a href="//packshq.com">PacksHQ</a> (default),
+			Resource packs: <a href="//furfsky.net">Furfsky Reborn</a> (default),
+			<a href="//packshq.com">PacksHQ</a>,
 			<a href="//hypixel.net/threads/2138599">Furfsky</a>,
-			<a href="//furfsky.net">Furfsky Reborn</a>,
 			<a href="//hypixel.net/threads/2239953">Ectoplasm</a>,
 			<a href="//hypixel.net/threads/3470904">RNBW</a>,
 			<a href="//hypixel.net/threads/4174260">Hypixel+</a>,

@@ -1,9 +1,9 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
-		const data = await fetch(`${API_URL}election?t=${Math.floor(Date.now() / 1000)}`).then(r =>
+		const data = await fetchApi(`election?t=${Math.floor(Date.now() / 1000)}`, fetch).then(r =>
 			r.json()
 		)
 

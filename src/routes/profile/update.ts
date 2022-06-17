@@ -1,4 +1,4 @@
-import { API_URL } from '$lib/api'
+import { fetchApi } from '$lib/api'
 import type { AccountSchema, SessionSchema } from '$lib/APITypes'
 import type { RequestHandler } from '@sveltejs/kit'
 import backgroundFileNames from '../../_backgrounds.json'
@@ -31,7 +31,7 @@ export const patch: RequestHandler = async ({ request, locals, platform }) => {
 	}
 	const data = await request.json()
 
-	const sessionResponse: { session: SessionSchema | null, account: AccountSchema | null } = await fetch(`${API_URL}accounts/session`, {
+	const sessionResponse: { session: SessionSchema | null, account: AccountSchema | null } = await fetchApi(`accounts/session`, fetch, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export const patch: RequestHandler = async ({ request, locals, platform }) => {
 		},
 	}
 
-	const response = await fetch(`${API_URL}accounts/update`, {
+	const response = await fetchApi(`accounts/update`, fetch, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
