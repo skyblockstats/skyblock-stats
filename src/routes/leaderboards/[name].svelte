@@ -1,9 +1,9 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
-		const dataText = await fetch(`${API_URL}leaderboards/${params.name}`).then(r => r.text())
+		const dataText = await fetchApi(`leaderboards/${params.name}`, fetch).then(r => r.text())
 
 		const data = JSON.parse(dataText)
 

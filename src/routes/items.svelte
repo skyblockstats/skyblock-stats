@@ -1,9 +1,9 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit'
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 
 	export const load: Load = async ({ params, fetch }) => {
-		const data = await fetch(`${API_URL}items`).then(r => r.json())
+		const data = await fetchApi(`items`, fetch).then(r => r.json())
 
 		return {
 			props: {

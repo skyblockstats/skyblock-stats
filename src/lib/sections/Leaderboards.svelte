@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { API_URL } from '$lib/api'
+	import { fetchApi } from '$lib/api'
 
 	import type { CleanMemberProfile } from '$lib/APITypes'
 	import Emoji from '$lib/Emoji.svelte'
@@ -8,7 +8,7 @@
 	export let data: CleanMemberProfile
 </script>
 
-{#await fetch(`${API_URL}player/${data.member.uuid}/${data.profile.uuid}/leaderboards`).then( r => r.json() )}
+{#await fetchApi(`player/${data.member.uuid}/${data.profile.uuid}/leaderboards`, fetch).then( r => r.json() )}
 	Loading...
 {:then leaderboards}
 	{#if leaderboards.length > 0}

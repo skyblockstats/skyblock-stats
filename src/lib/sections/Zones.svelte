@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CleanMemberProfile } from '$lib/APITypes'
-	import { cleanId, toRomanNumerals } from '$lib/utils'
+	import { cleanId } from '$lib/utils'
 
 	export let data: CleanMemberProfile
 

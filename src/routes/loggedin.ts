@@ -1,10 +1,10 @@
-import { API_URL } from '$lib/api'
+import { fetchApi } from '$lib/api'
 import type { RequestHandler } from '@sveltejs/kit'
 
 export const get: RequestHandler = async ({ url }) => {
 	const code = url.searchParams.get('code')
 	const redirectUri = `${url.protocol}//${url.host}/loggedin`
-	const response = await fetch(`${API_URL}accounts/createsession`, {
+	const response = await fetchApi(`accounts/createsession`, fetch, {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json',
