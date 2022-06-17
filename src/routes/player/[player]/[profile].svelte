@@ -8,7 +8,14 @@
 		const profile: string = params.profile
 		const data: CleanMemberProfile = await fetch(
 			`${API_URL}player/${player}/${profile}?customization=true`
-		).then(r => r.json())
+		).then(async r => {
+			const text = await r.text()
+			try {
+				return JSON.parse(text)
+			} catch (e) {
+				throw new Error(`Invalid JSON: ${text}`)
+			}
+		})
 
 		if (!data.member) {
 			return {
