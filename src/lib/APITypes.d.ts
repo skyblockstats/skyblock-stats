@@ -421,6 +421,7 @@ export interface Skills {
 	 * warning to the user.
 	 */
 	apiEnabled: boolean
+	average: number
 }
 
 

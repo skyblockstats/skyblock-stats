@@ -49,6 +49,7 @@
 	let isActiveProfileOnline: boolean
 
 	function updateActiveProfile() {
+		activeProfileLastSave = 0
 		if (data.profiles)
 			for (const profile of data.profiles) {
 				if (profile.members)
@@ -66,7 +67,7 @@
 	let backgroundUrl: string | null
 
 	$: {
-		$navigating
+		data
 		backgroundUrl = data.customization?.backgroundUrl ?? chooseDefaultBackground(data.player.uuid)
 		updateActiveProfile()
 	}
