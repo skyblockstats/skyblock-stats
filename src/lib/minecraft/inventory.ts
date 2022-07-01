@@ -128,7 +128,7 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile, headSiz
             noNullTexture: true
         })
         if (textureUrl === null) {
-            textureUrl = `https://mc-heads.net/head/${item.headTexture}`
+            textureUrl = `https://h.matdoes.dev/3d/${item.headTexture}`
             if (headSize)
                 textureUrl += `/${headSize}`
         }
