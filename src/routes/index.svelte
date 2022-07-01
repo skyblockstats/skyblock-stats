@@ -88,11 +88,8 @@
 			<a href="//hypixel.net/threads/3597207">Worlds and Beyond</a>.
 		</p>
 		<p>
-			Minecraft skin APIs: <a href="//h.matdoes.dev">
-				mat's super duper simple minecraft head renderer
-			</a>
-			for heads and
-			<a href="//mc-heads.net">mc-heads.net</a> for full-body renders.
+			Minecraft skin APIs: <a href="//mc-heads.net">mc-heads.net</a> for 3d renders and
+			<a href="//mc-crafatar.com">crafatar.com</a> for 2d heads.
 		</p>
 		<p>Emojis: <a href="//twemoji.twitter.com/">Twemoji</a>.</p>
 		<p>Font: <a href="//brailleinstitute.org/freefont">Atkinson Hyperlegible</a>.</p>
