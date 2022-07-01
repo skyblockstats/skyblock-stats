@@ -129,11 +129,11 @@ export function millisecondsToTime(totalMilliseconds: number, opts: Milliseconds
 
     const smallestUnit = opts.smallestUnit ?? 0
 
-    if (totalDays > 1 && smallestUnit <= 4) stringUnits.push(days === 1 ? `${days} day` : `${days} days`)
-    if (totalHours > 1 && smallestUnit <= 3) stringUnits.push(hours === 1 ? `${hours} hour` : `${hours} hours`)
-    if (totalMinutes > 1 && smallestUnit <= 2) stringUnits.push(minutes === 1 ? `${minutes} minute` : `${minutes} minutes`)
-    if (totalSeconds > 1 && smallestUnit <= 1) stringUnits.push(seconds === 1 ? `${seconds} second` : `${seconds} seconds`)
-    if (totalMilliseconds > 0 && smallestUnit <= 0) stringUnits.push(`${milliseconds} ms`)
+    if (totalDays > 1 && smallestUnit <= 4) stringUnits.push(days === 1 ? `${days.toLocaleString()} day` : `${days.toLocaleString()} days`)
+    if (totalHours > 1 && smallestUnit <= 3) stringUnits.push(hours === 1 ? `${hours.toLocaleString()} hour` : `${hours.toLocaleString()} hours`)
+    if (totalMinutes > 1 && smallestUnit <= 2) stringUnits.push(minutes === 1 ? `${minutes.toLocaleString()} minute` : `${minutes.toLocaleString()} minutes`)
+    if (totalSeconds > 1 && smallestUnit <= 1) stringUnits.push(seconds === 1 ? `${seconds.toLocaleString()} second` : `${seconds.toLocaleString()} seconds`)
+    if (totalMilliseconds > 0 && smallestUnit <= 0) stringUnits.push(`${milliseconds.toLocaleString()} ms`)
 
     // comma separated, "and" before last
 
