@@ -104,7 +104,7 @@ let itemUrlCache: Record<string, string> = {}
 setInterval(() => {
     itemUrlCache = {}
 }, 120 * 1000)
-export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string {
+export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile, headSize?: number): string {
     const itemNbt: skyblockAssets.NBT = {
         display: {
             Name: item.display?.name
@@ -129,6 +129,8 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string
         })
         if (textureUrl === null) {
             textureUrl = `https://h.matdoes.dev/3d/${item.headTexture}`
+            if (headSize)
+                textureUrl += `/${headSize}`
         }
     } else {
         textureUrl = skyblockAssets.getTextureUrl({
@@ -141,9 +143,9 @@ export function itemToUrl(item: Item, pack?: skyblockAssets.MatcherFile): string
     return textureUrl
 }
 
-export function skyblockItemToUrl(skyblockItem: string | Item, pack?: skyblockAssets.MatcherFile) {
+export function skyblockItemToUrl(skyblockItem: string | Item, pack?: skyblockAssets.MatcherFile, headSize?: number) {
     const item = typeof skyblockItem === 'string' ? skyblockItemNameToItem(skyblockItem) : skyblockItem
-    const itemTextureUrl = itemToUrl(item, pack)
+    const itemTextureUrl = itemToUrl(item, pack, headSize)
     return itemTextureUrl
 }
 
