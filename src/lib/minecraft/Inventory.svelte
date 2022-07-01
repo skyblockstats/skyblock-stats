@@ -26,7 +26,7 @@
 <div class="inventory-container" style="--group-limit:{groupLimit}">
 	{#each itemGroups as itemGroup}
 		{#each itemGroup as item}
-			<Item {item} {pack} headSize={50} isslot />
+			<Item {item} {pack} isslot />
 		{/each}
 	{/each}
 </div>

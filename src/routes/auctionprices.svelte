@@ -121,7 +121,7 @@
 			<div class="item-container">
 				{#if itemData && itemData.vanillaId}
 					<div class="item-slot-container">
-						<Item item={{ ...itemData, id: item.id }} pack={furfskyReborn} headSize={50} isslot />
+						<Item item={{ ...itemData, id: item.id }} pack={furfskyReborn} isslot />
 					</div>
 				{/if}
 				<h2>
