@@ -71,9 +71,9 @@
 
 <main>
 	<div class="last-updated">
-		Last updated: <time datetime="${data.lastUpdated}"
-			>{millisecondsToTime(now - data.lastUpdated)} ago
-		</time>
+		Last updated: <a href="https://github.com/mat-1/skyblock-items-history/commits/main"><time datetime="${data.lastUpdated}">
+			{millisecondsToTime(now - data.lastUpdated)} ago
+		</time></a>
 	</div>
 	<h1>SkyBlock Item List</h1>
 	<p class="results-count">{filteredItems.length.toLocaleString()} items</p>

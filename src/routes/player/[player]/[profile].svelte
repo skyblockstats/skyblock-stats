@@ -159,7 +159,12 @@
 
 	{#if data.member.skills && data.member.skills.list.length > 0}
 		<section id="skills" class="profile-skills">
-			<h2>Skills</h2>
+			<div class="skill-heading-container">
+				<h2 class="inline-heading">Skills</h2>
+				<span class="average-skill">
+					{data.member.skills.average} avg.
+				</span>
+			</div>
 			<Skills {data} />
 		</section>
 	{/if}
@@ -378,5 +383,21 @@
 			left: 0 !important;
 			width: 100vw !important;
 		}
+	}
+
+	.skill-heading-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: fit-content;
+	}
+	.skill-heading-container h2 {
+		display: inline-block;
+		margin-right: 0.4em;
+		margin-bottom: 0;
+	}
+	.average-skill {
+		color: var(--theme-darker-text);
+		font-size: 0.9rem;
 	}
 </style>

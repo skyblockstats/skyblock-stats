@@ -22,7 +22,7 @@
 					item.requirements.slayer.level
 				}`
 			)
-		extraLore.push(`§l§${TIER_COLORS[item.tier] ?? 'c'}${item.tier}`)
+		extraLore.push(`§l§${TIER_COLORS[item.tier] ?? 'c'}${item.tier.replace(/_/g, ' ')}`)
 	}
 	if (item?.id) {
 		extraLore.push(`\n§8ID: ${item.id}`)
