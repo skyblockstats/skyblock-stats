@@ -16,21 +16,31 @@
 	export let pack: MatcherFile
 
 	let onlyThisProfile = true
-	let showingSoldAuctions = false
 </script>
 
-<div class="player-auctions-list-container">
-	{#if showingSoldAuctions}
+<div class="auction-stats-and-list-container">
+	<ul>
+		{#each stats.sort((a, b) => b.value - a.value) as stat}
+			<li>
+				<span class="stat-name">{cleanId(stat.categorizedName)}:</span>
+				<span class="stat-value">
+					{#if stat.unit === 'time'}
+						{millisecondsToTime(stat.value)}
+					{:else}
+						{stat.value.toLocaleString()}
+					{/if}
+				</span>
+			</li>
+		{/each}
+	</ul>
+
+	<div class="player-auctions-list-container">
 		{#await fetchApi(`playerauctions/${data.member.uuid}`, fetch).then(r => r.json())}
+			<h3>Auctions sold</h3>
 			Loading...
 		{:then auctions}
 			{#if auctions.length > 0}
-				<button
-					on:click={() => {
-						showingSoldAuctions = !showingSoldAuctions
-					}}>Hide sold auctions</button
-				>
-
+				<h3>Auctions sold</h3>
 				<div class="player-auctions-list">
 					{#each auctions as auction}
 						{#if !onlyThisProfile || auction.sellerProfileUuid == data.profile.uuid}
@@ -39,16 +49,16 @@
 									<Item item={auction.item} {pack} />
 								</div>
 
-								<h2>
+								<h4 class="auction-item-name">
 									{removeFormattingCode(auction.item.display.name)}
-								</h2>
+								</h4>
 								{#if auction.bin}
 									<b>Bin</b>
 								{/if}
 								<div class="auction-info-text">
 									<p>Coins: <b>{auction.coins.toLocaleString()}</b></p>
 									<p>Buyer: <Username player={auction.buyer} prefix hyperlinkToProfile /></p>
-									<p>{millisecondsToTime(auction.creationTimestamp)} ago</p>
+									<p>{millisecondsToTime(Date.now() - auction.creationTimestamp)} ago</p>
 								</div>
 							</div>
 						{/if}
@@ -56,29 +66,8 @@
 				</div>
 			{/if}
 		{/await}
-	{:else}
-		<button
-			on:click={() => {
-				showingSoldAuctions = !showingSoldAuctions
-			}}>Show sold auctions</button
-		>
-	{/if}
+	</div>
 </div>
-
-<ul>
-	{#each stats.sort((a, b) => b.value - a.value) as stat}
-		<li>
-			<span class="stat-name">{cleanId(stat.categorizedName)}:</span>
-			<span class="stat-value">
-				{#if stat.unit === 'time'}
-					{millisecondsToTime(stat.value)}
-				{:else}
-					{stat.value.toLocaleString()}
-				{/if}
-			</span>
-		</li>
-	{/each}
-</ul>
 
 <style>
 	li {
@@ -87,9 +76,15 @@
 	ul {
 		padding-left: 1em;
 		margin-top: 0.5em;
+		width: max-content;
 	}
 	p {
 		margin: 0;
+	}
+
+	.auction-stats-and-list-container {
+		display: grid;
+		grid-template-columns: 1fr auto;
 	}
 
 	.auction-info-text {
@@ -97,6 +92,11 @@
 	}
 	.auction-info-text b {
 		color: var(--theme-main-text);
+	}
+
+	.auction-item-name {
+		font-size: 1.5rem;
+		margin: 0;
 	}
 
 	.auction {
@@ -117,5 +117,6 @@
 	}
 	.player-auctions-list-container {
 		margin-top: 0.5em;
+		margin-left: 0.5em;
 	}
 </style>
