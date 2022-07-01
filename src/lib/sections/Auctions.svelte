@@ -20,17 +20,17 @@
 </script>
 
 <div class="player-auctions-list-container">
-	<button
-		on:click={() => {
-			showingSoldAuctions = !showingSoldAuctions
-		}}>{showingSoldAuctions ? 'Hide' : 'Show'} sold auctions</button
-	>
-
 	{#if showingSoldAuctions}
 		{#await fetchApi(`playerauctions/${data.member.uuid}`, fetch).then(r => r.json())}
 			Loading...
 		{:then auctions}
 			{#if auctions.length > 0}
+				<button
+					on:click={() => {
+						showingSoldAuctions = !showingSoldAuctions
+					}}>Hide sold auctions</button
+				>
+
 				<div class="player-auctions-list">
 					{#each auctions as auction}
 						{#if !onlyThisProfile || auction.sellerProfileUuid == data.profile.uuid}
@@ -56,6 +56,12 @@
 				</div>
 			{/if}
 		{/await}
+	{:else}
+		<button
+			on:click={() => {
+				showingSoldAuctions = !showingSoldAuctions
+			}}>Show sold auctions</button
+		>
 	{/if}
 </div>
 
