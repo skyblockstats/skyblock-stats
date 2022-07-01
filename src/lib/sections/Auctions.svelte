@@ -20,6 +20,12 @@
 </script>
 
 <div class="player-auctions-list-container">
+	<button
+		on:click={() => {
+			showingSoldAuctions = !showingSoldAuctions
+		}}>{showingSoldAuctions ? 'Hide' : 'Show'} sold auctions</button
+	>
+
 	{#if showingSoldAuctions}
 		{#await fetchApi(`playerauctions/${data.member.uuid}`, fetch).then(r => r.json())}
 			Loading...
@@ -35,15 +41,14 @@
 
 								<h2>
 									{removeFormattingCode(auction.item.display.name)}
-									<span class="auction-item-count">x{auction.item.count}</span>
 								</h2>
 								{#if auction.bin}
 									<b>Bin</b>
 								{/if}
 								<div class="auction-info-text">
 									<p>Coins: <b>{auction.coins.toLocaleString()}</b></p>
+									<p>Buyer: <Username player={auction.buyer} prefix hyperlinkToProfile /></p>
 									<p>{millisecondsToTime(auction.creationTimestamp)} ago</p>
-									Buyer: <Username player={auction.buyer} prefix hyperlinkToProfile />
 								</div>
 							</div>
 						{/if}
@@ -51,12 +56,6 @@
 				</div>
 			{/if}
 		{/await}
-	{:else}
-		<button
-			on:click={() => {
-				showingSoldAuctions = true
-			}}>Show sold auctions</button
-		>
 	{/if}
 </div>
 
@@ -109,10 +108,6 @@
 	}
 	.item-slot-container {
 		float: right;
-	}
-	.auction-item-count {
-		color: var(--theme-darker-text);
-		font-weight: normal;
 	}
 	.player-auctions-list-container {
 		margin-top: 0.5em;
