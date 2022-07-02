@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/env'
-
 	import type { ItemAuctionsSchema, SimpleAuctionSchema } from './APITypes'
 	import type { PreviewedAuctionData } from './utils'
 
@@ -31,6 +29,9 @@
 			(auction.ts - earliestTimestamp) / (currentTimestamp - earliestTimestamp)
 		return [timestampPercentage * 100, 100 - (auction.coins / maxCoins) * 100]
 	}
+
+	/** Whether the player clicked on an auction */
+	let locked = false
 
 	function updateNearest(e: MouseEvent) {
 		const rect = svgEl.getBoundingClientRect()
@@ -69,6 +70,14 @@
 		} else {
 			currentlyPreviewedAuction = null
 		}
+	}
+
+	function onClick(e) {
+		updateNearest(e)
+		locked = true
+	}
+	$: {
+		if (!currentlyPreviewedAuction) locked = false
 	}
 
 	function shortenBigNumber(n: number) {
@@ -111,7 +120,10 @@
 		width="100%"
 		height="100%"
 		fill="url(#grid-{item.id})"
-		on:mousemove={updateNearest}
+		on:mousemove={e => {
+			if (!locked) updateNearest(e)
+		}}
+		on:click={onClick}
 		bind:this={svgEl}
 	/>
 

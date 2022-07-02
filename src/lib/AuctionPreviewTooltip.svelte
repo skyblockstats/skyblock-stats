@@ -1,8 +1,11 @@
 <script lang="ts">
-	import type { PreviewedAuctionData } from './utils'
+	import { formattingCodeToHtml, type PreviewedAuctionData } from './utils'
 	import { fade } from 'svelte/transition'
+	import { fetchApi } from './api'
+	import type { Auction } from './APITypes'
 
 	export let preview: PreviewedAuctionData | null
+	export let auction: Auction | null = null
 	let lastPreview: PreviewedAuctionData | null
 
 	$: {
@@ -15,6 +18,18 @@
 			preview = null
 			lastPreview = null
 		}
+	}
+
+	async function fetchAuctionData() {
+		if (!preview) return
+
+		auction = null
+		auction = await fetchApi(`auction/${preview.auction.id}`, fetch).then(r => r.json())
+	}
+
+	$: {
+		preview
+		fetchAuctionData()
 	}
 </script>
 
@@ -30,6 +45,11 @@
 		<div id="auction-preview-tooltip">
 			<p><b>{lastPreview.auction.coins.toLocaleString()}</b> coins</p>
 			<time>{new Date(lastPreview.auction.ts * 1000).toLocaleString()}</time>
+			{#if auction}
+				<div class="lore">
+					{@html auction.item.display.lore.map(l => formattingCodeToHtml(l)).join('<br>')}
+				</div>
+			{/if}
 		</div>
 	</div>
 {/if}
@@ -39,10 +59,11 @@
 		position: absolute;
 		pointer-events: none;
 		transition: left 100ms linear, top 100ms linear;
+		z-index: 10;
 	}
 	#auction-preview-tooltip {
 		border: 1px solid rgba(255, 255, 255, 0.1);
-		background: rgba(0, 0, 0, 0.1);
+		background: rgba(0, 0, 0, 0.9);
 		padding: 0.5em;
 	}
 
@@ -52,5 +73,9 @@
 
 	time {
 		color: var(--theme-darker-text);
+	}
+
+	.lore {
+		margin-top: 0.5em;
 	}
 </style>

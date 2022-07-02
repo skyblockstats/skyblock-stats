@@ -491,3 +491,15 @@ interface EssenceType {
 export interface Essence {
 	types: EssenceType[]
 }
+
+export interface Auction {
+	id: string
+	sellerUuid: string
+	sellerProfileUuid: string
+	buyer: CleanPlayer | null
+	creationTimestamp: number
+	boughtTimestamp: number
+	coins: number
+	bin: boolean
+	item: Item
+}
