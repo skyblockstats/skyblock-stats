@@ -154,6 +154,13 @@
 		({profileName})
 	</h1>
 
+	<!-- technoblade -->
+	{#if data.member.uuid == 'b876ec32e396476ba1158438d83c67d4'}
+		<div class="technoblade-never-dies">
+			<a href="https://www.curesarcoma.org">Technoblade never dies. <Emoji value="🕊️" /></a>
+		</div>
+	{/if}
+
 	<Infobox {data} />
 
 	<Toc {categories} />
@@ -412,5 +419,16 @@
 
 	.has-blurred-background #categories {
 		width: 47rem;
+	}
+
+	.technoblade-never-dies {
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		background: rgba(0, 0, 0, 0.1);
+		padding: 0.75em;
+		border-radius: 1em;
+
+		width: fit-content;
+		position: relative;
+		top: -1em;
 	}
 </style>
