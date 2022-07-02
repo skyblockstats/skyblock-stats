@@ -4,14 +4,11 @@
 	A list of the player's past auctions, and their auction stats.
 -->
 <script lang="ts">
-	import { cleanId, millisecondsToTime, removeFormattingCode } from '$lib/utils'
+	import { cleanId, millisecondsToTime } from '$lib/utils'
 	import type { CleanMemberProfile, StatItem } from '$lib/APITypes'
 	import { fetchApi } from '$lib/api'
-	import Item from '$lib/minecraft/Item.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
-	import Username from '$lib/minecraft/Username.svelte'
 	import Auction from '$lib/Auction.svelte'
-	import { onMount } from 'svelte'
 
 	export let data: CleanMemberProfile
 	export let stats: StatItem[]
