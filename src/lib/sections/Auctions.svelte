@@ -93,6 +93,12 @@
 		grid-template-columns: 1fr auto;
 	}
 
+	@media (max-width: 600px) {
+		.auction-stats-and-list-container {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	.player-auctions-list {
 		display: flex;
 		flex-wrap: wrap;
