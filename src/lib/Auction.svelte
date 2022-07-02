@@ -21,7 +21,11 @@
 	{/if}
 	<div class="auction-info-text">
 		<p>Coins: <b>{auction.coins.toLocaleString()}</b></p>
-		<p>Buyer: <Username player={auction.buyer} prefix hyperlinkToProfile /></p>
+		{#if auction.buyer}
+			<p>Buyer: <Username player={auction.buyer} prefix hyperlinkToProfile /></p>
+		{:else}
+			<p>No buyer</p>
+		{/if}
 		<p>{millisecondsToTime(Date.now() - auction.creationTimestamp)} ago</p>
 	</div>
 </div>
