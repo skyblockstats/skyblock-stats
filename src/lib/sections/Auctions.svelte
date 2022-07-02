@@ -23,6 +23,7 @@
 	let loading = true
 
 	let page = 0
+	let totalPages: number | undefined = undefined
 
 	async function updateAuctions() {
 		loading = true
@@ -34,6 +35,7 @@
 		).then(r => r.json())
 		loading = false
 		auctions = [...auctions, ...auctionsResponse.auctions]
+		totalPages = auctionsResponse.pages
 	}
 
 	updateAuctions()
@@ -67,7 +69,7 @@
 					{/if}
 				{/each}
 			</div>
-			{#if !loading}
+			{#if !loading && page != totalPages}
 				<button on:click={updateAuctions}>Show more</button>
 			{/if}
 		{/if}
