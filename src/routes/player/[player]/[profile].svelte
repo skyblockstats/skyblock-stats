@@ -136,7 +136,7 @@
 	blurred={data.customization?.blurBackground ?? false}
 />
 
-<main>
+<main class:has-blurred-background={data.customization?.blurBackground && backgroundUrl}>
 	{#if data.customization?.blurBackground && backgroundUrl}
 		<div class="blurred-background-container-container">
 			<div class="blurred-background-container">
@@ -408,5 +408,9 @@
 	.average-skill {
 		color: var(--theme-darker-text);
 		font-size: 0.9rem;
+	}
+
+	.has-blurred-background #categories {
+		width: 47rem;
 	}
 </style>
