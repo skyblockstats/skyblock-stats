@@ -83,6 +83,7 @@
 	import Toc from '$lib/Toc.svelte'
 	import Achievements from '$lib/sections/Achievements.svelte'
 	import Essence from '$lib/sections/Essence.svelte'
+	import Auctions from '$lib/sections/Auctions.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -135,7 +136,7 @@
 	blurred={data.customization?.blurBackground ?? false}
 />
 
-<main>
+<main class:has-blurred-background={data.customization?.blurBackground && backgroundUrl}>
 	{#if data.customization?.blurBackground && backgroundUrl}
 		<div class="blurred-background-container-container">
 			<div class="blurred-background-container">
@@ -203,7 +204,15 @@
 						<section>
 							<Collapsible id={category}>
 								<h2 slot="title">{cleanId(category)}</h2>
-								<StatList stats={data.member.stats.filter(s => s.category === category)} />
+								{#if category == 'auctions'}
+									<Auctions
+										stats={data.member.stats.filter(s => s.category === category)}
+										{data}
+										{pack}
+									/>
+								{:else}
+									<StatList stats={data.member.stats.filter(s => s.category === category)} />
+								{/if}
 							</Collapsible>
 						</section>
 					{/if}
@@ -399,5 +408,9 @@
 	.average-skill {
 		color: var(--theme-darker-text);
 		font-size: 0.9rem;
+	}
+
+	.has-blurred-background #categories {
+		width: 47rem;
 	}
 </style>
