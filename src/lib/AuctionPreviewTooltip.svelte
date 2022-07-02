@@ -6,6 +6,7 @@
 
 	export let preview: PreviewedAuctionData | null
 	export let auction: Auction | null = null
+	export let locked: boolean
 	let lastPreview: PreviewedAuctionData | null
 
 	$: {
@@ -13,27 +14,34 @@
 	}
 
 	function onMouseMove(e: MouseEvent) {
-		// commented out because it doesn't work: sometimes e.target is null when we click a point
-		if (e.target && !(e.target as HTMLElement).closest('.item-auction-history')) {
+		if (!locked && e.target && !(e.target as HTMLElement).closest('.item-auction-history')) {
 			preview = null
 			lastPreview = null
 		}
 	}
 
-	async function fetchAuctionData() {
-		if (!preview) return
+	function onMouseClick(e: MouseEvent) {
+		if (e.target && !(e.target as HTMLElement).closest('.item-auction-history')) {
+			preview = null
+			lastPreview = null
+			locked = false
+		}
+	}
 
+	async function fetchAuctionData() {
 		auction = null
+		if (!preview || !locked) return
 		auction = await fetchApi(`auction/${preview.auction.id}`, fetch).then(r => r.json())
 	}
 
 	$: {
 		preview
+		locked
 		fetchAuctionData()
 	}
 </script>
 
-<svelte:body on:mousemove={onMouseMove} />
+<svelte:body on:mousemove={onMouseMove} on:click={onMouseClick} />
 
 {#if lastPreview}
 	<div

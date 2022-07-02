@@ -4,6 +4,7 @@
 
 	export let item: ItemAuctionsSchema
 	export let currentlyPreviewedAuction: PreviewedAuctionData | null
+	export let currentlyPreviewedAuctionLocked = false
 
 	let svgEl: SVGElement
 	let maxCoins: number = item.auctions.reduce((max, auction) => Math.max(max, auction.coins), 0)
@@ -29,9 +30,6 @@
 			(auction.ts - earliestTimestamp) / (currentTimestamp - earliestTimestamp)
 		return [timestampPercentage * 100, 100 - (auction.coins / maxCoins) * 100]
 	}
-
-	/** Whether the player clicked on an auction */
-	let locked = false
 
 	function updateNearest(e: MouseEvent) {
 		const rect = svgEl.getBoundingClientRect()
@@ -73,11 +71,15 @@
 	}
 
 	function onClick(e) {
+		const previouslySelectedAuctionId = currentlyPreviewedAuction?.auction?.id
 		updateNearest(e)
-		locked = true
-	}
-	$: {
-		if (!currentlyPreviewedAuction) locked = false
+
+		if (
+			currentlyPreviewedAuctionLocked &&
+			previouslySelectedAuctionId === currentlyPreviewedAuction?.auction?.id
+		)
+			currentlyPreviewedAuctionLocked = false
+		else currentlyPreviewedAuctionLocked = true
 	}
 
 	function shortenBigNumber(n: number) {
@@ -121,7 +123,7 @@
 		height="100%"
 		fill="url(#grid-{item.id})"
 		on:mousemove={e => {
-			if (!locked) updateNearest(e)
+			if (!currentlyPreviewedAuctionLocked) updateNearest(e)
 		}}
 		on:click={onClick}
 		bind:this={svgEl}
@@ -149,5 +151,10 @@
 
 	svg :global(.selected-auction) {
 		stroke: #06e7;
+	}
+
+	circle {
+		/* fix so clicking directly on a circle still works */
+		pointer-events: none;
 	}
 </style>

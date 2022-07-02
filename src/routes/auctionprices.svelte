@@ -31,6 +31,7 @@
 	export let auctionItems: Record<string, { display: { name: string }; vanillaId?: string }>
 
 	let currentlyPreviewedAuction: PreviewedAuctionData | null = null
+	let currentlyPreviewedAuctionLocked: boolean = false
 
 	let query: string = ''
 
@@ -106,7 +107,7 @@
 
 <svelte:window on:scroll={checkScroll} />
 
-<AuctionPreviewTooltip bind:preview={currentlyPreviewedAuction} />
+<AuctionPreviewTooltip bind:preview={currentlyPreviewedAuction} bind:locked={currentlyPreviewedAuctionLocked} />
 
 <main>
 	<h1>SkyBlock Auction Prices</h1>
@@ -169,7 +170,7 @@
 					{/if}
 				</div>
 				<div class="item-scatterplot">
-					<AuctionPriceScatterplot {item} bind:currentlyPreviewedAuction />
+					<AuctionPriceScatterplot {item} bind:currentlyPreviewedAuction bind:currentlyPreviewedAuctionLocked />
 				</div>
 			</div>
 		{/each}
