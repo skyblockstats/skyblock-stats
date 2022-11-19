@@ -14,7 +14,14 @@
 				: data.member.profileName})
 		</h2>
 		{#each generateInfobox(data) as item}
-			<p><Emoji value={item} /></p>
+			<!-- hack so fairy souls is clickable to get to the leaderboards -->
+			{#if item.includes('Fairy souls')}
+				<a href="/leaderboards/fairy_souls" class="fairy-souls-leaderboard"
+					><p><Emoji value={item} /></p></a
+				>
+			{:else}
+				<p><Emoji value={item} /></p>
+			{/if}
 		{/each}
 	</div>
 	<div id="infobox-extra">
@@ -47,6 +54,10 @@
 	}
 	p {
 		margin: 0 0 0.25em 0;
+	}
+	.fairy-souls-leaderboard {
+		color: inherit;
+		text-decoration: none;
 	}
 	@media only screen and (max-width: 600px) {
 		#infobox {
