@@ -10,7 +10,7 @@ export async function fetchApi(path: string, fetch: (info: RequestInfo, init?: R
 		init = init || {}
 		if (!init.headers)
 			init.headers = {}
-		init.headers['x-key'] = SKYBLOCK_STATS_API_KEY
+		init.headers['key'] = SKYBLOCK_STATS_API_KEY
 	}
 
 	const response = await fetch(API_URL + path, init)
