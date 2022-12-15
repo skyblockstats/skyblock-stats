@@ -1,22 +1,12 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-
-	export const load: Load = async ({ error, status }) => {
-		return {
-			props: {
-				error,
-				status,
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
 
-	export let status: number
-	export let error: Error
+	import { page } from '$app/stores'
+
+	// sveltekit bug: types of error and status say they can be null but they can't
+	let error = $page.error!
+	let status = $page.status!
 </script>
 
 <Head title={error.message} />
@@ -26,7 +16,7 @@
 	<div>
 		<h1>{status}</h1>
 		<p>{error.message}</p>
-		<a href="/" sveltekit:prefetch>Home</a>
+		<a href="/" data-sveltekit-preload-data="hover">Home</a>
 	</div>
 </main>
 

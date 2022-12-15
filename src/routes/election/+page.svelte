@@ -23,7 +23,7 @@
 	import { onDestroy, onMount } from 'svelte'
 	import MayorSkin from '$lib/MayorSkin.svelte'
 	import { invalidate } from '$app/navigation'
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 
 	export let data: ElectionData
 

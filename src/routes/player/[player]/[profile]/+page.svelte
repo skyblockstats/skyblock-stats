@@ -1,60 +1,8 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-	import { loadPack } from '$lib/packs'
-	import { fetchApi } from '$lib/api'
-
-	export const load: Load = async ({ params, fetch }) => {
-		const player: string = params.player
-		const profile: string = params.profile
-		const data: CleanMemberProfile = await fetchApi(
-			`player/${player}/${profile}?customization=true`,
-			fetch
-		).then(async r => {
-			const text = await r.text()
-			try {
-				return JSON.parse(text)
-			} catch (e) {
-				throw new Error(`Invalid JSON: ${text}`)
-			}
-		})
-
-		if (!data.member) {
-			return {
-				status: 404,
-				error: 'Unknown profile',
-			}
-		}
-
-		if (data.member.username !== player) {
-			return {
-				redirect: `/player/${data.member.username}/${data.profile.name}`,
-				status: 302,
-			} as any
-		}
-		if (!data.member.left && data.profile.name !== profile) {
-			return {
-				redirect: `/player/${data.member.username}/${data.profile.name}`,
-				status: 302,
-			} as any
-		}
-
-		const packName = params.pack ?? data?.customization?.pack
-
-		let pack = await loadPack(packName)
-
-		return {
-			props: {
-				data,
-				pack,
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import { inventoryIconMap, skyblockItemToUrl } from '$lib/minecraft/inventory'
 	import FarmingContests from '$lib/sections/FarmingContests.svelte'
 	import Leaderboards from '$lib/sections/Leaderboards.svelte'
+	import Achievements from '$lib/sections/Achievements.svelte'
 	import Inventories from '$lib/sections/Inventories.svelte'
 	import Collections from '$lib/sections/Collections.svelte'
 	import { chooseDefaultBackground } from '$lib/backgrounds'
@@ -62,8 +10,10 @@
 	import type { CleanMemberProfile } from '$lib/APITypes'
 	import Username from '$lib/minecraft/Username.svelte'
 	import StatList from '$lib/sections/StatList.svelte'
+	import Auctions from '$lib/sections/Auctions.svelte'
 	import Infobox from '$lib/sections/Infobox.svelte'
 	import Minions from '$lib/sections/Minions.svelte'
+	import Essence from '$lib/sections/Essence.svelte'
 	import Slayers from '$lib/sections/Slayers.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
 	import Claimed from '$lib/sections/Claimed.svelte'
@@ -76,17 +26,16 @@
 	import Pets from '$lib/sections/Pets.svelte'
 	import Coop from '$lib/sections/Coop.svelte'
 	import Bank from '$lib/sections/Bank.svelte'
+	import type { PageData } from './$types'
 	import Header from '$lib/Header.svelte'
 	import Emoji from '$lib/Emoji.svelte'
 	import { cleanId } from '$lib/utils'
 	import Head from '$lib/Head.svelte'
 	import Toc from '$lib/Toc.svelte'
-	import Achievements from '$lib/sections/Achievements.svelte'
-	import Essence from '$lib/sections/Essence.svelte'
-	import Auctions from '$lib/sections/Auctions.svelte'
 
-	export let data: CleanMemberProfile
-	export let pack: MatcherFile
+	export let data: PageData & CleanMemberProfile
+
+	export let pack: MatcherFile = data.pack
 
 	let categories: string[] = []
 	function setCategories() {

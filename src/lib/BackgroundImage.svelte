@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte'
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 
 	export let url: string
 	let styleHtml = `<style class="background-image-style">:root{--background:url(${url})}</style>`

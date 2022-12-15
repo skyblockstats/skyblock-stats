@@ -1,5 +1,5 @@
 import cookie from 'cookie'
-import type { ExternalFetch, GetSession, Handle } from '@sveltejs/kit'
+import type { Handle } from '@sveltejs/kit'
 
 
 export const handle: Handle = async ({ event, resolve }) => {

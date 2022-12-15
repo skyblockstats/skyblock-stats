@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 	import { navigating } from '$app/stores'
 
 	let progress = 0

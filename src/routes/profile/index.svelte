@@ -50,7 +50,7 @@
 
 <script lang="ts">
 	import Emoji from '$lib/Emoji.svelte'
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 	import Tooltip from '$lib/Tooltip.svelte'
 	import { onDestroy, onMount } from 'svelte'
 	import backgroundNames from '../../_backgrounds.json'

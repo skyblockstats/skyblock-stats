@@ -1,21 +1,3 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-	import { fetchApi } from '$lib/api'
-
-	export const load: Load = async ({ params, fetch }) => {
-		const auctionItemsPromise = fetchApi(`auctionitems`, fetch).then(r => r.json())
-		const data = await fetchApi(`auctionprices`, fetch).then(r => r.json())
-		const auctionItems = await auctionItemsPromise
-
-		return {
-			props: {
-				data,
-				auctionItems,
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
@@ -23,12 +5,15 @@
 	import type { ItemAuctionsSchema } from '$lib/APITypes'
 	import AuctionPriceScatterplot from '$lib/AuctionPriceScatterplot.svelte'
 	import AuctionPreviewTooltip from '$lib/AuctionPreviewTooltip.svelte'
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 	import Item from '$lib/minecraft/Item.svelte'
 	import furfskyReborn from 'skyblock-assets/matchers/furfsky_reborn.json'
+	import type { PageData } from './$types'
+	import { fetchApi } from '$lib/api'
 
-	export let data: ItemAuctionsSchema[]
-	export let auctionItems: Record<string, { display: { name: string }; vanillaId?: string }>
+	export let data: PageData
+	let auctionPrices: ItemAuctionsSchema[] = data.prices
+	let auctionItems: Record<string, { display: { name: string }; vanillaId?: string }> = data.items
 
 	let currentlyPreviewedAuction: PreviewedAuctionData | null = null
 

@@ -1,22 +1,3 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-	import { fetchApi } from '$lib/api'
-
-	export const load: Load = async ({ params, fetch }) => {
-		const dataText = await fetchApi(`leaderboards/${params.name}`, fetch).then(r => r.text())
-
-		const data = JSON.parse(dataText)
-
-		if (data.list.length === 0) return { status: 404, error: 'Unknown leaderboard' }
-
-		return {
-			props: {
-				data,
-			},
-		} as any
-	}
-</script>
-
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'

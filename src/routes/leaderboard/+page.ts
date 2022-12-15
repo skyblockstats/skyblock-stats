@@ -1,11 +1,10 @@
-import type { RequestHandler } from '@sveltejs/kit'
+import type { PageLoad } from './$types'
 
-
-export const get: RequestHandler = () => {
+export const load = (() => {
     return {
         status: 303,
         headers: {
             location: '/leaderboards'
         }
     }
-}
+}) satisfies PageLoad

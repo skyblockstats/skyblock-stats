@@ -1,34 +1,3 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-	import { fetchApi } from '$lib/api'
-
-	export const load: Load = async ({ params, fetch }) => {
-		const player: string = params.player
-
-		const data = await fetchApi(`player/${player}?customization=true`, fetch).then(r => r.json())
-
-		if (!data.player) {
-			return {
-				status: 404,
-				error: 'Unknown player',
-			}
-		}
-
-		if (data.player.username !== player) {
-			return {
-				redirect: `/player/${data.player.username}`,
-				status: 302,
-			} as any
-		}
-
-		return {
-			props: {
-				data,
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import type { CleanPlayer, CleanProfile, CleanUser } from '$lib/APITypes'
 	import BackgroundImage from '$lib/BackgroundImage.svelte'
@@ -40,9 +9,9 @@
 	import { MODE_EMOJIS, DEFAULT_MODE_EMOJI } from '$lib/profile'
 	import Tooltip from '$lib/Tooltip.svelte'
 	import { cleanId } from '$lib/utils'
-	import { navigating } from '$app/stores'
+	import type { PageData } from './$types'
 
-	export let data: CleanUser & { player: CleanPlayer }
+	export let data: PageData
 
 	let activeProfile: CleanProfile | null = null
 	let activeProfileLastSave: number = 0
@@ -97,7 +66,7 @@
 					<a
 						class="profile-name"
 						href="/player/{data.player?.username}/{profile.name}"
-						sveltekit:prefetch
+						data-sveltekit-preload-data="hover"
 					>
 						{profile.name}
 					</a>

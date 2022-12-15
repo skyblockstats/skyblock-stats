@@ -1,15 +1,3 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-
-	export const load: Load = async ({ params, fetch, session }) => {
-		return {
-			props: {
-				loggedIn: session.sid !== undefined,
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import Username from '$lib/minecraft/Username.svelte'
 	import SearchUser from '$lib/SearchUser.svelte'
@@ -17,10 +5,12 @@
 	import Head from '$lib/Head.svelte'
 	import Emoji from '$lib/Emoji.svelte'
 	import LoginButton from '$lib/LoginButton.svelte'
+	import type { PageData } from './$types'
 
 	export const hydrate = false
 
-	export let loggedIn: boolean
+	export let data: PageData
+	export let loggedIn: boolean = data.loggedIn
 </script>
 
 <svelte:head>

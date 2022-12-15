@@ -1,18 +1,3 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-	import { fetchApi } from '$lib/api'
-
-	export const load: Load = async ({ fetch }) => {
-		const data = await fetchApi(`leaderboards`, fetch).then(r => r.json())
-
-		return {
-			props: {
-				data,
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import Header from '$lib/Header.svelte'
 	import Head from '$lib/Head.svelte'
