@@ -1,8 +1,6 @@
 import { promises as fs } from 'fs'
-import { ImagePool } from '@squoosh/lib'
+import sharp from 'sharp'
 import { cpus } from 'os'
-
-const imagePool = new ImagePool(cpus().length)
 
 // read the file names in the backgrounds folder
 const backgrounds = await fs.readdir('static/backgrounds')
@@ -18,25 +16,13 @@ await fs.writeFile(
 // resize the backgrounds
 
 async function resizeBackground(name) {
-	const file = await fs.readFile(`static/backgrounds/${name}`)
-	const image = imagePool.ingestImage(file)
+	const rawEncodedImage = await sharp(`static/backgrounds/${name}`)
+		.rotate()
+		.resize(512)
+		.jpeg({ mozjpeg: true, quality: 30 })
+		.toBuffer()
 
-	const preprocessOptions = {
-		resize: {
-			width: 512,
-		},
-	}
-	await image.preprocess(preprocessOptions)
-
-	await image.encode({
-		mozjpeg: {
-			quality: 30,
-		},
-	})
-
-	const rawEncodedImage = await image.encodedWith.mozjpeg
-
-	await fs.writeFile(`static/backgrounds-small/${name}`, rawEncodedImage.binary)
+	await fs.writeFile(`static/backgrounds-small/${name}`, rawEncodedImage)
 }
 
 try {
@@ -47,4 +33,3 @@ try {
 await fs.mkdir('static/backgrounds-small', { recursive: true })
 
 await Promise.all(backgrounds.map(b => resizeBackground(b)))
-await imagePool.close()
