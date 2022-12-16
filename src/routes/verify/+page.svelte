@@ -1,27 +1,14 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-	export const load: Load = async ({ session, url }) => {
-		if (session.sid === undefined) {
-			return { redirect: '/login', status: 303 }
-		}
-		return {
-			props: {
-				errorCode: url.searchParams.get('error'),
-				current: url.searchParams.get('current'),
-				correct: url.searchParams.get('correct'),
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import Emoji from '$lib/Emoji.svelte'
 	import Head from '$lib/Head.svelte'
 	import Header from '$lib/Header.svelte'
+	import type { PageData } from './$types'
 
-	export let errorCode: string | null
-	export let current: string | null
-	export let correct: string | null
+	export let data: PageData
+
+	export let errorCode: string | null = data.errorCode
+	export let current: string | null = data.current
+	export let correct: string | null = data.correct
 
 	const errorCodes = {
 		NO_IGN: 'Please enter a valid Minecraft username.',

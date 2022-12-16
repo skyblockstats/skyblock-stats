@@ -1,3 +1,4 @@
+import { redirect } from '@sveltejs/kit'
 import type { Actions } from './$types'
 
 export const actions: Actions = {
@@ -6,11 +7,6 @@ export const actions: Actions = {
 
         const player = form.get('user-search')
 
-        return {
-            status: 303,
-            headers: {
-                location: `/player/${player}`
-            }
-        }
+        throw redirect(303, `/player/${player}`)
     }
 }

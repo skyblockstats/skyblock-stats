@@ -1,4 +1,4 @@
-import type { PageData } from './$types'
+import type { PageLoad } from './$types'
 import { fetchApi } from '$lib/api'
 
 export const load = (async ({ fetch }) => {
@@ -10,4 +10,4 @@ export const load = (async ({ fetch }) => {
 		prices,
 		items,
 	}
-}) satisfies PageData
+}) satisfies PageLoad

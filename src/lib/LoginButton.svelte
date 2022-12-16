@@ -6,7 +6,7 @@
 	{#if loggedIn}
 		<a href="/profile"><button class="login-button">Edit profile</button></a>
 	{:else}
-		<a href="/login">
+		<a href="/login" rel="external">
 			<button class="login-button"
 				><img src="/discord-mark-light.svg" alt="Discord logo" />Log in with Discord</button
 			>

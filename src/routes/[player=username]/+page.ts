@@ -1,11 +1,6 @@
+import { redirect } from '@sveltejs/kit'
 import type { PageLoad } from './$types'
 
-
-export const get = (({ params }) => {
-	return {
-		status: 303,
-		headers: {
-			location: `/player/${params.player}`
-		}
-	}
+export const load = (({ params }) => {
+	throw redirect(303, `/player/${params.player}`)
 }) satisfies PageLoad

@@ -3,10 +3,13 @@
 // // See https://kit.svelte.dev/docs/typescript
 // // for information about these interfaces
 declare namespace App {
+	// interface Error { }
+
 	interface Locals {
 		sid: string | undefined
 	}
 
+	// interface PageData { }
 
 	interface Platform {
 		env: {
@@ -18,9 +21,4 @@ declare namespace App {
 		}
 	}
 
-	interface Session {
-		sid: string | undefined
-	}
-
-	// interface Stuff {}
 }

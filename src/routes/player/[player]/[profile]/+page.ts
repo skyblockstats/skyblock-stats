@@ -2,6 +2,7 @@ import type { CleanMemberProfile } from '$lib/APITypes'
 import type { PageLoad } from './$types'
 import { loadPack } from '$lib/packs'
 import { fetchApi } from '$lib/api'
+import { error, redirect } from '@sveltejs/kit'
 
 export const load = (async ({ params, fetch, url }) => {
 	const player: string = params.player
@@ -19,23 +20,14 @@ export const load = (async ({ params, fetch, url }) => {
 	})
 
 	if (!data.member) {
-		return {
-			status: 404,
-			error: 'Unknown profile',
-		}
+		throw error(404, 'Unknown profile')
 	}
 
 	if (data.member.username !== player) {
-		return {
-			redirect: `/player/${data.member.username}/${data.profile.name}`,
-			status: 302,
-		} as any
+		throw redirect(302, `/player/${data.member.username}/${data.profile.name}`)
 	}
 	if (!data.member.left && data.profile.name !== profile) {
-		return {
-			redirect: `/player/${data.member.username}/${data.profile.name}`,
-			status: 302,
-		} as any
+		throw redirect(302, `/player/${data.member.username}/${data.profile.name}`)
 	}
 
 	const packName = url.searchParams.get('pack') ?? data?.customization?.pack

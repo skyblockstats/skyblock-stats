@@ -1,7 +1,7 @@
 import { fetchApi } from '$lib/api'
-import type { RequestHandler } from '@sveltejs/kit'
+import { redirect, type RequestHandler, } from '@sveltejs/kit'
 
-export const get: RequestHandler = async ({ url }) => {
+export const GET = (async ({ url, cookies }) => {
 	const code = url.searchParams.get('code')
 	const redirectUri = `${url.protocol}//${url.host}/loggedin`
 	const response = await fetchApi(`accounts/createsession`, fetch, {
@@ -20,18 +20,11 @@ export const get: RequestHandler = async ({ url }) => {
 	})
 
 	if (response.ok) {
-		return {
-			status: 303,
-			headers: {
-				location: '/verify',
-				'Set-Cookie': `sid=${response.session_id}; Max-Age=31536000000; Path=/; HttpOnly`
-			}
-		}
+		cookies.set('sid', response.session_id, {
+			maxAge: 31536000000,
+			httpOnly: true,
+		})
+		throw redirect(303, '/verify')
 	}
-	return {
-		status: 303,
-		headers: {
-			location: '/login',
-		}
-	}
-}
+	throw redirect(303, '/login')
+}) satisfies RequestHandler

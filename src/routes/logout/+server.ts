@@ -1,7 +1,7 @@
 import { fetchApi } from '$lib/api'
-import type { RequestHandler } from '@sveltejs/kit'
+import { redirect, type RequestHandler } from '@sveltejs/kit'
 
-export const get: RequestHandler = async ({ locals, url }) => {
+export const GET = (async ({ url, cookies, locals }) => {
 	// if the sid is wrong, nothing to do
 	if (url.searchParams.has('sid') && url.searchParams.get('sid') === locals.sid) {
 		await fetchApi(`accounts/session`, fetch, {
@@ -17,12 +17,7 @@ export const get: RequestHandler = async ({ locals, url }) => {
 				throw new Error(res.statusText)
 		})
 	}
-	return {
-		status: 303,
-		headers: {
-			location: '/',
-			'Set-Cookie': 'sid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;'
-		}
-	}
 
-}
+	cookies.delete('sid')
+	throw redirect(303, '/')
+}) as RequestHandler

@@ -1,65 +1,21 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit'
-	import { fetchApi } from '$lib/api'
-	import type { AccountCustomization, AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
-	import Head from '$lib/Head.svelte'
-	import Header from '$lib/Header.svelte'
-	import donators from '../../_donators.json'
-	import admins from '../../_admins.json'
-
-	export const load: Load = async ({ fetch, session }) => {
-		const sessionResponse: { session: SessionSchema | null; account: AccountSchema | null } | null =
-			await fetchApi(`accounts/session`, fetch, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					uuid: session.sid,
-				}),
-			}).then(r => r.json())
-
-		const playerResponse = sessionResponse?.account
-			? await fetchApi(`player/${sessionResponse.account.minecraftUuid}`, fetch).then(r => r.json())
-			: null
-
-		// redirect to /login if the user is not logged in
-		if (
-			!sessionResponse ||
-			!sessionResponse.account ||
-			!sessionResponse.session ||
-			!playerResponse.player
-		) {
-			return { redirect: '/login', status: 303 }
-		}
-
-		const isDonator =
-			donators.find(d => d?.uuid === sessionResponse.account?.minecraftUuid) !== undefined
-		const isAdmin = admins.find(a => a === sessionResponse.account?.minecraftUuid) !== undefined
-
-		return {
-			props: {
-				session: sessionResponse.session,
-				account: sessionResponse.account,
-				player: playerResponse,
-				isDonator: isDonator || isAdmin,
-			},
-		}
-	}
-</script>
-
 <script lang="ts">
 	import Emoji from '$lib/Emoji.svelte'
 	import { browser } from '$app/environment'
 	import Tooltip from '$lib/Tooltip.svelte'
 	import { onDestroy, onMount } from 'svelte'
 	import backgroundNames from '../../_backgrounds.json'
+	import type { AccountCustomization, AccountSchema, CleanUser, SessionSchema } from '$lib/APITypes'
+	import type { PageData } from './$types'
+	import Head from '$lib/Head.svelte'
+	import Header from '$lib/Header.svelte'
 
-	export let session: SessionSchema
-	export let account: AccountSchema
-	export let player: CleanUser
+	export let data: PageData
 
-	export let isDonator: boolean
+	export let session: SessionSchema = data.session
+	export let account: AccountSchema = data.account
+	export let player: CleanUser = data.player
+
+	export let isDonator: boolean = data.isDonator
 
 	let pack: AccountCustomization['pack'] = account?.customization?.pack ?? 'furfsky_reborn'
 	let blurBackground: AccountCustomization['blurBackground'] =
@@ -172,6 +128,11 @@
 				style="background-image: url(/backgrounds-small/{thisBackgroundName})"
 				title={thisBackgroundName}
 				on:click={() => (backgroundName = thisBackgroundName)}
+				on:keypress={e => {
+					if (e.key === 'Enter') {
+						backgroundName = thisBackgroundName
+					}
+				}}
 			/>
 		{/each}
 	</div>

@@ -23,19 +23,34 @@
 		faith: '64b39d0756b92b8b7599d1f971580088954e21c5f60c673d0d4f63693fb002b5',
 	}
 
-	let url: string
+	let url: string | undefined
 	$: {
 		if (name.toLowerCase() === 'derpy') url = '/villager.png'
-		else url = `https://mc-heads.net/body/${skinIds[name.toLowerCase()]}`
+		else {
+			const skinId = skinIds[name.toLowerCase()]
+			url = skinId ? `https://mc-heads.net/body/${skinId}` : undefined
+		}
 	}
 </script>
 
-<img src={url} alt="Mayor {toTitleCase(name)}" />
+{#if url}
+	<img src={url} alt="Mayor {toTitleCase(name)}" />
+{:else}
+	<div class="no-skin-found">Unknown mayor</div>
+{/if}
 
 <style>
 	img {
 		display: block;
 		width: 5em;
+		height: 12em;
+		margin: 0 auto;
+	}
+
+	.no-skin-found {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		height: 12em;
 		margin: 0 auto;
 	}
