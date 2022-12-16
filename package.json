@@ -3,8 +3,9 @@
 	"version": "0.0.1",
 	"license": "MIT",
 	"scripts": {
+		"init": "node ./scripts/updateDonators.js && node ./scripts/updateBackgrounds.js && node ./scripts/updateRobots.js",
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "yarn run init && vite build",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
