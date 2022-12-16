@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 
 	import type { ItemAuctionsSchema, SimpleAuctionSchema } from './APITypes'
 	import type { PreviewedAuctionData } from './utils'

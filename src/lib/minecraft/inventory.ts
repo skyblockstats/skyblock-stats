@@ -1,6 +1,6 @@
 import * as skyblockAssets from 'skyblock-assets'
 import { vanilla } from '$lib/packs'
-import { browser } from '$app/env'
+import { browser } from '$app/environment'
 
 export interface Item {
     id?: string

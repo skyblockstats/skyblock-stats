@@ -14,47 +14,6 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
-		// adapter: adapter({
-		// 	out: 'build',
-		// 	precompress: true,
-		// 	env: {
-		// 		host: '127.0.0.1'
-		// 	}
-		// }),
-
-
-		// Override http methods in the Todo forms
-		methodOverride: {
-			allowed: ['PATCH', 'DELETE']
-		},
-
-		// https://vitejs.dev/config/
-		vite: {
-			// 	plugins: [createHtmlPlugin({
-			// 		minify: true
-			// 	})],
-			build: {
-				rollupOptions: {
-					// external: ['discord-api-types/payloads/v9', 'discord-api-types', 'discord-api-types/v9'],
-					output: {
-						manualChunks: undefined,
-					},
-				},
-			},
-			// if the user is on replit or gitpod, use a secure websocket
-			server:
-				process.env.REPL_ID || process.env.GITPOD_WORKSPACE_ID
-					? {
-						hmr: process.env.GITPOD_WORKSPACE_URL
-							? {
-								host: process.env.GITPOD_WORKSPACE_URL.replace('https://', '3000-'),
-								protocol: "wss",
-								clientPort: 443
-							}
-							: true
-					}
-					: {},
-		},
 	}
 }
 
