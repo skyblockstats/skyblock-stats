@@ -56,15 +56,8 @@
 				<b>Last API update:</b>
 				{millisecondsToTime(currentTime - data.lastUpdated, {
 					smallestUnit: 1,
-					parts: 1,
+					parts: 3,
 				})} ago
-			</p>
-			<p>
-				<b>Next API update:</b>
-				{millisecondsToTime(10 * 60 * 1000 - (currentTime - data.lastUpdated), {
-					smallestUnit: 1,
-					parts: 1,
-				})}
 			</p>
 		</div>
 	{/if}
