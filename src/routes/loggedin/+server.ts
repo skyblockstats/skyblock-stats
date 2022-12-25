@@ -1,5 +1,5 @@
 import { fetchApi } from '$lib/api'
-import { redirect, type RequestHandler, } from '@sveltejs/kit'
+import { error, redirect, type RequestHandler, } from '@sveltejs/kit'
 
 export const GET = (async ({ url, cookies }) => {
 	const code = url.searchParams.get('code')
@@ -15,7 +15,7 @@ export const GET = (async ({ url, cookies }) => {
 		}),
 	}).then(res => {
 		if (res.status !== 200)
-			throw new Error(res.statusText)
+			throw error(500, `Non-200 response from API: ${res.status} ${res.text}`)
 		return res.json()
 	})
 
