@@ -13,10 +13,10 @@ export const GET = (async ({ url, cookies }) => {
 			code,
 			redirectUri: redirectUri
 		}),
-	}).then(res => {
+	}).then(async res => {
 		if (res.status !== 200)
-			throw error(500, `Non-200 response from API: ${res.status} ${res.text}`)
-		return res.json()
+			throw error(500, `Non-200 response from API: ${res.status} ${await res.text()}`)
+		return await res.json()
 	})
 
 	if (response.ok) {
