@@ -155,7 +155,7 @@ export interface CleanFullProfileBasicMembers extends CleanProfile {
 }
 
 declare const COLLECTIONS: {
-	readonly farming: readonly ["wheat", "carrot", "potato", "pumpkin", "melon_slice", "wheat_seeds", "red_mushroom", "cocoa_beans", "cactus", "sugar_cane", "feather", "leather", "porkchop", "chicken", "mutton", "rabbit", "nether_wart"]
+	readonly farming: readonly ["wheat", "carrot", "potato", "pumpkin", "melon_slice", "wheat_seeds", "red_mushroom", "cocoa_beans", "cactus", "sugar_cane", "feather", "leather", "porkchop", "chicken", "mutton", "rabbit", "nether_wart", "chili_pepper"]
 	readonly mining: readonly ["cobblestone", "coal", "iron_ingot", "gold_ingot", "diamond", "lapis_lazuli", "emerald", "redstone", "quartz", "obsidian", "glowstone_dust", "gravel", "ice", "netherrack", "sand", "end_stone", "mithril_ore", "gemstone", "hard_stone"]
 	readonly combat: readonly ["rotten_flesh", "bone", "string", "spider_eye", "gunpowder", "ender_pearl", "ghast_tear", "slime_ball", "blaze_rod", "magma_cream"]
 	readonly foraging: readonly ["oak_log", "spruce_log", "birch_log", "jungle_log", "acacia_log", "dark_oak_log"]

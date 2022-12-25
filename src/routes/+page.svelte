@@ -69,6 +69,11 @@
 			<a href="//discord.gg/KtscNUnh4f">discord.gg/KtscNUnh4f</a>.
 		</p>
 		<p>
+			Source code:
+			<a href="//github.com/skyblockstats/skyblock-stats">github.com/skyblockstats/skyblock-stats</a
+			>.
+		</p>
+		<p>
 			Resource packs: <a href="//furfsky.net">Furfsky Reborn</a> (default),
 			<a href="//packshq.com">PacksHQ</a>,
 			<a href="//hypixel.net/threads/2138599">Furfsky</a>,

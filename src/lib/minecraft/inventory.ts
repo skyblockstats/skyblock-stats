@@ -195,5 +195,10 @@ const skyblockItems: { [itemName: string]: Item } = {
         vanillaId: 'minecraft:skull',
         headTexture: 'f56b5955b295522c9689481960c01a992ca1c7754cf4ee313c8dd0c356d335f',
         id: 'MAGMA_FISH'
+    },
+    chili_pepper: {
+        vanillaId: 'minecraft:skull',
+        headTexture: 'f859c8df1109c08a756275f1d2887c2748049fe33877769a7b415d56eda469d8',
+        id: 'CHILI_PEPPER'
     }
 }
