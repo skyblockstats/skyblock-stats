@@ -26,9 +26,13 @@
 	</div>
 	<div id="infobox-extra">
 		<p>Player UUID:</p>
-		<b><code>{data.member.uuid}</code></b>
+		<a href="//skyblock-api.matdoes.dev/player/{data.member.uuid}"
+			><b><code>{data.member.uuid}</code></b></a
+		>
 		<p>Profile UUID:</p>
-		<b><code>{data.profile.uuid}</code></b>
+		<a href="//skyblock-api.matdoes.dev/player/{data.member.uuid}/{data.profile.uuid}"
+			><b><code>{data.profile.uuid}</code></b></a
+		>
 	</div>
 </div>
 
@@ -51,6 +55,9 @@
 	}
 	#infobox-extra p {
 		margin: 0;
+	}
+	#infobox-extra a {
+		color: inherit;
 	}
 	p {
 		margin: 0 0 0.25em 0;
