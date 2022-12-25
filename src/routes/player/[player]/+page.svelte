@@ -30,7 +30,7 @@
 					}
 			}
 
-		isActiveProfileOnline = Date.now() - 60 < activeProfileLastSave
+		isActiveProfileOnline = Date.now() - 60000 < activeProfileLastSave
 	}
 
 	let backgroundUrl: string | null
