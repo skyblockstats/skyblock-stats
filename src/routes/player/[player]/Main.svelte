@@ -20,12 +20,11 @@
 <style>
 	main {
 		position: relative;
-		height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 	.content {
-		position: absolute;
-		top: 0;
-		bottom: 0;
+		flex: 1;
 	}
 
 	.blurred-background-container-container {
