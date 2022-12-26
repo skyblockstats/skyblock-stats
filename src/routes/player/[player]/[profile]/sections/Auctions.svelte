@@ -17,6 +17,7 @@
 	let onlyThisProfile = true
 
 	let auctions: any[] = []
+	let shownAuctions: any[] = []
 	let loading = true
 
 	let page = 0
@@ -32,6 +33,9 @@
 		).then(r => r.json())
 		loading = false
 		auctions = [...auctions, ...auctionsResponse.auctions]
+		shownAuctions = onlyThisProfile
+			? auctions.filter(a => a.sellerProfileUuid == data.profile.uuid)
+			: auctions
 		totalPages = auctionsResponse.pages
 	}
 
@@ -55,10 +59,10 @@
 	</ul>
 
 	<div class="player-auctions-list-container">
-		{#if loading || auctions.length > 0}
+		{#if loading || shownAuctions.length > 0}
 			<h3>Auctions sold</h3>
 		{/if}
-		{#if auctions.length > 0}
+		{#if shownAuctions.length > 0}
 			<div class="player-auctions-list">
 				{#each auctions as auction}
 					{#if !onlyThisProfile || auction.sellerProfileUuid == data.profile.uuid}
