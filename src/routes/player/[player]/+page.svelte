@@ -10,6 +10,7 @@
 	import Tooltip from '$lib/Tooltip.svelte'
 	import { cleanId } from '$lib/utils'
 	import type { PageData } from './$types'
+	import Main from './Main.svelte'
 
 	export let data: PageData
 
@@ -47,9 +48,9 @@
 {/if}
 
 <Head title={data.player ? `${data.player.username}'s SkyBlock profiles` : 'Invalid player'} />
-<Header />
+<Header blurred={data.customization?.blurBackground ?? false} />
 
-<main>
+<Main blurred={data.customization?.blurBackground} {backgroundUrl}>
 	<h1>
 		<Username player={data.player} headType="3d" />'s profiles
 	</h1>
@@ -104,7 +105,7 @@
 	{:else}
 		<p>This player has no profiles. <Emoji value="😦" /></p>
 	{/if}
-</main>
+</Main>
 
 <style>
 	.profile-members {
