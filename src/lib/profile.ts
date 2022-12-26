@@ -112,5 +112,13 @@ export function generateInfobox(data: CleanMemberProfile): string[] {
             )
     }
 
+    // only include skill average if there's nothing else interesting or if the skill average is relatively high
+    if (data.member.skills.apiEnabled && (result.length <= 3 || data.member.skills.average > 40)) {
+        // average skill
+        result.push(
+            `🎯 Skill average: ${data.member.skills.average.toLocaleString()}`
+        )
+    }
+
     return result
 }

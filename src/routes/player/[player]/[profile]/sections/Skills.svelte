@@ -34,7 +34,7 @@
 		>
 			<Tooltip>
 				<span slot="tooltip">
-					{#if skill.levelXpRequired !== null}
+					{#if skill.levelXpRequired !== null && skill.levelXpRequired !== 0}
 						{Math.round((skill.levelXp / skill.levelXpRequired) * 100)}% to next level, {Math.round(
 							skill.levelXp
 						).toLocaleString()}/{formatNumber(skill.levelXpRequired, 3)} xp
