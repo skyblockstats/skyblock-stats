@@ -101,7 +101,12 @@ export declare const INVENTORIES: {
 	wardrobe: string,
 	personal_vault: string
 }
-export declare type Inventories = {
+export declare type Backpack = {
+	icon: Item | null,
+	items: Item[],
+	slot: string,
+};
+export declare type Inventories = { backpacks: Backpack[] } & {
 	[name in keyof typeof INVENTORIES]: Item[]
 }
 
