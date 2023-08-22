@@ -43,7 +43,7 @@ export const actions: Actions = {
 			throw redirect(303, `/verify?error=NOT_LINKED`)
 
 		const discordUser = sessionResponse.session.discord_user
-		const actualDiscordName = discordUser.name
+		const actualDiscordName = discordUser.name.replace(/#0$/, '')
 		// some people link themselves as <id>#<discrim> instead of <name>#<discrim>
 		const actualDiscordIdDiscrim = `${discordUser.id}#${discordUser.name.split('#')[1]}`
 
