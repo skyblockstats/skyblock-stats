@@ -7,7 +7,7 @@
 	loading="lazy"
 	class="head head2d"
 	class:player-head={isPartOfUsername}
-	src="https://crafatar.com/avatars/{player.uuid}?size=8&overlay"
+	src="https://h.matdoes.dev/2d/{player.uuid}"
 	alt="{player.username}'s face"
 />
 
