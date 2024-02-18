@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { inventoryIconMap, skyblockItemToUrl, type Item } from '$lib/minecraft/inventory'
+	import { inventoryIconMap, skyblockItemToUrl } from '$lib/minecraft/inventory'
 	import Inventory from '$lib/minecraft/Inventory.svelte'
 	import type { MatcherFile } from 'skyblock-assets'
 	import { cleanId } from '$lib/utils'
 	import AccessoryBagUpgrades from './AccessoryBagUpgrades.svelte'
 	import type { CleanMemberProfile } from '$lib/APITypes'
+	import ItemIcon from '$lib/minecraft/ItemIcon.svelte'
 
 	export let data: CleanMemberProfile
 	export let pack: MatcherFile
@@ -40,11 +41,24 @@
 {#if data.member.inventories}
 	{#each displayingInventories as inventoryName}
 		{#if inventoryName === selectedInventoryName}
-			<span id={inventoryName} class="inventory-content">
-				<Inventory items={data.member.inventories[inventoryName]} {pack} name={inventoryName} />
-			</span>
-			{#if inventoryName == 'accessory_bag'}
-				<AccessoryBagUpgrades {data} />
+			{#if inventoryName == 'backpacks'}
+				{#each data.member.inventories.backpacks as backpack}
+					<p class="backpack-name">
+						{#if backpack.icon}
+							<ItemIcon {pack} headSize={50} item={backpack.icon} isslot={false} />
+						{/if} Backpack #{backpack.slot}
+					</p>
+					<span id={inventoryName} class="inventory-content">
+						<Inventory items={backpack.items} {pack} name={'backpack'} />
+					</span>
+				{/each}
+			{:else}
+				<span id={inventoryName} class="inventory-content">
+					<Inventory items={data.member.inventories[inventoryName]} {pack} name={inventoryName} />
+				</span>
+				{#if inventoryName == 'accessory_bag'}
+					<AccessoryBagUpgrades {data} />
+				{/if}
 			{/if}
 		{/if}
 	{/each}
@@ -101,5 +115,9 @@
 		.inventory-content :global(.item) {
 			font-size: 16px !important;
 		}
+	}
+	.backpack-name {
+		display: flex;
+		align-items: center;
 	}
 </style>
