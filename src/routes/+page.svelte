@@ -41,9 +41,6 @@
 		<ul id="other-tools-list">
 			<li><a href="/auctionprices">Auction prices</a></li>
 			<li><a href="/leaderboards">Leaderboards</a></li>
-			<li><a>Bazaar (coming soon)</a></li>
-			<li><a href="/chat">Fake chat generator</a></li>
-			<li><a href="https://skyblock-npcs.matdoes.dev">NPC Skin Stealer</a></li>
 			<li><a href="/election">Mayor Election Status</a></li>
 			<li><a href="/items">Item List</a></li>
 		</ul>
