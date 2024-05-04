@@ -33,7 +33,7 @@
 		"@sveltejs/kit": "^1.0.0",
 		"cookie": "^0.5.0",
 		"dotenv": "^16.0.3",
-		"sharp": "^0.31.2",
+		"sharp": "^0.32.6",
 		"skyblock-assets": "^2.0.11",
 		"svelte": "^3.55.0",
 		"svelte-preprocess": "^5.0.0",
