@@ -27,23 +27,34 @@ function fetch(url) {
 function shuffle(a) {
 	for (let i = a.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1))
-			;[a[i], a[j]] = [a[j], a[i]]
+		;[a[i], a[j]] = [a[j], a[i]]
 	}
 	return a
 }
 
 // create a donators.json from the donators.txt
 const donatorUuidsText = await fs.promises.readFile('src/donators.txt', {
-	encoding: 'utf8'
+	encoding: 'utf8',
 })
-const donatorUuids = donatorUuidsText.split('\n').map(u => u.split(' ')[0]).filter(u => u)
+const donatorUuids = donatorUuidsText
+	.split('\n')
+	.map(u => u.split(' ')[0])
+	.filter(u => u)
 const donators = await Promise.all(
-	donatorUuids.map(u => fetch(`${API_URL}player/${u}`)
-		.then(r => JSON.parse(r).player)
-	)
+	donatorUuids.map(async u => {
+		let res
+		while (true) {
+			try {
+				res = await fetch(`${API_URL}player/${u}`).then(r => JSON.parse(r).player)
+				break
+			} catch {
+				console.log(`Failed getting ${u}, retrying`)
+				// retry forever until it succeeds
+			}
+		}
+		return res
+	})
 )
-await fs.promises.writeFile(
-	'src/_donators.json',
-	JSON.stringify(shuffle(donators)),
-	{ encoding: 'utf8' }
-)
+await fs.promises.writeFile('src/_donators.json', JSON.stringify(shuffle(donators)), {
+	encoding: 'utf8',
+})
