@@ -30,6 +30,7 @@ const INVENTORIES = {
     fishing_bag: 'fishing_bag',
     quiver: 'quiver',
     trick_or_treat_bag: 'candy_inventory_contents',
+    backpack: 'backpack_contents',
     wardrobe: 'wardrobe_contents',
     personal_vault: 'personal_vault_contents'
 }
@@ -78,6 +79,13 @@ export const inventoryIconMap: Record<string, string | Item> = {
             name: 'Trick or Treat Bag',
         },
         headTexture: 'e50f712e877dfd910c97f3819a200a05d49ee6b83b592686e099b9ecd443f228',
+    },
+    backpacks: {
+        vanillaId: 'skull:3',
+        display: {
+            name: 'Backpacks',
+        },
+        headTexture: '1f8405116c1daa7ce2f012591458d50246d0a467bcb95a5a2c033aefd6008b63'
     },
     personal_vault: {
         vanillaId: 'iron_door',
